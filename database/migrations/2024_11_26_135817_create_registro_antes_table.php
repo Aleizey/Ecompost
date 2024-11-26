@@ -13,12 +13,18 @@ return new class extends Migration
     {
         Schema::create('registro_antes', function (Blueprint $table) {
             $table->id();
+            $table->float('temperatura_ambiente');
+            $table->float('temperatura_compostera');
+            $table->enum('olor', ['Podrido', 'Sin olor malo', 'Sin olor', 'Con olor bueno', 'Aromatico']);
+            $table->boolean('presencia_insectos')->default(0);
+            $table->enum('humedad', ['Exceso', 'Buena', 'Defecto']);
+            $table->string('fotografias_iniciales');
+            $table->text('observaciones_iniciales');
             $table->unsignedBigInteger('registro_id')->index();
             $table->foreign('registro_id')->references('id')->on('registros')->onDelete('cascade');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */
