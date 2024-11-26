@@ -13,9 +13,7 @@ class Registro extends Model
     //
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = [
-
-    ];
+    protected $fillable = [];
 
     /**
      * Get all of the task for the user
@@ -32,18 +30,24 @@ class Registro extends Model
      *  
      *@return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+
+    public function ciclos(): BelongsTo
+    {
+        return $this->BelongsTo(Ciclo::class);
+    }
+
     public function registro_antes(): HasMany
     {
-        return $this->hasMany(Registro_antes::class);
+        return $this->hasMany(RegistroAntes::class);
     }
 
     public function registro_durantes(): HasMany
     {
-        return $this->hasMany(Registro_durante::class);
+        return $this->hasMany(RegistroDurante::class);
     }
 
     public function registro_despues(): HasMany
     {
-        return $this->hasMany(Registro_despues::class);
+        return $this->hasMany(RegistroDespues::class);
     }
 }

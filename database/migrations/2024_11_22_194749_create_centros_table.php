@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('centros', function (Blueprint $table) {
             $table->id();
+            $table->integer('codigo')->unique();
             $table->string('nombre');
             $table->string('direccion');
+            $table->string('responsable');
             $table->string('logotipo')->nullable();
             $table->timestamps();
         });
