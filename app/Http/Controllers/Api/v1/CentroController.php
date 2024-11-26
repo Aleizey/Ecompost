@@ -9,10 +9,7 @@ use Orion\Http\Controllers\Controller;
 
 class CentroController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * 
-     */
+
     protected $model = Centro::class; 
 
 }
