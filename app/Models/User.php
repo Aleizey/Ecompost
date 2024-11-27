@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,10 +10,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable 
 {
+
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+    protected $perPage = 20;
+
 
     /**
      * The attributes that are mass assignable.
@@ -53,15 +57,24 @@ class User extends Authenticatable
      *  
      *@return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    
-    public function registros(): HasMany
-    {
-        return $this->hasMany(Registro::class);
-    }
-
-    public function centros(): BelongsTo   
+    public function centros(): BelongsTo
     {
         return $this->belongsTo(Centro::class);
     }
+
+    public function registros()
+    {
+        return $this->hasMany(\App\Models\Registro::class, 'id', 'user_id');
+    }
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+
 
 }
