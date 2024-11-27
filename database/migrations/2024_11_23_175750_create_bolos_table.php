@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ciclos', function (Blueprint $table) {
+        Schema::create('bolos', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
             $table->dateTime('fecha_inicio');
             $table->dateTime('fecha_final')->nullable();
-            $table->bigInteger('compostera_id')->unsigned()->index(); 
-            $table->foreign('compostera_id')->references('id')->on('composteras' )->onDelete('cascade');
-            $table->bigInteger('bolo_id')->unsigned()->index(); 
-            $table->foreign('bolo_id')->references('id')->on('bolos');
+            $table->text('comentario')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ciclos');
+        Schema::dropIfExists('bolos');
     }
 };

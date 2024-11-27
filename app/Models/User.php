@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -45,4 +47,21 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get all of the task for the user
+     *  
+     *@return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    
+    public function registros(): HasMany
+    {
+        return $this->hasMany(Registro::class);
+    }
+
+    public function centros(): BelongsTo   
+    {
+        return $this->belongsTo(Centro::class);
+    }
+
 }

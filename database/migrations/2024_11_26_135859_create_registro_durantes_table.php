@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('registro_durantes', function (Blueprint $table) {
             $table->id();
+            $table->boolean('riego')->default(0);
+            $table->boolean('revolver')->default(0);
+            $table->float('litros_verde');
+            $table->text('tipo_aporte_verde');
+            $table->float('aporte_seco');
+            $table->text('tipo_aporte_seco');
+            $table->string('fotografias_durante');
+            $table->text('observaciones_durante');
             $table->unsignedBigInteger('registro_id')->index();
             $table->foreign('registro_id')->references('id')->on('registros')->onDelete('cascade');
             $table->timestamps();

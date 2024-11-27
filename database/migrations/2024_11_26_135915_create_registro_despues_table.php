@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('registro_antes', function (Blueprint $table) {
+        Schema::create('registro_despues', function (Blueprint $table) {
             $table->id();
+            $table->float('nivel_llenado_final');
+            $table->string('fotografias_final');
+            $table->text('observaciones_final');
             $table->unsignedBigInteger('registro_id')->index();
             $table->foreign('registro_id')->references('id')->on('registros')->onDelete('cascade');
             $table->timestamps();
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('registro_antes');
+        Schema::dropIfExists('registro_despues');
     }
 };
