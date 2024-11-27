@@ -8,23 +8,22 @@ use \Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Compostera extends Model
 {
-    //
 
-    /**
-     * Get all of the task for the user
-     *  
-     *@return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
+    protected $fillable = [
+        'tipo',
+        'imagen',
+    ];
+    
     public function registros(): HasMany
     {
         return $this->hasMany(Registro::class);
     }
 
-    /**
-     * Get all of the task for the user
-     *  
-     *@return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+    public function ciclos(): HasMany
+    {
+        return $this->hasMany(Ciclo::class);
+    }
+
     public function centros(): BelongsTo
     {
         return $this->belongsTo(Centro::class);
