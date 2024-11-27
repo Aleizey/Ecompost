@@ -13,6 +13,7 @@ class Centro extends Model
         'nombre',
         'direccion',
         'responsable',
+        'logotipo',
     ];
 
     public function users(): HasMany
