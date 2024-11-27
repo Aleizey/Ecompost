@@ -13,7 +13,13 @@ class Registro extends Model
     //
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = [];
+    
+    protected $fillable = [
+        'fecha_hora',
+        'user_id',
+        'compostera_id',
+        'ciclo_id'
+    ];
 
     /**
      * Get all of the task for the user

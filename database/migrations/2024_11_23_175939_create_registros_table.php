@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('registros', function (Blueprint $table) {
             $table->id();
             $table->dateTime('fecha_hora');
-            $table->boolean('inicio_ciclo');
             $table->bigInteger('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('compostera_id')->unsigned()->index();
@@ -22,6 +21,7 @@ return new class extends Migration
             $table->bigInteger('ciclo_id')->unsigned()->index();
             $table->foreign('ciclo_id')->references('id')->on('ciclos')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
