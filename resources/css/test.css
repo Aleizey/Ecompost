@@ -1,0 +1,60 @@
+body {
+
+    overflow: hidden;
+    background: linear-gradient(#259c52 2.5%, rgb(255, 255, 255) 2.5%);
+}
+
+.login-img {
+
+    background-image: url(https://media.discordapp.net/attachments/1309702840175825049/1311400538390134824/god.png?ex=6748b86c&is=674766ec&hm=16d6921f0cc1b56ad050a19766160621dd9dbf781a3d72d345fb6144b19ee26e&=&format=webp&quality=lossless&width=1292&height=1292);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+input {
+    outline: none !important;
+    box-shadow: none !important;
+    padding-left: 0px !important;
+}
+
+.label-email2 {
+
+    transform: translateY(-20px) !important;
+}
+
+.label-password2 {
+
+    transform: translateY(-20px) !important;
+}
+
+.boton-login {
+
+    border-radius: 50px;
+    transition-duration: 0.5s;
+    transition-property: background-color;
+}
+
+@media screen and (max-width: 1123px) {
+
+    .login-img {
+        display: none;
+    }
+
+    .grid-cols-2 {
+        grid-template-columns: none !important;
+    }
+
+    .mini-text {
+
+        justify-content: start !important;
+    }
+
+}
+
+@media screen and (max-width: 468px) {
+
+    .pad-media {
+        padding: 0 !important;
+    }
+}
