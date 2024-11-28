@@ -1,0 +1,20 @@
+name: Deploy to vps
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: Deploy to VPS
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Deploy
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: 217.71.201.186
+          port: 2222
+          username: alex
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: "cd /var/www/html/Ecompost/; ./.script/auto.sh"
