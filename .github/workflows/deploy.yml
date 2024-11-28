@@ -17,4 +17,4 @@ jobs:
           port: 2222
           username: alex
           key: ${{ secrets.PRIVATE_KEY }}
-          script: "cd /var/www/html/Ecompost; git pull origin master; php artisan route:clear; sudo service php8.3-fpm reload;npm run build"
+          script: "cd /var/www/html/Ecompost/; ./.script/auto.sh"
