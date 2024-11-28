@@ -2,6 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Registro;
+use App\Models\RegistroAntes;
+use App\Models\RegistroDespues;
+use App\Models\RegistroDurante;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -23,6 +27,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory(5)->create();
+        Registro::factory()->count(20)->create();
+        RegistroAntes::factory()->count(20)->create();
+        RegistroDurante::factory()->count(20)->create();
+        RegistroDespues::factory()->count(20)->create();
 
     }
 }
