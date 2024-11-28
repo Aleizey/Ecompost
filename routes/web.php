@@ -18,6 +18,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/prueba', function () {
+    return 'Prueba perro rauzk';
+});
+
+
 Route::resource('users', UserController::class);
 
 require __DIR__ . '/auth.php';
