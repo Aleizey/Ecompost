@@ -6,7 +6,7 @@
         @csrf
 
         <div class="mb-10 relative flex gap-x-3 justify-center">
-            <p class="text-lg text-gray-900">BIENVENIDO Razuk</p>
+            <p class="text-lg text-gray-900">BIENVENIDO USUARIO </p>
         </div>
         <!-- Email Address -->
 
