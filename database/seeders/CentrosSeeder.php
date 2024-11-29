@@ -19,5 +19,12 @@ class CentrosSeeder extends Seeder
         $centro->responsable = "Alejadro";
         $centro->codigo ="01";
         $centro->save();
+
+        $centro2 = new Centro();
+        $centro2->nombre = "San Diego De Alchala";
+        $centro2->direccion = "Puerto del Rosario Las Palmas";
+        $centro2->responsable = "Razuk";
+        $centro2->codigo ="02";
+        $centro2->save();
     }
 }
