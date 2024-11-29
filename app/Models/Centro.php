@@ -21,7 +21,7 @@ class Centro extends Model
         return $this->HasMany(User::class, 'id', 'centro_id');
     }
 
-    public function compostera() : HasMany {
+    public function composteras() : HasMany {
         return $this->HasMany(Compostera::class);
     }
 
