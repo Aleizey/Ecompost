@@ -1,4 +1,5 @@
 <x-app-layout>
+
     <!-- Main Content -->
     <div class="h-screen  flex flex-col bg-[#FFFFFF]">
         <!-- Header -->
@@ -31,6 +32,8 @@
             <!-- Nombre de la web a la derecha -->
             <div class="mr-8">
                 <h1 class="text-lg font-bold">Ecompost</h1>
+
+
             </div>
         </header>
         
@@ -47,5 +50,3 @@
         </footer>
     </div>
 </x-app-layout>
-
-
