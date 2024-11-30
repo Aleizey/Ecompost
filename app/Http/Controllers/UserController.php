@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Centro;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -28,8 +29,9 @@ class UserController extends Controller
     public function create(): View
     {
         $user = new User();
+        $centros = Centro::all();
 
-        return view('user.create', compact('user'));
+        return view('user.create', compact('user', 'centros'));
     }
 
     /**
@@ -49,8 +51,9 @@ class UserController extends Controller
     public function show($id): View
     {
         $user = User::find($id);
+        $centros = Centro::all();
 
-        return view('user.show', compact('user'));
+        return view('user.show', compact('user', 'centros'));
     }
 
     /**
@@ -59,24 +62,28 @@ class UserController extends Controller
     public function edit($id): View
     {
         $user = User::find($id);
+        $centros = Centro::all();
 
-        return view('user.edit', compact('user'));
+        return view('user.edit', compact('user', 'centros'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserRequest $request, User $user): RedirectResponse
+    public function update( UserRequest $request, User $user): RedirectResponse
     {
-        $user->update($request->validated());
 
+        $user->update($request->validated());
         return Redirect::route('users.index')
             ->with('success', 'User updated successfully');
     }
 
     public function destroy($id): RedirectResponse
     {
+
+
         User::find($id)->delete();
+
 
         return Redirect::route('users.index')
             ->with('success', 'User deleted successfully');

@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <!-- Main Content -->
     <div class="h-screen  flex flex-col bg-[#FFFFFF]">
         <!-- Header -->
