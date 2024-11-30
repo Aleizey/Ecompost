@@ -13,17 +13,17 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/css/principal.css', 'resources/js/app.js', 'resources/js/crud.js' ])
+    @vite(['resources/css/app.css', 'resources/css/principal.css', 'resources/js/app.js', 'resources/js/web.js' ])
 </head>
 
 <body class="h-screen flex overflow-hidden bg-[#A8D5BA]">
     <!-- Aside -->
-    <nav class="w-[15%] bg-[#438b35] flex flex-col items-center p-4 text-[#4F4F4F]">
+    <nav class="w-[344px] flex-shrink-0 max-lg:!hidden bg-[#438b35] flex flex-col items-center justify-between p-4 text-[#4F4F4F]">
         @include('layouts.navigation')
     </nav>
 
     <!-- Page Content -->
-    <div class="w-[85%] flex flex-col bg-[#FFFFFF] ml-auto">
+    <div class="w-full flex flex-col bg-[#FFFFFF] ml-auto x-content-app">
         {{ $slot }}
     </div>
 
