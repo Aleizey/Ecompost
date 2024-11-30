@@ -20,7 +20,7 @@
                             class="w-full p-2 pl-10 text-sm text-[#4F4F4F] border border-[#C2B280] rounded-lg bg-[#FFFFFF] focus:ring-green-500 focus:border-green-500 focus:outline-none"
                             placeholder="Buscar..." required />
                         <button type="submit"
-                            class="ml-2 bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 text-white focus:outline-none">
+                            class="ml-2 bg-green-600 hover:bg-green-700 focus:ring-4  focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 text-white focus:outline-none">
                             Buscar
                         </button>
                     </div>

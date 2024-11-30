@@ -17,6 +17,7 @@ return new class extends Migration
             $table->dateTime('fecha_inicio');
             $table->dateTime('fecha_final')->nullable();
             $table->text('comentario')->nullable();
+            $table->string('imagen')->nullable();
             $table->boolean('finalizado')->default(0);
             $table->timestamps();
         });
