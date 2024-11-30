@@ -12,6 +12,7 @@ class Bolo extends Model
         'fecha_inicio',
         'fecha_final',
         'comentario',
+        'imagen',
     ];
 
     protected $attributes = [
