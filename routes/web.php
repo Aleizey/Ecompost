@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 
 Route::get('/', function () {
     return view('dashboard');
@@ -16,6 +18,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::patch('/profile/image', [ProfileController::class, 'updateImage'])->name('profile.update.image');
+});
+
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
 });
 
 Route::resource('users', UserController::class)
