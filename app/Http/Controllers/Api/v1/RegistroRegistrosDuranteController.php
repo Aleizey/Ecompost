@@ -3,17 +3,18 @@
 namespace App\Http\Controllers\Api\v1;
 
 // use App\Http\Controllers\Controller;
-use Orion\Http\Controllers\Controller;
-use App\Models\Bolo;
 use Illuminate\Http\Request;
 use Orion\Concerns\DisableAuthorization;
+use Orion\Http\Controllers\RelationController;
 
-class BoloController extends Controller
+class RegistroRegistrosDuranteController extends RelationController
 {
     /**
      * Display a listing of the resource.
      */
 
      use DisableAuthorization;
-    protected $model = Bolo::class;
+     protected $model = Registro::class;
+ 
+     protected $relation = 'registrosDurante';
 }
