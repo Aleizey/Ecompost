@@ -30,8 +30,6 @@
             <!-- Nombre de la web a la derecha -->
             <div class="mr-8">
                 <h1 class="text-lg font-bold">Ecompost</h1>
-
-
             </div>
         </header>
 
@@ -41,11 +39,8 @@
         <main class="flex-grow flex justify-center items-center text-center text-[#4F4F4F] bg-[#FFFFFF] overflow-y-auto"
             style="height: calc(80vh - 60px);">
             <!-- <h2 class="text-2xl">hola usuario</h2> -->
-            <div class="grid grid-rows-2 grid-flow-col gap-4 pruebapro"></div>
 
         </main>
-
-        <div class=" w-full justify-center grid grid-rows-2 grid-flow-col gap-4 pruebapro2"></div>
 
         <!-- Footer -->
         <footer class="h-[10vh] w-full text-center p-2 bg-[#FFFFFF] text-white">
