@@ -26,7 +26,7 @@ class Compostera extends Model
 
     public function centros(): BelongsTo
     {
-        return $this->belongsTo(Centro::class);
+        return $this->belongsTo(Centro::class , 'centro_id', 'id');
     }
 
 }
