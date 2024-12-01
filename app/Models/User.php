@@ -69,7 +69,7 @@ class User extends Authenticatable
      */
     public function centros(): BelongsTo
     {
-        return $this->belongsTo(Centro::class, 'centros_id', 'id');
+        return $this->belongsTo(Centro::class, 'centro_id', 'id');
     }
 
     public function registros()

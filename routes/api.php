@@ -2,6 +2,10 @@
 
 // Relationships
 use App\Http\Controllers\Api\v1\BoloCiclosController;
+use App\Http\Controllers\Api\v1\CicloRegistrosController;
+use App\Http\Controllers\Api\v1\RegistroRegistrosAntesController;
+use App\Http\Controllers\Api\v1\RegistroRegistrosDespuesController;
+use App\Http\Controllers\Api\v1\RegistroRegistrosDuranteController;
 // Relations simples
 use App\Http\Controllers\Api\v1\BoloController;
 use App\Http\Controllers\Api\v1\CentroController;
@@ -26,6 +30,11 @@ Route::group(['as' => 'api.'], function () {
     Orion::resource('registroDespues', RegistroDespuesController::class);
     // Relationships entre las tablas 
     Orion::hasManyResource('bolos', 'ciclos', BoloCiclosController::class);
+    Orion::hasManyResource('ciclo', 'registros', CicloRegistrosController::class);
+    Orion::hasManyResource('registro', 'registrosAntes', RegistroRegistrosAntesController::class);
+    Orion::hasManyResource('registro', 'registrosDurante', RegistroRegistrosDuranteController::class);
+    Orion::hasManyResource('registro', 'registrosDespues', RegistroRegistrosDespuesController::class);
+
 });
 
 

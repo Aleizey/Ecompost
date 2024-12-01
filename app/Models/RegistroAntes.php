@@ -24,7 +24,7 @@ class RegistroAntes extends Model
 
     public function registros(): BelongsTo
     {
-        return $this->belongsTo(Registro::class);
+        return $this->belongsTo(Registro::class , 'registro_id');
     }
 
 }

@@ -28,11 +28,12 @@
     </div>
     <div>
         <x-input-label for="admin" :value="__('Admin')" />
-        <x-text-input id="admin" name="admin" type="text" class="mt-1 block w-full" :value="old('admin', $user?->admin)"
-            autocomplete="admin" placeholder="Admin" />
+        <!-- idk el motivo por el que es necesario esto -->
+        <input type="hidden" name="admin" value="0">
+        <input id="admin" name="admin" type="checkbox" class="mt-1 block" value="1"
+            @checked(old('admin', $user?->admin)) />
         <x-input-error class="mt-2" :messages="$errors->get('admin')" />
     </div>
-    <x-input-error class="mt-2" :messages="$errors->get('admin')" />
 
     <div class="flex items-center gap-4">
         <x-primary-button>Submit</x-primary-button>
