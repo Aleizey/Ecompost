@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileImageUpdateRequest;
 use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +38,24 @@ class ProfileController extends Controller
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
+
+    public function updateImage(ProfileImageUpdateRequest $request)
+    {
+        $user = $request->user();
+        // Verifica si se subió una imagen
+        if ($request->hasFile('image')) {
+            // Elimina la imagen anterior si existe
+            if ($user->image) {
+                Storage::disk('public')->delete($user->image);
+            }
+            // Guarda la nueva imagen en el disco 'public' y actualiza el path en el usuario
+            $path = $request->file('image')->store('profile-images', 'public');
+            $user->image = $path;
+            $user->save();
+        }
+        return redirect()->route('profile.edit')->with('status', 'image-updated');
+    }
+
 
     /**
      * Delete the user's account.
