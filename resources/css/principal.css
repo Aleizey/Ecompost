@@ -119,3 +119,12 @@
     font-weight:bolder ;
     color: aliceblue;
 }
+
+.formulario {
+
+    padding: 30px;
+    background-color: #e0e0e0;
+    overflow: auto;
+    border-top: solid 10px #17c291;
+    border-bottom: solid 10px #17c291;
+}
