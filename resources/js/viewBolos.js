@@ -59,7 +59,7 @@ async function consultaApiBolosCiclos(id, resource1, resource2) {
     }
 }
 
-await consultApiBolos();
+
 
 // contenido entero de la pagina 
 // variables---> 
@@ -180,7 +180,7 @@ async function rutaAllBolos(id) {
 
         // ////////////////////////////////////////////// MAIN ////////////////////////////////////////////// -->
         const registos = await consultaApiBolosCiclos(bolo.id, 'ciclo', 'registros');
-        registos.map( async reg => {
+        registos.map(async reg => {
 
             const registosAntes = await consultaApiBolosCiclos(reg.id, 'registro', 'registrosAntes');
             console.log(registosAntes);
@@ -217,7 +217,6 @@ window.addEventListener('hashchange', () => {
     // ...
 });
 
-window.addEventListener('load', () => {
-    rutaBolos();
-    // ...
+window.addEventListener('load', async () => {
+    await consultApiBolos();
 });
