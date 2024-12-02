@@ -187,7 +187,6 @@ async function rutaAllBolos(id) {
             const registosDespues = await consultaApiBolosCiclos(registro.id, 'registro', 'registrosDespues');
             registosAntes.map(async antes => {
 
-                // console.log(antes)
                 const antesCont = document.createElement("div");
                 antesCont.classList.add("w-full", "flex", "justify-center", "mb-12", "ciclos");
                 antesCont.innerHTML = `<div>
