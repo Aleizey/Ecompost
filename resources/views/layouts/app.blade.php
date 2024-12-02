@@ -23,7 +23,7 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="w-full flex flex-col overflow-hidden bg-[#FFFFFF] ml-auto x-content-app">
+    <div class="w-full flex flex-col overflow-hidden bg-[#f1f5f9] ml-auto x-content-app">
         {{ $slot }}
     </div>
 
