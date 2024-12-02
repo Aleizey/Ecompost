@@ -29,7 +29,9 @@
         Informacion
     </a>
 
+
     @if(Auth::check() && Auth::user()->admin)
+
     <a href="/users"
         class="text-lg font-semibold py-2 px-4 bg-[#A8D5BA] hover:bg-green-500 hover:text-white rounded-lg transition-colors duration-300">
         Administracion

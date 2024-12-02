@@ -14,9 +14,9 @@ class RegistroRegistrosDuranteController extends RelationController
     /**
      * Display a listing of the resource.
      */
+     use DisableAuthorization;
+     protected $model = Registro::class;
+ 
+     protected $relation = 'registro_durantes';
 
-    use DisableAuthorization;
-    protected $model = Registro::class;
-
-    protected $relation = 'registrosDurante';
 }

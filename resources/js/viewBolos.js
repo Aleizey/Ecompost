@@ -60,7 +60,6 @@ async function consultaApiBolosCiclos(id, resource1, resource2) {
 }
 
 
-
 // contenido entero de la pagina 
 // variables---> 
 const Xcontent = document.querySelector(".x-content-app");
@@ -157,7 +156,7 @@ export function rutaBolos() {
 async function rutaAllBolos(id) {
 
     const ciclos = await consultaApiBolosCiclos(id, 'bolos', 'ciclos');
-    console.log(ciclos);
+    // console.log(ciclos);
     console.log(id)
 
     console.log(Xcontent);
@@ -173,34 +172,62 @@ async function rutaAllBolos(id) {
     contMain.classList.add("w-full", "p-12", "grid", "grid-cols-4", "gap-4");
     const contFooter = document.createElement("footer"); // FOOTER 
 
-    ciclos.map(async bolo => {
 
-        // ////////////////////////////////////////////// HEADER ////////////////////////////////////////////// -->
-        contHeader.innerHTML = `hola`
 
         // ////////////////////////////////////////////// MAIN ////////////////////////////////////////////// -->
         const registos = await consultaApiBolosCiclos(bolo.id, 'ciclo', 'registros');
         registos.map(async reg => {
 
-            const registosAntes = await consultaApiBolosCiclos(reg.id, 'registro', 'registrosAntes');
-            console.log(registosAntes);
+    // ////////////////////////////////////////////// HEADER ////////////////////////////////////////////// -->
+    contHeader.innerHTML = `hola`
+
+    // ////////////////////////////////////////////// MAIN ////////////////////////////////////////////// -->
+    ciclos.map(async ciclo => {
+
+        const registos = await consultaApiBolosCiclos(ciclo.id, 'ciclo', 'registros');
+        registos.map(async registro => {
+
+            const registosAntes = await consultaApiBolosCiclos(registro.id, 'registro', 'registrosAntes');
+            const registosDurante = await consultaApiBolosCiclos(registro.id, 'registro', 'registrosDurante');
+            const registosDespues = await consultaApiBolosCiclos(registro.id, 'registro', 'registrosDespues');
+            registosAntes.map(async antes => {
+
+                const antesCont = document.createElement("div");
+                antesCont.classList.add("w-full", "flex", "justify-center", "mb-12", "ciclos");
+                antesCont.innerHTML = `<div>
+                <p>Id Antes:${antes.id}</p>
+                <p>Id Registro:${antes.registro_id}</p>
+                <p>Humedad :${antes.humedad}</p>
+                <p>observaciones iniciales :${antes.observaciones_iniciales}</p>
+                <p> temperatura ambiente :${antes.temperatura_ambiente} °C</p>
+                <p> Olor :${antes.olor}</p>
+                <p> presencia insectos :${antes.presencia_insectos ? "Si" : "No"}</p>
+                <p> temperatura compostera :${antes.temperatura_compostera} ºC</p>
+                <img src="${antes.fotografias_iniciales}" alt="imagen>
+                <p> fecha :${antes.fotografias_iniciales}</p>
+                </div>`
+
+
+                contMain.appendChild(antesCont)
+            });
         });
 
-        const boloCont = document.createElement("div");
-        boloCont.classList.add("w-full", "flex", "justify-center", "mb-12", "ciclos");
+        const cicloCont = document.createElement("div");
+        cicloCont.classList.add("w-full", "flex", "justify-center", "mb-12", "ciclos");
 
-        boloCont.innerHTML = `<div>
-        <p>Id ciclo :${bolo.id}</p>
-        <p>Bolo :${bolo.bolo_id}</p>
-        <p>Fecha Inicio :${bolo.fecha_inicio}</p>
-        <p> Fecha Final :${bolo.fecha_final ? "activo" : "inactivo"}</p>
+        cicloCont.innerHTML = `<div>
+        <p>Id ciclo :${ciclo.id}</p>
+        <p>Bolo :${ciclo.bolo_id}</p>
+        <p>Fecha Inicio :${ciclo.fecha_inicio}</p>
+        <p> Fecha Final :${ciclo.fecha_final ? "activo" : "inactivo"}</p>
         </div>`
 
-        contMain.appendChild(boloCont)
-
-        // ////////////////////////////////////////////// FOOTER ////////////////////////////////////////////// -->
-        contFooter.innerHTML = `perro`
+        contMain.appendChild(cicloCont)
     })
+
+    // ////////////////////////////////////////////// FOOTER ////////////////////////////////////////////// -->
+    contFooter.innerHTML = `perro`
+
 
     // Agrega el contenedor al DOM
     Xcontent.appendChild(contenedorGeneral);
@@ -219,4 +246,5 @@ window.addEventListener('hashchange', () => {
 
 window.addEventListener('load', async () => {
     await consultApiBolos();
+
 });

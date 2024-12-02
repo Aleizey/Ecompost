@@ -17,5 +17,5 @@ class RegistroRegistrosDespuesController extends RelationController
     use DisableAuthorization;
     protected $model = Registro::class;
 
-    protected $relation = 'registrosDespues';
+    protected $relation = 'registro_despues';
 }
