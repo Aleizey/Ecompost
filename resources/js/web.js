@@ -5,10 +5,11 @@ import { rutaRegistros } from "./viewRegistros.js";
 // ...
 
 // funcion para que dependiendo de la ruta que muestre una funcion que contiene una pagina (SPA)
-function routes() {
+async function routes() {
 
     // optener la ruta actual 
     const hash = window.location.hash;
+    console.log(hash);
 
     // rutas funcion 
     switch (hash) {
