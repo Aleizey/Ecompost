@@ -50,6 +50,7 @@ async function AnadirApisCiclo(boloId, CompstId) {
 
     try {
         const token = getAuthToken();
+        console.log(token)
         if (!token) {
             throw new Error("No se encontró el token de autenticación.");
         }
@@ -192,6 +193,7 @@ export function rutaComposteras() {
         Xcontent.appendChild(contenedor);
         // modal
         InCompostera(compostera.id)
+
     });
 }
 
@@ -567,5 +569,11 @@ window.addEventListener('hashchange', () => {
 
 window.addEventListener('load', async () => {
     await consultaApisCompost(null, 'compostera', null);
+
+    const hash = window.location.hash;
+    if (hash === '#composteras') {
+
+        rutaComposteras();
+    }
     // ...
 });

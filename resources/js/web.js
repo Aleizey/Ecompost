@@ -15,15 +15,19 @@ async function routes() {
     // rutas funcion 
     switch (hash) {
         case '#bolos':
+            window.location.href = '/#bolos';
             rutaBolos();
             break;
         case '#composteras':
+            window.location.href = '/#composteras';
             rutaComposteras();
             break;
         case '#registros':
+            window.location.href = '/#registros';
             rutaRegistros();
             break;
         case '#informacion':
+            window.location.href = '/#informacion';
             rutaInformacion();
             break;
         // ...

@@ -6,7 +6,7 @@ let arrayElementBolos = [];
 
 // optener el token
 function getAuthToken() {
-    const token = "****";
+    const token = sessionStorage.getItem('apiToken');
     return token;
 }
 
@@ -205,7 +205,7 @@ async function rutaAllBolos(id) {
 
     // Agrega el contenedor al DOM
     Xcontent.appendChild(contMain);
-    
+
 }
 
 // Manejar cambios en la URL para actualizar la vista
@@ -216,5 +216,11 @@ window.addEventListener('hashchange', () => {
 
 window.addEventListener('load', async () => {
     await consultaApiBolosCiclos(null, 'bolos', null);
+
+    const hash = window.location.hash;
+    if (hash === '#bolos') {
+
+        rutaBolos();
+    }
     // ...
 });
