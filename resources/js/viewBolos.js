@@ -44,25 +44,18 @@ async function consultaApiBolosCiclos(id = null, resource1, resource2 = null) {
     }
 }
 
-
 // contenido entero de la pagina 
 // variables---> 
-const Xcontent = document.querySelector(".x-content-app");
+const Xcontent = document.querySelector(".main-container");
 
 // funcion ---->
 export async function rutaBolos() {
 
     Xcontent.innerHTML = ""; // vaciar el contenido de la pagina
 
-    // contenedor general de cada pagina
-    const contenedorGeneral = document.createElement("div"); // GENERAL 
-    contenedorGeneral.classList.add("w-screen", "h-screen", "flex", "flex-col", "justify-between", "items-center");
 
-    // contenedor de la barra de navegacion
-    const contHeader = document.createElement("header"); // HEADER 
     const contMain = document.createElement("main"); // MAIN 
-    contMain.classList.add("w-full", "p-12", "grid", "grid-cols-4", "gap-4");
-    const contFooter = document.createElement("footer"); // FOOTER 
+    contMain.classList.add("w-full", "p-12", "mt-5", "grid", "grid-cols-4", "gap-4");
 
     // optener la ruta actual 
     const hash = window.location.hash;
@@ -80,15 +73,15 @@ export async function rutaBolos() {
 
         if (!rutaFound) {
 
-            // ////////////////////////////////////////////// HEADER ////////////////////////////////////////////// -->
-            contHeader.innerHTML = `hola`
-
             // ////////////////////////////////////////////// MAIN ////////////////////////////////////////////// -->
             const boloCont = document.createElement("div");
             boloCont.classList.add("w-full", "flex", "justify-center", "mb-12");
 
-            boloCont.innerHTML = `<a href="#bolos?bolo${bolo.id}" class="model-bolo rounded-lg shadow-lg w-full h-full p-5 flex flex-col justify-between items-center" >
-        <div class="cont-icon-user flex-col justify-between ps">
+            boloCont.innerHTML = `
+
+            <a href="#bolos?bolo${bolo.id}" class="model-bolo rounded-lg shadow-lg w-full h-full p-5 flex flex-col justify-between items-center" >
+
+                <div class="cont-icon-user flex-col justify-between ps">
                     <div class="icon-user">
                         <img src="https://cdn-icons-png.flaticon.com/512/5904/5904059.png" alt="">
                     </div>
@@ -97,21 +90,27 @@ export async function rutaBolos() {
                     </div>
 
                 </div>
+
                 <div class="shadow-lg rounded-full bg-white border-b-4 border-gray-900">
                     <p>${bolo.nombre}</p>
                 </div>
-                <div class="shadow-lg rounded-lg bg-white"><img
-                        src="https://png.pngtree.com/png-clipart/20230915/original/pngtree-cartoon-of-compost-manhole-container-with-vegetables-and-plants-vector-png-image_12170171.png"
-                        alt=""></div>
+
+                <div class="shadow-lg rounded-lg bg-white">
+                    <img
+                    src="https://png.pngtree.com/png-clipart/20230915/original/pngtree-cartoon-of-compost-manhole-container-with-vegetables-and-plants-vector-png-image_12170171.png"
+                    alt="">
+                </div>
                 <div class="grid grid-cols-4 gap-2">
-                    <div class="bg-green-500 rounded-full"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
+
+                    <div class="bg-green-500 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 fill-green-500">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
                     </div>
+
                     <h5>${bolo.fecha_final ? 'Finalizado' : 'Activo'}</h5>
- 
                     <div class="bg-blue-500 rounded-full">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
@@ -120,21 +119,17 @@ export async function rutaBolos() {
                         </svg>
                     </div>
                     <h5>${bolo.fecha_inicio.split(' ', (1))}</h5>
+
                 </div>
-                </a>`
+                
+            </a>`
 
             contMain.appendChild(boloCont)
-
-            // ////////////////////////////////////////////// FOOTER ////////////////////////////////////////////// -->
-            contFooter.innerHTML = `perro`
         }
     })
 
     // Agrega el contenedor al DOM
-    Xcontent.appendChild(contenedorGeneral);
-    contenedorGeneral.appendChild(contHeader);
-    contenedorGeneral.appendChild(contMain);
-    contenedorGeneral.appendChild(contFooter);
+    Xcontent.appendChild(contMain);
 
 }
 
@@ -154,10 +149,6 @@ async function rutaAllBolos(id) {
     const contMain = document.createElement("main"); // MAIN 
     contMain.classList.add("w-full", "p-12", "grid", "grid-cols-4", "gap-4");
     const contFooter = document.createElement("footer"); // FOOTER 
-
-        // ////////////////////////////////////////////// MAIN ////////////////////////////////////////////// -->
-        const registos = await consultaApiBolosCiclos(bolo.id, 'ciclo', 'registros');
-        registos.map(async reg => {
 
     // ////////////////////////////////////////////// HEADER ////////////////////////////////////////////// -->
     contHeader.innerHTML = `hola`
@@ -205,23 +196,16 @@ async function rutaAllBolos(id) {
                 <p> fecha :${antes.fotografias_iniciales}</p>
                 </div>`
 
-
                 contMain.appendChild(antesCont)
             });
         });
         // FIN CICLOS INFO /////////////////////////////////////////// -->
     })
 
-    // ////////////////////////////////////////////// FOOTER ////////////////////////////////////////////// -->
-    contFooter.innerHTML = `perro`
 
     // Agrega el contenedor al DOM
-    Xcontent.appendChild(contenedorGeneral);
-
-    contenedorGeneral.appendChild(contHeader);
-    contenedorGeneral.appendChild(contMain);
-    contenedorGeneral.appendChild(contFooter);
-
+    Xcontent.appendChild(contMain);
+    
 }
 
 // Manejar cambios en la URL para actualizar la vista

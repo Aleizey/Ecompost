@@ -2,6 +2,7 @@
 import { rutaBolos } from "./viewBolos.js";
 import { rutaComposteras } from "./viewComposteras.js";
 import { rutaRegistros } from "./viewRegistros.js";
+import { rutaInformacion } from "./viewInformacion.js";
 // ...
 
 // funcion para que dependiendo de la ruta que muestre una funcion que contiene una pagina (SPA)
@@ -21,6 +22,9 @@ async function routes() {
             break;
         case '#registros':
             rutaRegistros();
+            break;
+        case '#informacion':
+            rutaInformacion();
             break;
         // ...
         default:
