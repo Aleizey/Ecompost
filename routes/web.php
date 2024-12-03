@@ -25,6 +25,11 @@ Route::get('/linkstorage', function () {
     Artisan::call('storage:link');
 });
 
+Route::get('/formulario', function () {
+    return view('formulario');
+})->middleware(['auth', 'verified'])->name('formulario');
+
+
 Route::resource('users', UserController::class)
 ->middleware('can:administrate,App\Models\User');
 
