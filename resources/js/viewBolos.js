@@ -3,40 +3,24 @@
 // api para obtener los bolos y sus derivados (ciclos, registros, composteras)
 // variables--->
 let arrayElementBolos = [];
-let ApiBolos = "http://ecompost.test/api/bolos";
 
+// optener el token
 function getAuthToken() {
-    const token = "12|3xxEo7Mq5UDi8On9aynQe4Zqj98a37n0mFB2RKUl4f74a8a8";
+    const token = "****";
     return token;
 }
 
 // funcion ---->
-async function consultApiBolos() {
-    try {
-        const token = getAuthToken();
-        if (!token) {
-            throw new Error("No se encontró el token de autenticación.");
-        }
+async function consultaApiBolosCiclos(id = null, resource1, resource2 = null) {
 
-        const resultadoEnBruto = await fetch(ApiBolos, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-        });
+    let url;
 
-        const resultadoJSON = await resultadoEnBruto.json();
-        arrayElementBolos = resultadoJSON.data;
-
-    } catch (error) {
-        console.log(`Error en la consulta de bolos: ${error}`);
+    if (id === null && resource2 === null) {
+        url = `http://ecompost.test/api/${resource1}`;
+    } else {
+        url = `http://ecompost.test/api/${resource1}/${id}/${resource2}`;
     }
-}
-// funcion ---->
-async function consultaApiBolosCiclos(id, resource1, resource2) {
 
-    const url = `http://ecompost.test/api/${resource1}/${id}/${resource2}`;
     try {
         const token = getAuthToken();
         if (!token) {
@@ -52,6 +36,7 @@ async function consultaApiBolosCiclos(id, resource1, resource2) {
         });
 
         const resultadoJSON = await resultadoEnBruto.json();
+        arrayElementBolos = [...resultadoJSON.data];
         return resultadoJSON.data;
     } catch (error) {
         console.log(`Error en la consulta de ciclos: ${error}`);
@@ -64,7 +49,7 @@ async function consultaApiBolosCiclos(id, resource1, resource2) {
 const Xcontent = document.querySelector(".x-content-app");
 
 // funcion ---->
-export function rutaBolos() {
+export async function rutaBolos() {
 
     Xcontent.innerHTML = ""; // vaciar el contenido de la pagina
 
@@ -155,8 +140,6 @@ export function rutaBolos() {
 async function rutaAllBolos(id) {
 
     const ciclos = await consultaApiBolosCiclos(id, 'bolos', 'ciclos');
-    // console.log(ciclos);
-    console.log(id)
 
     console.log(Xcontent);
     Xcontent.innerHTML = ""; // vaciar el contenido de la pagina
@@ -171,20 +154,35 @@ async function rutaAllBolos(id) {
     contMain.classList.add("w-full", "p-12", "grid", "grid-cols-4", "gap-4");
     const contFooter = document.createElement("footer"); // FOOTER 
 
-
-
     // ////////////////////////////////////////////// HEADER ////////////////////////////////////////////// -->
     contHeader.innerHTML = `hola`
 
     // ////////////////////////////////////////////// MAIN ////////////////////////////////////////////// -->
     ciclos.map(async ciclo => {
 
+        // CICLOS INFO /////////////////////////////////////////// -->
+        const cicloCont = document.createElement("div");
+        cicloCont.classList.add("w-full", "flex", "justify-center", "mb-12", "ciclos");
+
+        cicloCont.innerHTML = `<div>
+        <p>Id ciclo :${ciclo.id}</p>
+        <p>Bolo :${ciclo.bolo_id}</p>
+        <p>Fecha Inicio :${ciclo.fecha_inicio}</p>
+        <p> Fecha Final :${ciclo.fecha_final ? "activo" : "inactivo"}</p>
+        </div>`
+
+        contMain.appendChild(cicloCont)
+        // FIN CICLOS INFO /////////////////////////////////////////// -->
+
+        // REGISTRO INFO /////////////////////////////////////////// -->
         const registos = await consultaApiBolosCiclos(ciclo.id, 'ciclo', 'registros');
         registos.map(async registro => {
 
             const registosAntes = await consultaApiBolosCiclos(registro.id, 'registro', 'registrosAntes');
             const registosDurante = await consultaApiBolosCiclos(registro.id, 'registro', 'registrosDurante');
             const registosDespues = await consultaApiBolosCiclos(registro.id, 'registro', 'registrosDespues');
+            // console.log(registosDurante)
+            // console.log(registosDespues)
             registosAntes.map(async antes => {
 
                 const antesCont = document.createElement("div");
@@ -205,23 +203,11 @@ async function rutaAllBolos(id) {
                 contMain.appendChild(antesCont)
             });
         });
-
-        const cicloCont = document.createElement("div");
-        cicloCont.classList.add("w-full", "flex", "justify-center", "mb-12", "ciclos");
-
-        cicloCont.innerHTML = `<div>
-        <p>Id ciclo :${ciclo.id}</p>
-        <p>Bolo :${ciclo.bolo_id}</p>
-        <p>Fecha Inicio :${ciclo.fecha_inicio}</p>
-        <p> Fecha Final :${ciclo.fecha_final ? "activo" : "inactivo"}</p>
-        </div>`
-
-        contMain.appendChild(cicloCont)
+        // FIN CICLOS INFO /////////////////////////////////////////// -->
     })
 
     // ////////////////////////////////////////////// FOOTER ////////////////////////////////////////////// -->
     contFooter.innerHTML = `perro`
-
 
     // Agrega el contenedor al DOM
     Xcontent.appendChild(contenedorGeneral);
@@ -239,6 +225,6 @@ window.addEventListener('hashchange', () => {
 });
 
 window.addEventListener('load', async () => {
-    await consultApiBolos();
+    await consultaApiBolosCiclos(null, 'bolos', null);
     // ...
 });

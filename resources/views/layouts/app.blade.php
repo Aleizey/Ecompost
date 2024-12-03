@@ -16,14 +16,14 @@
     @vite(['resources/css/app.css', 'resources/css/principal.css',  'resources/js/web.js', 'resources/js/app.js' ])
 </head>
 
-<body class="h-screen flex bg-[#A8D5BA]">
+<body class="h-screen flex bg-[#ffffff]">
     <!-- Aside -->
     <nav class="w-[344px] flex-shrink-0 max-lg:!hidden bg-[#438b35] flex flex-col items-center justify-between p-4 text-[#4F4F4F]">
         @include('layouts.navigation')
     </nav>
 
     <!-- Page Content -->
-    <div class="w-full flex flex-col overflow-hidden bg-[#FFFFFF] ml-auto x-content-app">
+    <div class="w-full flex relative mt-12 flex-row overflow-hidden bg-[#FFFFFF] ml-auto x-content-app">
         {{ $slot }}
     </div>
 
