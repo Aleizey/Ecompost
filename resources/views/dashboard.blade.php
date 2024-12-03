@@ -29,24 +29,6 @@
                 </form>
             </div>
 
-            <!-- Nombre de la web a la derecha -->
-            <div class="mr-8">
-                <h1 class="text-lg font-bold">Ecompost</h1>
-            </div>
-        </header>
+    <h1>No se que poner y la ruta me lleva al dashboard el cual no ya no necesito</h1>
 
-
-
-        <!-- Main -->
-        <main class="flex-grow flex justify-center items-center text-center text-[#4F4F4F] bg-[#FFFFFF] overflow-y-auto"
-            style="height: calc(80vh - 60px);">
-            <!-- <h2 class="text-2xl">hola usuario</h2> -->
-
-        </main>
-
-        <!-- Footer -->
-        <footer class="h-[10vh] w-full text-center p-2 bg-[#FFFFFF] text-white">
-            <p class="text-sm">nuestra información</p>
-        </footer>
-    </div>
 </x-app-layout>

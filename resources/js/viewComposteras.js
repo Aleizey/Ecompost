@@ -117,7 +117,7 @@ async function AnadirApisRegistro(cicloId, CompstId, userId) {
 
 // contenido entero de la pagina 
 // variables---> 
-const Xcontent = document.querySelector(".x-content-app");
+const Xcontent = document.querySelector(".main-container");
 
 // funcion ---->
 export function rutaComposteras() {
@@ -126,17 +126,17 @@ export function rutaComposteras() {
     console.log(arrayElementComposteras)
     arrayElementComposteras.map(compostera => {
         const contenedor = document.createElement("div");
-        contenedor.classList.add("w-full", "flex", "justify-center", "align-center", "mb-12");
+        contenedor.classList.add("w-full", "flex", "justify-center", "align-center", "mb-12", "overflow-x-auto");
         contenedor.innerHTML = `
         <div class="overflow-x-auto">
             <table class="table-auto border-collapse border border-gray-300 w-full text-sm text-left">
-                <thead class="bg-gray-100 text-gray-700 uppercase">
+                <thead class="bg-white text-gray-700 uppercase">
                     <tr>
                         <th class="border border-gray-300 px-4 py-2">Campo</th>
                         <th class="border border-gray-300 px-4 py-2">Compostera</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="bg-white">
                     <tr>
                         <td class="border border-gray-300 px-4 py-2">Centro ID</td>
                         <td class="border border-gray-300 px-4 py-2">${compostera.centro_id}</td>
@@ -164,9 +164,10 @@ export function rutaComposteras() {
                 </tbody>
             </table>
             <div class="mt-6">
-                 <button id="openModal${compostera.id}" type="submit"class="rounded-md bg-indigo-600 text-center w-full px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Iniciar</button>
+                <button id="openModal${compostera.id}" type="submit"class="rounded-md bg-indigo-600 text-center w-full px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Iniciar</button>
             </div>
         </div>
+        
 <div id="modal${compostera.id}" class=" bg-gray-500 absolute inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white w-full h-full">
         <div class="p-6 w-full h-full flex flex-col items-center justify-between">
@@ -186,8 +187,6 @@ export function rutaComposteras() {
                 </button>
             </div>
         </div>
-    </div>
-</div>
     `;
         // Agrega el contenedor al DOM
         Xcontent.appendChild(contenedor);
@@ -205,7 +204,6 @@ async function InCompostera(compostId) {
 
     const startRegist = document.createElement("div");
     const formulario = document.createElement("div");
-
 
     closeModalButton.addEventListener("click", () => {
         modal.classList.add("hidden");
