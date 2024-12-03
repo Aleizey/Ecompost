@@ -10,7 +10,9 @@
                     alt="web-img">
             </div>
             @if (session('token'))
-                <p>Token: {{ session('token') }}</p>
+                <script>
+                    sessionStorage.setItem('apiToken', @json(session('token')))
+                </script>
             @endif
             <!-- Buscador centrado -->
             <div class="flex-grow text-center">

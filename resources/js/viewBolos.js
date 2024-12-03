@@ -6,7 +6,7 @@ let arrayElementBolos = [];
 
 // optener el token
 function getAuthToken() {
-    const token = "****";
+    const token = sessionStorage.getItem('apiToken');
     return token;
 }
 

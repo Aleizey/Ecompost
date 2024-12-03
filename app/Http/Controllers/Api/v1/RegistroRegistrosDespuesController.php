@@ -13,7 +13,7 @@ class RegistroRegistrosDespuesController extends RelationController
     /**
      * Display a listing of the resource.
      */
-    use DisableAuthorization;
+    // use DisableAuthorization;
     protected $model = Registro::class;
 
     protected $relation = 'registro_despues';

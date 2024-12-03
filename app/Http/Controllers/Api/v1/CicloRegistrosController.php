@@ -13,7 +13,7 @@ class CicloRegistrosController extends RelationController
     /**
      * Display a listing of the resource.
      */
-    use DisableAuthorization;
+    // use DisableAuthorization;
     protected $model = Ciclo::class;
 
     protected $relation = 'registros';
