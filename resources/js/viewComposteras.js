@@ -202,7 +202,7 @@ export function rutaComposteras() {
 
             modal.classList.remove("hidden");
 
-            const ciclo = await AnadirApisRegistro(6, compostera.id, 1);
+            const ciclo = await AnadirApisCiclo(6, compostera.id, 1);
             console.log("Ciclo recibido:", ciclo);
 
             const startRegist = document.createElement("div");
