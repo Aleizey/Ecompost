@@ -30,13 +30,8 @@
             <header class="h-[10vh] w-full flex items-center p-2 text-black">
                 <!-- Imagen a la izquierda -->
                 <div class="ml-8 flex items-center justify-center h-16 w-16">
-                    <img class="h-full w-full object-contain rounded-full"
-                        src="https://cdn.discordapp.com/attachments/1309702840175825049/1311400562150998046/logo.png?ex=674ab2b2&is=67496132&hm=33961d1eee5dcdfe20fef7709e77dab68619a4a95d58777e3cd2c4f65ed27781&"
-                        alt="web-img">
+                <x-application-logo />
                 </div>
-                @if (session('token'))
-                <p>Token: {{ session('token') }}</p>
-                @endif
                 <!-- Buscador centrado -->
                 <div class="flex-grow text-center form-div">
                     <form class="flex items-center justify-center max-w-xs mx-auto w-3/4 sm:w-1/2 md:w-1/3">
@@ -58,7 +53,7 @@
                 </div>
             </header>
 
-            <main class="flex-grow flex justify-center items-center text-center  text-[#4F4F4F] overflow-y-auto 
+            <main class="flex-grow flex justify-center items-center text-center text-[#4F4F4F] overflow-y-auto 
             main-container"
                 style="height: calc(80vh - 60px);">
 
