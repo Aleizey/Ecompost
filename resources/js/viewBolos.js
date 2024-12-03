@@ -44,6 +44,7 @@ async function consultaApiBolosCiclos(id = null, resource1, resource2 = null) {
     }
 }
 
+
 // contenido entero de la pagina 
 // variables---> 
 const Xcontent = document.querySelector(".x-content-app");
@@ -154,6 +155,10 @@ async function rutaAllBolos(id) {
     contMain.classList.add("w-full", "p-12", "grid", "grid-cols-4", "gap-4");
     const contFooter = document.createElement("footer"); // FOOTER 
 
+        // ////////////////////////////////////////////// MAIN ////////////////////////////////////////////// -->
+        const registos = await consultaApiBolosCiclos(bolo.id, 'ciclo', 'registros');
+        registos.map(async reg => {
+
     // ////////////////////////////////////////////// HEADER ////////////////////////////////////////////// -->
     contHeader.innerHTML = `hola`
 
@@ -199,6 +204,7 @@ async function rutaAllBolos(id) {
                 <img src="${antes.fotografias_iniciales}" alt="imagen>
                 <p> fecha :${antes.fotografias_iniciales}</p>
                 </div>`
+
 
                 contMain.appendChild(antesCont)
             });
