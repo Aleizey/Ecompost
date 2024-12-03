@@ -31,7 +31,7 @@
 
 // contenido entero de la pagina 
 // variables---> 
-const Xcontent = document.querySelector(".x-content-app");
+const Xcontent = document.querySelector(".main-container");
 
 // funcion ---->
 export function rutaRegistros() {

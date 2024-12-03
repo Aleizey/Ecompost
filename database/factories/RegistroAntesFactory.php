@@ -20,6 +20,7 @@ class RegistroAntesFactory extends Factory
         return [
             'temperatura_ambiente' => $this->faker->randomFloat(1, 15, 35),
             'temperatura_compostera' => $this->faker->randomFloat(1, 20, 50),
+            'llenado_inicial' => $this->faker->randomFloat(50, 100, 200),
             'olor' => $this->faker->randomElement(['Podrido', 'Sin olor malo', 'Sin olor', 'Con olor bueno', 'Aromatico']),
             'presencia_insectos' => $this->faker->boolean(),
             'humedad' => $this->faker->randomElement(['Exceso', 'Buena', 'Defecto']),
