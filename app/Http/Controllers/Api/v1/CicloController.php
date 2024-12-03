@@ -13,6 +13,6 @@ class CicloController extends Controller
     /**
      * Display a listing of the resource.
      */
-    use DisableAuthorization;
+    // use DisableAuthorization;
     protected $model = Ciclo::class;
 }

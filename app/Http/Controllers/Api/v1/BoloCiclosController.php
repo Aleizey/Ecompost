@@ -13,7 +13,7 @@ class BoloCiclosController extends RelationController
     /**
      * Display a listing of the resource.
      */
-    use DisableAuthorization;
+    // use DisableAuthorization;
     protected $model = Bolo::class;
 
     protected $relation = 'ciclos';
