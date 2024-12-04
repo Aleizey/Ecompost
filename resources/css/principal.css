@@ -86,6 +86,7 @@ transition-property: transform box-shadow color;
 }
 .icon-user {
 
+    /* position: relative; */
     background-color: rgb(255, 255, 255);
     border-radius: 50px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.185);
@@ -108,6 +109,25 @@ transition-property: transform box-shadow color;
 
     width: 45px !important;
     height: 45px !important;
+}
+
+.icon-user>div {
+
+    position: absolute;
+    height: 50px;
+    width: 100px;
+    z-index: 10;
+    right:calc(55px);
+    top: calc(-30px);
+    border-radius: 50px;
+    border-bottom-right-radius: 0;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #000000;
+    border: solid 1px #000000d1;
+    background-color: #ffffffe2;
 }
 
 .cont-icon-user {
@@ -147,6 +167,57 @@ transition-property: transform box-shadow color;
 .grid-cols-4 {
 
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+
+@media screen and (max-width: 1668px) {
+
+    .grid-cols-4 {
+        margin-top: 0px;
+        padding-top: 0px;
+        transform: scale(0.9);
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+    
+}
+
+@media screen and (max-width: 1368px) {
+
+    .grid-cols-4 {
+        margin-top: 0px;
+        padding-top: 0px;
+        transform: scale(0.9);
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    
+}
+
+@media screen and (max-width: 768px) {
+
+    .grid-cols-4 {
+        margin-top: 0px;
+        padding-top: 0px;
+        transform: scale(0.85);
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    
+}
+
+
+@media screen and (max-width: 728px) {
+
+    .grid-cols-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    
+}
+
+@media screen and (max-width: 548px) {
+
+    .grid-cols-4 {
+        transform: scale(0.8);
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
+    
 }
 
 /* fin style bolo */

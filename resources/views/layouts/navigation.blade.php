@@ -1,6 +1,6 @@
 <!-- Icono superior -->
 <div class="mb-4 w-full flex justify-center">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white"
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white"
         class="h-10 w-10">
         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
     </svg>
@@ -9,31 +9,27 @@
 <!-- Enlaces de navegación -->
 <div class="flex flex-col gap-6 mb-auto efect-aside text-white w-full px-6 mt-10">
 
-    <a href="#bolos"
-        class="text-lg font-semibold">
+
+    <a href="#bolos" class="text-lg font-semibold">
         BOLO
     </a>
 
-    <a href="#composteras"
-        class="text-lg font-semibold">
+    <a href="#composteras" class="text-lg font-semibold">
         COMPOSTERA
     </a>
 
-    <a href="#registros"
-        class="text-lg font-semibold">
+    <a href="#registros" class="text-lg font-semibold">
         REGISTRO
     </a>
 
-    <a href="#informacion"
-        class="text-lg font-semibold">
+    <a href="#informacion" class="text-lg font-semibold">
         INFORMACIÓN
     </a>
 
 
     @if(Auth::check() && Auth::user()->admin)
 
-        <a href="/users"
-            class="text-lg font-semibold py-2 px-4">
+        <a href="/users" class="text-lg font-semibold py-2 px-4">
             Administracion
         </a>
     @endif

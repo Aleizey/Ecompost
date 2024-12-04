@@ -7,5 +7,4 @@
             localStorage.setItem('user', JSON.stringify(user));
         </script>
     @endif
-
 </x-app-layout>
