@@ -353,7 +353,7 @@ async function InCompostera(compostId) {
             <div class="w-full flex flex-wrap gap-6 justify-center">
 
                 <div class="sm:p-8 sm:rounded-lg w-full">
-                    <form class="w-full">
+                    <div class="w-full">
 
                         <div class="w-full justify-between flex flex-row">
                             <!-- formulario antes  -->
@@ -661,7 +661,7 @@ async function InCompostera(compostId) {
                             <button type="submit"
                                 class="boton-formulario rounded-md w-full bg-indigo-600 px-72 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Siguente</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
             `;
@@ -672,28 +672,28 @@ async function InCompostera(compostId) {
 
                 // value de los input
                 // Antes 
-                const tempAmb = document.getElementById('first-name').value;
-                const tempCompost = document.getElementById('last-name').value;
-                const olor = document.getElementById('country').value;
-                const humedad = document.getElementById('country').value;
-                const observAntes = document.getElementById('about').value;
-                const insectos = document.getElementById('comments').checked;
+                const tempAmb = document.getElementById('temperatura-ambiente').value;
+                const tempCompost = document.getElementById('temperatura-compostera').value;
+                const olor = document.getElementById('olor').value;
+                const humedad = document.getElementById('humedad').value;
+                const observAntes = document.getElementById('obserAntes').value;
+                const insectos = document.getElementById('insectos').checked;
+                const fotoAntes = document.getElementById('file-antes').files[0];
 
                 // Durante
-                const aporteVerde = document.getElementById('first-name').value;
-                const aporteSeco = document.getElementById('last-name').value;
-                const tipoVerde = document.getElementById('about').value;
-                const tipoSeco = document.getElementById('about').value;
-                const observDurante = document.getElementById('about').value;
+                const litroVerde = document.getElementById('litro-verde').value;
+                const aporteSeco = document.getElementById('aporte-seco').value;
+                const riego = document.getElementById('insectos').checked;
+                const revolver = document.getElementById('resolver').checked;
+                const tipoVerde = document.getElementById('type-verde').value;
+                const tipoSeco = document.getElementById('type-seco').value;
+                const observDurante = document.getElementById('obserDurante').value;
+                const fotoDurante = document.getElementById('file-durante').files[0];
 
                 // Después
-                const llenadoFinal = document.getElementById('first-name').value;
-                const observDespues = document.getElementById('about').value;
-
-                // Fotografía
-                const fotoAntes = document.getElementById('file-upload').files[0];
-                const fotoDurante = document.getElementById('file-upload').files[0];
-                const fotoDespues = document.getElementById('file-upload').files[0];
+                const llenadoFinal = document.getElementById('llenado-final').value;
+                const observDespues = document.getElementById('obserDespues').value;
+                const fotoDespues = document.getElementById('file-despues').files[0];
 
                 // crear registro
                 const registro = await AnadirApisRegistro(ciclo.id, compostId, 1);
@@ -702,7 +702,7 @@ async function InCompostera(compostId) {
                 // registros antes, durante, despues 
                 if (registro) {
                     const registroAntes = await AnadirApisRegistroAntes(registro.id, tempAmb, tempCompost, humedad, olor, insectos, fotoAntes, observAntes);
-                    const registroDurante = await AnadirApisRegistroDurante(registro.id, true, true, aporteVerde, tipoVerde, aporteSeco, tipoSeco, fotoDurante, observDurante);
+                    const registroDurante = await AnadirApisRegistroDurante(registro.id, riego, revolver, litroVerde, tipoVerde, aporteSeco, tipoSeco, fotoDurante, observDurante);
                     const registroDespues = await AnadirApisRegistroDespues(registro.id, llenadoFinal, fotoDespues, observDespues);
 
                     console.log("Registro antes:", registroAntes, "Registro despues:", registroDurante, "Registro despues:", registroDespues);
