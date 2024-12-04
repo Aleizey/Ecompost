@@ -44,6 +44,7 @@ async function consultaApisCompost(id = null, resource1, resource2 = null) {
     }
 }
 
+// Añadir falta refactorizar el codigo en una o pocas funciones 
 async function AnadirApisCiclo(boloId, CompstId) {
 
     const url = "http://ecompost.test/api/ciclos";
@@ -79,7 +80,6 @@ async function AnadirApisCiclo(boloId, CompstId) {
         return [];
     }
 }
-
 async function AnadirApisRegistro(cicloId, CompstId, userId) {
 
     const url = "http://ecompost.test/api/registro";
@@ -115,6 +115,123 @@ async function AnadirApisRegistro(cicloId, CompstId, userId) {
         return [];
     }
 }
+
+// Llamada a la función para insertar los registros (antes, durante, despues)
+async function AnadirApisRegistroAntes(registroId, tempAmb, tempCompost, humedad, olor, insectos, foto, observ) {
+
+    const url = `http://ecompost.test/api/registro/${registroId}/registrosAntes`;
+
+    try {
+        const token = getAuthToken();
+        if (!token) {
+            throw new Error("No se encontró el token de autenticación.");
+        }
+
+        const resultadoEnBruto = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+
+                "temperatura_ambiente": tempAmb,
+                "temperatura_compostera": tempCompost,
+                "olor": olor,
+                "presencia_insectos": insectos,
+                "humedad": humedad,
+                "fotografias_iniciales": foto,
+                "observaciones_iniciales": observ,
+                "registro_id": registroId,
+
+            }),
+        });
+
+        const resultadoJSON = await resultadoEnBruto.json();
+        console.log(resultadoJSON.data);
+        return resultadoJSON.data;
+
+    } catch (error) {
+        console.log(`Error en la consulta de ciclos: ${error}`);
+        return [];
+    }
+}
+async function AnadirApisRegistroDurante(registroId, riego, revolver, litroVerde, typeVerde, aportSeco, typeSeco, foto, observ) {
+
+    const url = `http://ecompost.test/api/registro/${registroId}/registrosDurante`;
+
+    try {
+        const token = getAuthToken();
+        if (!token) {
+            throw new Error("No se encontró el token de autenticación.");
+        }
+
+        const resultadoEnBruto = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+
+                "riego": riego,
+                "revolver": revolver,
+                "litros_verde": litroVerde,
+                "tipo_aporte_verde": typeVerde,
+                "aporte_seco": aportSeco,
+                "tipo_aporte_seco": typeSeco,
+                "fotografias_durante": foto,
+                "observaciones_durante": observ,
+                "registro_id": registroId
+
+            }),
+        });
+
+        const resultadoJSON = await resultadoEnBruto.json();
+        console.log(resultadoJSON.data);
+        return resultadoJSON.data;
+
+    } catch (error) {
+        console.log(`Error en la consulta de ciclos: ${error}`);
+        return [];
+    }
+}
+async function AnadirApisRegistroDespues(registroId, llenado, foto, observ) {
+
+    const url = `http://ecompost.test/api/registro/${registroId}/registrosDespues`;
+
+    try {
+        const token = getAuthToken();
+        if (!token) {
+            throw new Error("No se encontró el token de autenticación.");
+        }
+
+        const resultadoEnBruto = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+
+                "nivel_llenado_final": llenado,
+                "fotografias_final": foto,
+                "observaciones_final": observ,
+                "registro_id": registroId,
+
+            }),
+        });
+
+        const resultadoJSON = await resultadoEnBruto.json();
+        console.log(resultadoJSON.data);
+        return resultadoJSON.data;
+
+    } catch (error) {
+        console.log(`Error en la consulta de ciclos: ${error}`);
+        return [];
+    }
+}
+
 
 // contenido entero de la pagina 
 // variables---> 
@@ -236,7 +353,7 @@ async function InCompostera(compostId) {
             <div class="w-full flex flex-wrap gap-6 justify-center">
 
                 <div class="sm:p-8 sm:rounded-lg w-full">
-                    <form class="w-full" action="">
+                    <form class="w-full">
 
                         <div class="w-full justify-between flex flex-row">
                             <!-- formulario antes  -->
@@ -553,10 +670,48 @@ async function InCompostera(compostId) {
             const botonFormulario = document.querySelector('.boton-formulario');
             botonFormulario.addEventListener('click', async () => {
 
+                // value de los input
+                // Antes 
+                const tempAmb = document.getElementById('first-name').value;
+                const tempCompost = document.getElementById('last-name').value;
+                const olor = document.getElementById('country').value;
+                const humedad = document.getElementById('country').value;
+                const observAntes = document.getElementById('about').value;
+                const insectos = document.getElementById('comments').checked;
+
+                // Durante
+                const aporteVerde = document.getElementById('first-name').value;
+                const aporteSeco = document.getElementById('last-name').value;
+                const tipoVerde = document.getElementById('about').value;
+                const tipoSeco = document.getElementById('about').value;
+                const observDurante = document.getElementById('about').value;
+
+                // Después
+                const llenadoFinal = document.getElementById('first-name').value;
+                const observDespues = document.getElementById('about').value;
+
+                // Fotografía
+                const fotoAntes = document.getElementById('file-upload').files[0];
+                const fotoDurante = document.getElementById('file-upload').files[0];
+                const fotoDespues = document.getElementById('file-upload').files[0];
+
                 // crear registro
                 const registro = await AnadirApisRegistro(ciclo.id, compostId, 1);
-                console.log("Registro recibido:", registro);
-            })
+                console.log("registro recibido:", registro);
+
+                // registros antes, durante, despues 
+                if (registro) {
+                    const registroAntes = await AnadirApisRegistroAntes(registro.id, tempAmb, tempCompost, humedad, olor, insectos, fotoAntes, observAntes);
+                    const registroDurante = await AnadirApisRegistroDurante(registro.id, true, true, aporteVerde, tipoVerde, aporteSeco, tipoSeco, fotoDurante, observDurante);
+                    const registroDespues = await AnadirApisRegistroDespues(registro.id, llenadoFinal, fotoDespues, observDespues);
+
+                    console.log("Registro antes:", registroAntes, "Registro despues:", registroDurante, "Registro despues:", registroDespues);
+
+                } else {
+
+                    console.log("No existen Registro")
+                }
+            });
         });
     });
 }
