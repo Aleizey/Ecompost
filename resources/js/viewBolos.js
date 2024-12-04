@@ -74,7 +74,6 @@ export async function rutaBolos() {
 
     // optener la ruta actual 
     const hash = window.location.hash;
-    let rutaFound = false;
 
     arrayElementBolos.map(bolo => {
 
@@ -85,8 +84,6 @@ export async function rutaBolos() {
                 rutaFound = true;
                 break;
         }
-
-        if (!rutaFound) {
 
             // ////////////////////////////////////////////// MAIN ////////////////////////////////////////////// -->
             const boloCont = document.createElement("div");
@@ -139,6 +136,7 @@ export async function rutaBolos() {
 
             contMain.appendChild(boloCont)
 
+
         }
 
         // getUserBolo(bolo.id);
@@ -170,6 +168,7 @@ export async function rutaBolos() {
 
 }
 
+//esto muestra los ciclos de un
 async function rutaAllBolos(id) {
 
     const ciclos = await consultaApiBolosCiclos(id, 'bolos', 'ciclos');
@@ -182,13 +181,8 @@ async function rutaAllBolos(id) {
     contenedorGeneral.classList.add("w-screen", "h-screen", "flex", "flex-col", "justify-between", "items-center");
 
     // contenedor de la barra de navegacion
-    const contHeader = document.createElement("header"); // HEADER 
     const contMain = document.createElement("main"); // MAIN 
     contMain.classList.add("w-full", "p-12", "grid", "grid-cols-4", "gap-4");
-    const contFooter = document.createElement("footer"); // FOOTER 
-
-    // ////////////////////////////////////////////// HEADER ////////////////////////////////////////////// -->
-    contHeader.innerHTML = `hola`
 
     // ////////////////////////////////////////////// MAIN ////////////////////////////////////////////// -->
     ciclos.map(async ciclo => {
