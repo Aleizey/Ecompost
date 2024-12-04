@@ -20,7 +20,11 @@ async function consultaApiBolosCiclos(id = null, resource1, resource2 = null) {
 
     if (id === null && resource2 === null) {
         url = `http://ecompost.test/api/${resource1}`;
-    } else {
+    }
+    else if (resource2 === null) {
+        url = `http://ecompost.test/api/${resource1}/${id}`;
+    }
+    else {
         url = `http://ecompost.test/api/${resource1}/${id}/${resource2}`;
     }
 
@@ -90,11 +94,9 @@ export async function rutaBolos() {
             <a href="#bolos?bolo${bolo.id}" class="model-bolo rounded-lg shadow-lg w-full h-full p-5 flex flex-col justify-between items-center" >
 
                 <div class="cont-icon-user flex-col justify-between ps">
-                    <div class="icon-user">
+                    <div id="icon-${bolo.id}" class="icon-user">
                         <img src="https://cdn-icons-png.flaticon.com/512/5904/5904059.png" alt="">
-                    </div>
-                    <div class="icon-user">
-                        <img src="https://cdn-icons-png.flaticon.com/512/5904/5904059.png" alt="">
+                        <div class="hidden"> Alejaddro </div>
                     </div>
 
                 </div>
@@ -133,6 +135,32 @@ export async function rutaBolos() {
             </a>`
 
             contMain.appendChild(boloCont)
+
+
+        }
+
+        // getUserBolo(bolo.id);
+
+        window.addEventListener('mouseover', () => {
+            const icon = document.querySelector(`#icon-${bolo.id}`);
+
+            icon.addEventListener('mouseover', () => {
+
+                const iconTool = icon.querySelector('div');
+                iconTool.classList.remove('hidden');
+                iconTool.classList.add('flex');
+
+            });
+
+            icon.addEventListener('mouseleave', () => {
+                const iconTool = icon.querySelector('div');
+                iconTool.classList.remove('flex');
+                iconTool.classList.add('hidden');
+
+            });
+        });
+
+
     })
 
     // Agrega el contenedor al DOM
@@ -204,12 +232,32 @@ async function rutaAllBolos(id) {
         });
         // FIN CICLOS INFO /////////////////////////////////////////// -->
     })
-
-
     // Agrega el contenedor al DOM
     Xcontent.appendChild(contMain);
-
 }
+
+// async function getUserBolo(id) {
+
+//     try {
+//         const ciclos = await consultaApiBolosCiclos(id, 'bolos', 'ciclos');
+
+//         console.log("ciclos :", ciclos);
+//         ciclos.map(async ciclo => {
+
+//             const registos = await consultaApiBolosCiclos(ciclo.id, 'ciclo', 'registros');
+//             console.log("registros:", registos);
+//             registos.map(async registro => {
+
+//                 const users = await consultaApiBolosCiclos(registro.user_id, 'users', null);
+
+//                 console.log(users);
+//             });
+//         });
+//     } catch (error) {
+//         console.error(`Error en getUserBolo:`, error);
+//     }
+
+// }
 
 // Manejar cambios en la URL para actualizar la vista
 window.addEventListener('hashchange', () => {
@@ -227,3 +275,4 @@ window.addEventListener('load', async () => {
     }
     // ...
 });
+
