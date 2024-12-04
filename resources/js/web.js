@@ -1,50 +1,55 @@
-// importar todas las paginas 
+// Importar las rutas
 import { rutaBolos } from "./viewBolos.js";
 import { rutaComposteras } from "./viewComposteras.js";
 import { rutaRegistros } from "./viewRegistros.js";
 import { rutaInformacion } from "./viewInformacion.js";
 // ...
 
-// funcion para que dependiendo de la ruta que muestre una funcion que contiene una pagina (SPA)
-async function routes() {
-
-    // optener la ruta actual 
+// Función para garantizar que el hash esté en la raíz (limpiar URL)
+function ensureCorrectHashPosition() {
     const hash = window.location.hash;
-    console.log(hash);
+    const currentPath = window.location.pathname; 
+    const expectedPath = `/${hash}`; 
 
-    // rutas funcion 
+    // Si hay un hash pero el path no es la raíz ("/"), redirige
+    if (hash && currentPath !== '/') {
+        console.log(`Corrigiendo URL: ${currentPath + hash} -> ${expectedPath}`);
+        window.history.replaceState(null, '', `/${hash}`);
+    }
+}
+
+// Función para manejar las rutas
+async function routes() {
+    const hash = window.location.hash; 
+    console.log(`Hash actual: ${hash}`);
+
     switch (hash) {
         case '#bolos':
-            window.location.href = '/#bolos';
             rutaBolos();
             break;
         case '#composteras':
-            window.location.href = '/#composteras';
             rutaComposteras();
             break;
         case '#registros':
-            window.location.href = '/#registros';
             rutaRegistros();
             break;
         case '#informacion':
-            window.location.href = '/#informacion';
             rutaInformacion();
             break;
-        // ...
         default:
             console.warn(`Ruta desconocida: ${hash}`);
             break;
     }
 }
 
-// llamar a la funcion para que se ejecute una vez que se cargue la pagina
+// Evento al cargar la página
 window.addEventListener('load', async () => {
-    routes();
-    // ...
+    ensureCorrectHashPosition(); 
+    routes(); 
 });
 
-// Manejar cambios en la URL para actualizar la vista
+// Evento al cambiar el hash
 window.addEventListener('hashchange', () => {
-    routes();
-    // ...
+    ensureCorrectHashPosition(); 
+    routes(); 
 });

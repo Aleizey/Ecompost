@@ -2,6 +2,10 @@
 
 // api para obtener los bolos y sus derivados (ciclos, registros, composteras)
 // variables--->
+
+import { logout } from "./noToken.js";
+
+
 let arrayElementBolos = [];
 
 // optener el token
@@ -12,7 +16,6 @@ function getAuthToken() {
 
 // funcion ---->
 async function consultaApiBolosCiclos(id = null, resource1, resource2 = null) {
-
     let url;
 
     if (id === null && resource2 === null) {
@@ -24,7 +27,8 @@ async function consultaApiBolosCiclos(id = null, resource1, resource2 = null) {
     try {
         const token = getAuthToken();
         if (!token) {
-            throw new Error("No se encontró el token de autenticación.");
+            logout();
+            throw new Error("Token no encontrado. Redirigiendo al login.");
         }
 
         const resultadoEnBruto = await fetch(url, {
@@ -34,6 +38,13 @@ async function consultaApiBolosCiclos(id = null, resource1, resource2 = null) {
                 'Authorization': `Bearer ${token}`,
             },
         });
+
+        if (!resultadoEnBruto.ok) {
+            if (resultadoEnBruto.status === 401) {
+                logout(); // Manejar expiración de token o no autorizado.
+            }
+            throw new Error(`Error ${resultadoEnBruto.status} en la API`);
+        }
 
         const resultadoJSON = await resultadoEnBruto.json();
         arrayElementBolos = [...resultadoJSON.data];

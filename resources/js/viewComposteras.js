@@ -2,6 +2,8 @@
 
 // api para obtener las composteras y insertar (registro, registroAntes, registroDurante, registroDespues)
 // variables--->
+import { logout } from "./noToken.js";
+
 let arrayElementComposteras = [];
 
 // optener el token
@@ -24,6 +26,7 @@ async function consultaApisCompost(id = null, resource1, resource2 = null) {
     try {
         const token = getAuthToken();
         if (!token) {
+            logout();
             throw new Error("No se encontró el token de autenticación.");
         }
 
@@ -34,6 +37,13 @@ async function consultaApisCompost(id = null, resource1, resource2 = null) {
                 'Authorization': `Bearer ${token}`,
             },
         });
+
+        if (!resultadoEnBruto.ok) {
+            if (resultadoEnBruto.status === 401) {
+                logout(); // Manejar expiración de token o no autorizado.
+            }
+            throw new Error(`Error ${resultadoEnBruto.status} en la API`);
+        }
 
         const resultadoJSON = await resultadoEnBruto.json();
         arrayElementComposteras = [...resultadoJSON.data];
@@ -286,21 +296,21 @@ export function rutaComposteras() {
             </div>
         </div>
         
-<div id="modal${compostera.id}" class=" bg-gray-500 absolute inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+<div id="modal${compostera.id}" class="absolute inset-0 z-50 items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white w-full h-full">
         <div class="p-6 w-full h-full flex flex-col items-center justify-between">
             <div>
-               <h2 class="text-lg font-semibold text-gray-800">Compostera ${compostera.id}</h2>
+                h2 class="text-lg font-semibold text-gray-800">Compostera ${compostera.id}</h2>
             </div>
             <div class="main-modal${compostera.id}">
-               <p class="mt-4 text-sm text-gray-600">
-               </p>
+                <p class="mt-4 text-sm text-gray-600">
+                </p>
             </div>
             <div class="mt-6 flex justify-end">
                 <button 
                     id="closeModal${compostera.id}" 
                     type="button" 
-                    class="rounded-md bg-red-600 text-center w-full px-4 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">
+                    class="rounded-md bg-red-600 w-full px-4 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">
                     Cerrar
                 </button>
             </div>
