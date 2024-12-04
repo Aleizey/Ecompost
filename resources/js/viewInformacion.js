@@ -1,3 +1,5 @@
+import { logout } from "./noToken.js";
+
 const Xcontent = document.querySelector(".main-container");
 
 // funcion ---->

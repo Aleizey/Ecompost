@@ -41,7 +41,7 @@ class CentroPolicy
     public function update(User $user, Centro $centro): bool
     {
         //
-        return false;
+        return true;
     }
 
     /**
