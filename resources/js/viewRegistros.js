@@ -2,6 +2,9 @@
 
 // api para obtener los bolos y sus derivados (ciclos, registros, composteras)
 // variables--->
+
+import { logout } from "./noToken.js";
+
 let arrayElementRegistros = [];
 const user = JSON.parse(localStorage.getItem('user'));
 
@@ -36,6 +39,13 @@ async function consultaApisViewRegistro(id = null, resource1, resource2 = null) 
             },
         });
 
+        if (!resultadoEnBruto.ok) {
+            if (resultadoEnBruto.status === 401) {
+                logout(); // Manejar expiración de token o no autorizado.
+            }
+            throw new Error(`Error ${resultadoEnBruto.status} en la API`);
+        }
+
         const resultadoJSON = await resultadoEnBruto.json();
         arrayElementRegistros = [...resultadoJSON.data];
         return resultadoJSON.data;
@@ -55,8 +65,8 @@ export function rutaRegistros() {
     Xcontent.innerHTML = ""; // vaciar el contenido de la pagina
 
     // const contenedor = document.createElement("div");
-    const main = document.querySelector("main");
-    main.classList.add("w-full", "flex", "flex-col");
+    const contMain = document.querySelector("main");
+    contMain.classList.add("w-full", "flex", "flex-col");
 
     arrayElementRegistros.map(async registro => {
 
@@ -182,7 +192,7 @@ export function rutaRegistros() {
                     });
                 });
             });
-        } else {}
+        } else { }
     });
 }
 
