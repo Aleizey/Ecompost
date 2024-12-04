@@ -171,8 +171,8 @@
                                 </div>
                                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                     <div class="sm:col-span-3">
-                                        <label for="first-name"
-                                            class="block text-sm/6 font-medium text-gray-900">Aporte Verde (Kg)</label>
+                                        <label for="first-name" class="block text-sm/6 font-medium text-gray-900">Aporte
+                                            Verde (Kg)</label>
                                         <div class="mt-2">
                                             <input type="number" name="first-name" id="first-name"
                                                 autocomplete="given-name"
@@ -181,8 +181,8 @@
                                     </div>
 
                                     <div class="sm:col-span-3">
-                                        <label for="last-name"
-                                            class="block text-sm/6 font-medium text-gray-900">Aporte seco(Kg)</label>
+                                        <label for="last-name" class="block text-sm/6 font-medium text-gray-900">Aporte
+                                            seco(Kg)</label>
                                         <div class="mt-2">
                                             <input type="number" name="last-name" id="last-name"
                                                 autocomplete="family-name"
@@ -191,8 +191,8 @@
                                     </div>
 
                                     <div class="col-span-full">
-                                        <label for="about"
-                                            class="block text-sm/6 font-medium text-gray-900">Tipo Verde</label>
+                                        <label for="about" class="block text-sm/6 font-medium text-gray-900">Tipo
+                                            Verde</label>
                                         <div class="mt-2">
                                             <textarea id="about" name="about" rows="3"
                                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"></textarea>
@@ -203,8 +203,8 @@
                                     </div>
 
                                     <div class="col-span-full">
-                                        <label for="about"
-                                            class="block text-sm/6 font-medium text-gray-900">Tipo Seco</label>
+                                        <label for="about" class="block text-sm/6 font-medium text-gray-900">Tipo
+                                            Seco</label>
                                         <div class="mt-2">
                                             <textarea id="about" name="about" rows="3"
                                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"></textarea>
@@ -213,7 +213,7 @@
                                             realizado.
                                         </p>
                                     </div>
-                                    
+
 
                                     <div class="col-span-full">
                                         <label for="about"
@@ -291,8 +291,8 @@
                                 </div>
                                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                     <div class="sm:col-span-3">
-                                        <label for="first-name"
-                                            class="block text-sm/6 font-medium text-gray-900">Nivel Llenado Final(%)</label>
+                                        <label for="first-name" class="block text-sm/6 font-medium text-gray-900">Nivel
+                                            Llenado Final(%)</label>
                                         <div class="mt-2">
                                             <input type="number" name="first-name" id="first-name"
                                                 autocomplete="given-name"
@@ -350,6 +350,38 @@
                 </div>
             </div>
         </main>
+
+        <table class="table-fixed">
+            <thead>
+                <tr>
+                    <th>Id Antes</th>
+                    <th>Id registro</th>
+                    <th>Humedad</th>
+                    <th>Observaciones Inicial</th>
+                    <th>Temperatura Ambiente</th>
+                    <th>Olor</th>
+                    <th>Presencia Insectos</th>
+                    <th>Temperatura Compostera</th>
+                    <th>Fotografías Iniciales</th>
+                    <th>Fecha</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
+                    <td>Malcolm Lockyer</td>
+                    <td>1961</td>
+                    <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
+                    <td>Malcolm Lockyer</td>
+                    <td>1961</td>
+                    <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
+                    <td>Malcolm Lockyer</td>
+                    <td>1961</td>
+                    <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
+                </tr>
+            </tbody>
+        </table>
 
         <!-- Footer -->
         <footer class="h-[10vh] w-full text-center p-2 bg-[#FFFFFF] text-white">

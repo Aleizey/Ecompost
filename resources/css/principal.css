@@ -125,3 +125,15 @@
     overflow-y: scroll;
     height: 700px;
 }
+
+main {
+
+    height: 100% !important;
+}
+
+.tablas-registros {
+
+    margin-bottom: 12px;
+    text-align: start;
+    width: 100% !important;
+}
