@@ -6,7 +6,7 @@ import { rutaInformacion } from "./viewInformacion.js";
 // ...
 
 // Función para garantizar que el hash esté en la raíz (limpiar URL)
-function ensureCorrectHashPosition() {
+export function ensureCorrectHashPosition() {
     const hash = window.location.hash;
     const currentPath = window.location.pathname; 
     const expectedPath = `/${hash}`; 
