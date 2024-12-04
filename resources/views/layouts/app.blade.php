@@ -30,7 +30,7 @@
             <header class="h-[10vh] w-full flex items-center p-2 text-black">
                 <!-- Imagen a la izquierda -->
                 <div class="ml-8 flex items-center justify-center h-16 w-16">
-                <x-application-logo />
+                    <x-application-logo />
                 </div>
                 <!-- Buscador centrado -->
                 <div class="flex-grow text-center form-div">
@@ -53,13 +53,13 @@
                 </div>
             </header>
 
-            <main class="flex-grow flex justify-center items-center text-center text-[#4F4F4F] overflow-y-auto 
+            <div class="flex-grow flex justify-center items-center text-center text-[#4F4F4F] overflow-y-auto 
             main-container"
                 style="height: calc(80vh - 60px);">
 
                 {{ $slot }}
 
-            </main>
+            </div>
 
 
             <footer class="h-[10vh] w-full text-center p-2  text-white">
