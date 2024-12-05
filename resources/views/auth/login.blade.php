@@ -8,8 +8,8 @@
         <div class="mb-10 relative flex gap-x-3 justify-center">
             <p class="text-lg text-gray-900">BIENVENIDO USUARIO </p>
         </div>
-        <!-- Email Address -->
 
+        <!-- Email Address -->
         <div class="col-span-full mb-8">
             <div class="mt-2 relative">
                 <input id="email" type="email" name="email" :value="old('email')" required autofocus
@@ -62,7 +62,7 @@
 
         <div class="mt-12 flex items-center justify-center gap-x-6">
             <button type="submit"
-                class=" w-full boton-login bg-green-600 px-3 py-2 text-lg font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ __('INICIAR SESIÓN') }}</button>
+                class=" w-full boton-login bg-[#155946] px-3 py-2 text-lg font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ __('INICIAR SESIÓN') }}</button>
         </div>
 
     </form>

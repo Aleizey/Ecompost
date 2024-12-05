@@ -20,11 +20,11 @@ async function consultaApiBolosCiclos(id = null, resource1, resource2 = null) {
 
     if (id === null && resource2 === null) {
         url = `http://ecompost.test/api/${resource1}`;
-    }
-    else if (resource2 === null) {
+
+    } else if (id && resource2 === null) {
         url = `http://ecompost.test/api/${resource1}/${id}`;
-    }
-    else {
+
+    } else if (id && resource1 && resource2) {
         url = `http://ecompost.test/api/${resource1}/${id}/${resource2}`;
     }
 
@@ -85,20 +85,15 @@ export async function rutaBolos() {
                 break;
         }
 
-            // ////////////////////////////////////////////// MAIN ////////////////////////////////////////////// -->
-            const boloCont = document.createElement("div");
-            boloCont.classList.add("w-full", "flex", "justify-center", "mb-12");
+        // ////////////////////////////////////////////// MAIN ////////////////////////////////////////////// -->
+        const boloCont = document.createElement("div");
+        boloCont.classList.add("w-full", "flex", "justify-center", "mb-12");
 
-            boloCont.innerHTML = `
+        boloCont.innerHTML = `
 
             <a href="#bolos?bolo${bolo.id}" class="model-bolo rounded-lg shadow-lg w-full h-full p-5 flex flex-col justify-between items-center" >
 
-                <div class="cont-icon-user flex-col justify-between ps">
-                    <div id="icon-${bolo.id}" class="icon-user">
-                        <img src="https://cdn-icons-png.flaticon.com/512/5904/5904059.png" alt="">
-                        <div class="hidden"> Alejaddro </div>
-                    </div>
-
+                <div id="cont-icon-user${bolo.id}" class="cont-icon-user flex-col justify-between ps">
                 </div>
 
                 <div class="shadow-lg rounded-full bg-white border-b-4 border-gray-900">
@@ -110,18 +105,18 @@ export async function rutaBolos() {
                     src="https://png.pngtree.com/png-clipart/20230915/original/pngtree-cartoon-of-compost-manhole-container-with-vegetables-and-plants-vector-png-image_12170171.png"
                     alt="">
                 </div>
-                <div class="grid grid-cols-4 gap-2">
+                <div class="grid grid-cols-4 gap-2 text-black">
 
-                    <div class="bg-green-500 rounded-full">
+                    <div class=" rounded-full">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 fill-green-500">
+                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
                     </div>
 
                     <h5>${bolo.fecha_final ? 'Finalizado' : 'Activo'}</h5>
-                    <div class="bg-blue-500 rounded-full">
+                    <div class=" rounded-full">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -134,38 +129,11 @@ export async function rutaBolos() {
                 
             </a>`
 
-            contMain.appendChild(boloCont)
-
-
-        }
-
-        // getUserBolo(bolo.id);
-
-        window.addEventListener('mouseover', () => {
-            const icon = document.querySelector(`#icon-${bolo.id}`);
-
-            icon.addEventListener('mouseover', () => {
-
-                const iconTool = icon.querySelector('div');
-                iconTool.classList.remove('hidden');
-                iconTool.classList.add('flex');
-
-            });
-
-            icon.addEventListener('mouseleave', () => {
-                const iconTool = icon.querySelector('div');
-                iconTool.classList.remove('flex');
-                iconTool.classList.add('hidden');
-
-            });
-        });
-
-
+        contMain.appendChild(boloCont)
     })
 
     // Agrega el contenedor al DOM
     Xcontent.appendChild(contMain);
-
 }
 
 //esto muestra los ciclos de un
@@ -232,32 +200,11 @@ async function rutaAllBolos(id) {
         });
         // FIN CICLOS INFO /////////////////////////////////////////// -->
     })
+
     // Agrega el contenedor al DOM
     Xcontent.appendChild(contMain);
+
 }
-
-// async function getUserBolo(id) {
-
-//     try {
-//         const ciclos = await consultaApiBolosCiclos(id, 'bolos', 'ciclos');
-
-//         console.log("ciclos :", ciclos);
-//         ciclos.map(async ciclo => {
-
-//             const registos = await consultaApiBolosCiclos(ciclo.id, 'ciclo', 'registros');
-//             console.log("registros:", registos);
-//             registos.map(async registro => {
-
-//                 const users = await consultaApiBolosCiclos(registro.user_id, 'users', null);
-
-//                 console.log(users);
-//             });
-//         });
-//     } catch (error) {
-//         console.error(`Error en getUserBolo:`, error);
-//     }
-
-// }
 
 // Manejar cambios en la URL para actualizar la vista
 window.addEventListener('hashchange', () => {
@@ -275,4 +222,3 @@ window.addEventListener('load', async () => {
     }
     // ...
 });
-
