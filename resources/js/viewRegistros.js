@@ -57,6 +57,14 @@ async function consultaApisViewRegistro(id = null, resource1, resource2 = null) 
     arrayElementRegistros = datos;
     return datos;
 
+    // if(!datos) {
+    //   pantalladecarga.classlist("hidden")
+    
+    // } else if (datos ){
+     
+    //   return datos;
+    // }
+
   } catch (error) {
     console.log(`Error en la consulta de ciclos: ${error}`);
     return [];
@@ -190,7 +198,8 @@ export async function rutaRegistros() {
 }
 
 // Manejar cambios en la URL para actualizar la vista
-window.addEventListener('hashchange', () => {
+window.addEventListener('hashchange', async() => {
+  await consultaApisViewRegistro(null, 'registro', null);
   const hash = window.location.hash;
   if (hash === '#registros') {
     // window.location.reload();

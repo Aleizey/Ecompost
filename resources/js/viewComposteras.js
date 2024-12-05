@@ -358,6 +358,7 @@ async function InCompostera(compostId) {
 
         startRegist.addEventListener("click", async () => {
 
+            const hash = 
             startRegist.remove();
             formulario.classList.add("compostForm", "w-full");
 

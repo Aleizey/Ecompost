@@ -17,6 +17,7 @@
 </head>
 
 <body class="h-screen flex bg-[#e2e8f0]">
+
     <!-- Aside -->
     <nav
         class="w-[344px] flex-shrink-0 max-lg:!hidden bg-[#438b35] nav-app flex flex-col items-center justify-between p-4 text-[#4F4F4F]">
@@ -66,6 +67,7 @@
             main-container"
                 style="height: calc(80vh - 60px);">
 
+                <div class="pantallaCarga"> </div>
 
                 {{ $slot }}
 
