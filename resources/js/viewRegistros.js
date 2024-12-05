@@ -1,70 +1,79 @@
-//  VISTA WEB DE LOS BOLOS 
+//  VISTA WEB DE LOS Registros 
 
-// api para obtener los bolos y sus derivados (ciclos, registros, composteras)
+// api para obtener los registros y sus derivados (ciclos, registros, composteras)
 // variables--->
 
 import { logout } from "./noToken.js";
 
+// contenido entero de la pagina 
+const Xcontent = document.querySelector(".main-container");
 let arrayElementRegistros = [];
 const user = JSON.parse(localStorage.getItem('user'));
 
 // optener el token
 function getAuthToken() {
-    const token = sessionStorage.getItem('apiToken');
-    return token;
+  const token = sessionStorage.getItem('apiToken');
+  return token;
 }
 
 // funcion ---->
 async function consultaApisViewRegistro(id = null, resource1, resource2 = null) {
 
-    let url;
+  let url;
 
-    if (id === null && resource2 === null) {
-        url = `http://ecompost.test/api/${resource1}`;
-    } else {
-        url = `http://ecompost.test/api/${resource1}/${id}/${resource2}`;
+  if (id === null && resource2 === null) {
+    url = `http://ecompost.test/api/${resource1}`;
+
+  } else if (id && resource2 === null) {
+    url = `http://ecompost.test/api/${resource1}/${id}`;
+
+  } else if (id && resource1 && resource2) {
+    url = `http://ecompost.test/api/${resource1}/${id}/${resource2}`;
+  }
+
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error("No se encontró el token de autenticación.");
     }
 
-    try {
-        const token = getAuthToken();
-        if (!token) {
-            throw new Error("No se encontró el token de autenticación.");
-        }
+    const resultadoEnBruto = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    });
 
-        const resultadoEnBruto = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-        });
-
-        if (!resultadoEnBruto.ok) {
-            if (resultadoEnBruto.status === 401) {
-                logout(); // Manejar expiración de token o no autorizado.
-            }
-            throw new Error(`Error ${resultadoEnBruto.status} en la API`);
-        }
-
-        const resultadoJSON = await resultadoEnBruto.json();
-        arrayElementRegistros = [...resultadoJSON.data];
-        return resultadoJSON.data;
-    } catch (error) {
-        console.log(`Error en la consulta de ciclos: ${error}`);
-        return [];
+    if (!resultadoEnBruto.ok) {
+      if (resultadoEnBruto.status === 401) {
+        logout(); // Manejar expiración de token o no autorizado.
+      }
+      throw new Error(`Error ${resultadoEnBruto.status} en la API`);
     }
+
+    const resultadoJSON = await resultadoEnBruto.json();
+    const datos = resultadoJSON.data;
+    arrayElementRegistros = datos;
+    return datos;
+
+  } catch (error) {
+    console.log(`Error en la consulta de ciclos: ${error}`);
+    return [];
+  }
 }
-
-// contenido entero de la pagina 
-// variables---> 
-const Xcontent = document.querySelector(".main-container");
-
 
 // función ---->
 export async function rutaRegistros() {
-  Xcontent.innerHTML = ""; // vaciar el contenido de la pagina
 
-  for (let registro of arrayElementRegistros) {
+  const contMain = document.createElement("main");
+  contMain.classList.add("w-full", "p-12", "mt-5");
+
+  console.log(arrayElementRegistros)
+  arrayElementRegistros.forEach(async registro => {
+
+    Xcontent.innerHTML = "";
+
     if (registro.user_id == user) {
       const [registosAntes, registosDurante, registosDespues] = await Promise.all([
         consultaApisViewRegistro(registro.id, 'registro', 'registrosAntes'),
@@ -165,23 +174,26 @@ export async function rutaRegistros() {
               </table>`;
           }
 
-          Xcontent.appendChild(contenedor);
+          contMain.appendChild(contenedor);
         });
       };
-
 
       // Crear tablas
       crearTabla(registosAntes, 'antes');
       crearTabla(registosDurante, 'durante');
       crearTabla(registosDespues, 'despues');
+
     }
-  }
+  });
+
+  Xcontent.appendChild(contMain);
 }
 
 // Manejar cambios en la URL para actualizar la vista
 window.addEventListener('hashchange', () => {
   const hash = window.location.hash;
   if (hash === '#registros') {
+    // window.location.reload();
     rutaRegistros();
   }
 });
