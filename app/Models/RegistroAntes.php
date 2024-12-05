@@ -18,6 +18,7 @@ class RegistroAntes extends Model
         'presencia_insectos',
         'humedad',
         'fotografias_iniciales',
+        'llenado_inicial',
         'observaciones_iniciales',
         'registro_id',
     ];

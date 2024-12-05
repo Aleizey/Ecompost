@@ -5,6 +5,8 @@
 
 import { logout } from "./noToken.js";
 
+// contenido entero de la pagina 
+const Xcontent = document.querySelector(".main-container");
 let arrayElementRegistros = [];
 const user = JSON.parse(localStorage.getItem('user'));
 
@@ -51,25 +53,26 @@ async function consultaApisViewRegistro(id = null, resource1, resource2 = null) 
     }
 
     const resultadoJSON = await resultadoEnBruto.json();
-    arrayElementRegistros = [...resultadoJSON.data];
-    return resultadoJSON.data;
+    const datos = resultadoJSON.data;
+    arrayElementRegistros = datos;
+    return datos;
+
   } catch (error) {
     console.log(`Error en la consulta de ciclos: ${error}`);
     return [];
   }
 }
 
-// contenido entero de la pagina 
-// variables---> 
-const Xcontent = document.querySelector(".main-container");
-
-
 // función ---->
 export async function rutaRegistros() {
 
-  Xcontent.innerHTML = ""; // vaciar el contenido de la pagina
+  const contMain = document.createElement("main");
+  contMain.classList.add("w-full", "p-12", "mt-5");
 
-  for (let registro of arrayElementRegistros) {
+  arrayElementRegistros.map(async registro => {
+
+    Xcontent.innerHTML = "";
+
     if (registro.user_id == user) {
       const [registosAntes, registosDurante, registosDespues] = await Promise.all([
         consultaApisViewRegistro(registro.id, 'registro', 'registrosAntes'),
@@ -170,23 +173,26 @@ export async function rutaRegistros() {
               </table>`;
           }
 
-          Xcontent.appendChild(contenedor);
+          contMain.appendChild(contenedor);
         });
       };
-
 
       // Crear tablas
       crearTabla(registosAntes, 'antes');
       crearTabla(registosDurante, 'durante');
       crearTabla(registosDespues, 'despues');
+
     }
-  }
+  });
+
+  Xcontent.appendChild(contMain);
 }
 
 // Manejar cambios en la URL para actualizar la vista
 window.addEventListener('hashchange', () => {
   const hash = window.location.hash;
   if (hash === '#registros') {
+    window.location.reload();
     rutaRegistros();
   }
 });

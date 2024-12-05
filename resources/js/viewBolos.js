@@ -50,7 +50,8 @@ export async function consultaApiBolosCiclos(id = null, resource1, resource2 = n
         }
 
         const resultadoJSON = await resultadoEnBruto.json();
-        const datos = resultadoJSON.data; // Asignamos los datos correctamente
+        const datos = resultadoJSON.data;
+        arrayElementBolos = datos;
 
         // Generamos una clave única para el localStorage
         const claveLocalStorage = `bolosCiclos_${resource1}_${id || 'general'}`;
@@ -76,12 +77,13 @@ export async function consultaApiBolosCiclos(id = null, resource1, resource2 = n
 export async function rutaBolos() {
 
     const bolosData = JSON.parse(localStorage.getItem('bolosCiclos_bolos_general'));
+
     const contMain = document.createElement("main");
     contMain.classList.add("w-full", "p-12", "mt-5", "grid", "grid-cols-4", "gap-4");
-  
+
     console.log(bolosData);
-    //Dibujando los BOLOS
-    bolosData.forEach(bolo => {
+
+    bolosData.map(bolo => {
         Xcontent.innerHTML = "";
 
         const boloCont = document.createElement("div");
@@ -142,7 +144,7 @@ export async function rutaAllBolos(id) {
     contMain.classList.add("w-full", "p-12", "grid", "grid-cols-4", "gap-4");
 
     // Trabajando con los ciclos
-    for (let ciclo of ciclos) {
+    ciclos.map(async ciclo => {
         const cicloCont = document.createElement("div");
         cicloCont.classList.add("w-full", "flex", "justify-center", "mb-12", "ciclos");
 
@@ -188,7 +190,7 @@ export async function rutaAllBolos(id) {
             }
 
         }
-    }
+    });
 
     // Agregar el contenedor al DOM
     Xcontent.appendChild(contMain);
