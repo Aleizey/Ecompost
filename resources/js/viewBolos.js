@@ -55,8 +55,9 @@ export async function consultaApiBolosCiclos(id = null, resource1, resource2 = n
 
         // Generamos una clave única para el localStorage
         if (resource1 === "bolos") {
-            const claveLocalStorage = `bolosCiclos_${resource1}_${id || 'general'}`;
+            const claveLocalStorage = `bolosCiclos_${resource1}_general`;
 
+            
             // Verificamos si el contenido ya está guardado
             const contenidoGuardado = localStorage.getItem(claveLocalStorage);
             if (!contenidoGuardado) {
@@ -78,12 +79,11 @@ export async function consultaApiBolosCiclos(id = null, resource1, resource2 = n
 //Logica de los bolos
 export async function rutaBolos() {
 
+    console.log('entrando')
     const bolosData = JSON.parse(localStorage.getItem('bolosCiclos_bolos_general'));
 
     const contMain = document.createElement("main");
     contMain.classList.add("w-full", "p-12", "mt-5", "grid", "grid-cols-4", "gap-4");
-
-    console.log(bolosData);
 
     bolosData.map(bolo => {
         Xcontent.innerHTML = "";
