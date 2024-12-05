@@ -19,7 +19,11 @@ export async function consultaApiBolosCiclos(id = null, resource1, resource2 = n
 
     if (id === null && resource2 === null) {
         url = `http://ecompost.test/api/${resource1}`;
-    } else {
+    }
+    else if (resource2 === null) {
+        url = `http://ecompost.test/api/${resource1}/${id}`;
+    }
+    else {
         url = `http://ecompost.test/api/${resource1}/${id}/${resource2}`;
     }
 
@@ -206,3 +210,4 @@ window.addEventListener('load', async () => {
     }
 
 });
+
