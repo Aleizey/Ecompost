@@ -351,37 +351,6 @@
             </div>
         </main>
 
-        <table class="table-fixed">
-            <thead>
-                <tr>
-                    <th>Id Antes</th>
-                    <th>Id registro</th>
-                    <th>Humedad</th>
-                    <th>Observaciones Inicial</th>
-                    <th>Temperatura Ambiente</th>
-                    <th>Olor</th>
-                    <th>Presencia Insectos</th>
-                    <th>Temperatura Compostera</th>
-                    <th>Fotografías Iniciales</th>
-                    <th>Fecha</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                    <td>Malcolm Lockyer</td>
-                    <td>1961</td>
-                    <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                    <td>Malcolm Lockyer</td>
-                    <td>1961</td>
-                    <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                    <td>Malcolm Lockyer</td>
-                    <td>1961</td>
-                    <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                </tr>
-            </tbody>
-        </table>
 
         <!-- Footer -->
         <footer class="h-[10vh] w-full text-center p-2 bg-[#FFFFFF] text-white">

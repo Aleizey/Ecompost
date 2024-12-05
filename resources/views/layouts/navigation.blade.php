@@ -30,7 +30,7 @@
     @if(Auth::check() && Auth::user()->admin)
 
         <a href="/users" class="text-lg font-semibold py-2 px-4">
-            Administracion
+            ADMINISTRACIÓN
         </a>
     @endif
 
@@ -39,11 +39,14 @@
 
 <!-- Imagen del usuario -->
 <div class="w-full flex flex-col justify-center items-center">
-    <div class="image-container w-full mb-5">
+    <div class="user-content image-container w-full mb-5">
         <a href="{{ route('profile.edit') }}">
             <img class="h-24 w-24 rounded-full hover:shadow-lg hover:shadow-green-400"
                 src="https://i.pinimg.com/736x/88/47/aa/8847aab6964bbc54057ee4c5462e0d55.jpg" alt="usuario-img">
         </a>
+        <div class="hidden">
+            <p>{{ Auth::user()->name }}</p>
+        </div>
 
     </div>
 
@@ -58,4 +61,27 @@
 
         </form>
     </div>
+
+    <script>
+        const nameimg = document.querySelector('.user-content');
+        console.log(nameimg)
+
+
+        nameimg.addEventListener("mouseover", () => {
+
+            const nameLog = document.querySelector('.image-container > div');
+
+            nameLog.classList.remove("hidden");
+            nameLog.classList.add("flex");
+        })
+
+        nameimg.addEventListener("mouseleave", () => {
+
+            const nameLog = document.querySelector('.image-container > div');
+
+            nameLog.classList.remove("flex");
+            nameLog.classList.add("hidden");
+        })
+
+    </script>
 </div>
