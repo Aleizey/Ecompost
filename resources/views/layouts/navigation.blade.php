@@ -30,7 +30,7 @@
     @if(Auth::check() && Auth::user()->admin)
 
         <a href="/users" class="text-lg font-semibold py-2 px-4">
-            Administracion
+            ADMINISTRACIÓN
         </a>
     @endif
 
