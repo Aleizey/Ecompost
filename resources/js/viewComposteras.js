@@ -301,7 +301,7 @@ export function rutaComposteras() {
     <div class="bg-white w-full h-full">
         <div class="p-6 w-full h-full flex flex-col items-center justify-between">
             <div>
-               <h2 class="text-lg font-semibold text-gray-800">Compostera ${compostera.id} </h2>
+                <h2 class="text-lg font-semibold text-gray-800">Compostera ${compostera.id} </h2>
             </div>
             <div class="main-modal${compostera.id}">
                 <p class="mt-4 text-sm text-gray-600">
