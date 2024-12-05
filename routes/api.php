@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\v1\RegistroRegistrosAntesController;
 use App\Http\Controllers\Api\v1\RegistroRegistrosDespuesController;
 use App\Http\Controllers\Api\v1\RegistroRegistrosDuranteController;
 // Relations simples
+use App\Http\Controllers\Api\v1\UserController;
 use App\Http\Controllers\Api\v1\CicloController;
 use App\Http\Controllers\Api\v1\BoloController;
 use App\Http\Controllers\Api\v1\CentroController;
@@ -22,6 +23,7 @@ use Orion\Facades\Orion;
 
 Route::group(['as' => 'api.'], function () {
     // Todas las tablas (sin cambios)
+    Orion::resource('users', UserController::class);
     Orion::resource('centros', CentroController::class);
     Orion::resource('ciclos', CicloController::class);
     Orion::resource('bolos', BoloController::class);

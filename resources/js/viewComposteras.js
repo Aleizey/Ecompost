@@ -105,17 +105,17 @@ export function rutaComposteras() {
             </div>
         </div>
         
-        <div id="modal${compostera.id}" class="absolute inset-0 z-50 items-center justify-center bg-black bg-opacity-50 hidden">
-            <div class="bg-white w-full h-full">
-                <div class="p-6 w-full h-full flex flex-col items-center justify-between">
-                    <div>
-                        h2 class="text-lg font-semibold text-gray-800">Compostera ${compostera.id}</h2>
-                    </div>
-                    <div class="main-modal${compostera.id}">
-                        <p class="mt-4 text-sm text-gray-600">
-                        </p>
-                    </div>
-                <div class="mt-6 flex justify-end">
+<div id="modal${compostera.id}" class="absolute inset-0 z-50 items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white w-full h-full">
+        <div class="p-6 w-full h-full flex flex-col items-center justify-between">
+            <div>
+               <h2 class="text-lg font-semibold text-gray-800">Compostera ${compostera.id} </h2>
+            </div>
+            <div class="main-modal${compostera.id}">
+                <p class="mt-4 text-sm text-gray-600">
+                </p>
+            </div>
+            <div class="mt-6 flex justify-end">
                 <button 
                     id="closeModal${compostera.id}" 
                     type="button" 

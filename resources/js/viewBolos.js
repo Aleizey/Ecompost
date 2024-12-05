@@ -19,11 +19,11 @@ export async function consultaApiBolosCiclos(id = null, resource1, resource2 = n
 
     if (id === null && resource2 === null) {
         url = `http://ecompost.test/api/${resource1}`;
-    }
-    else if (resource2 === null) {
+
+    } else if (id && resource2 === null) {
         url = `http://ecompost.test/api/${resource1}/${id}`;
-    }
-    else {
+
+    } else if (id && resource1 && resource2) {
         url = `http://ecompost.test/api/${resource1}/${id}/${resource2}`;
     }
 
@@ -78,11 +78,12 @@ export async function rutaBolos() {
     const bolosData = JSON.parse(localStorage.getItem('bolosCiclos_bolos_general'));
     const contMain = document.createElement("main");
     contMain.classList.add("w-full", "p-12", "mt-5", "grid", "grid-cols-4", "gap-4");
-
+  
     console.log(bolosData);
     //Dibujando los BOLOS
     bolosData.forEach(bolo => {
         Xcontent.innerHTML = "";
+
         const boloCont = document.createElement("div");
         boloCont.classList.add("w-full", "flex", "justify-center", "mb-12");
 
