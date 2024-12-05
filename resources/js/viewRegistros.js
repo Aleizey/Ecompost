@@ -69,7 +69,8 @@ export async function rutaRegistros() {
   const contMain = document.createElement("main");
   contMain.classList.add("w-full", "p-12", "mt-5");
 
-  arrayElementRegistros.map(async registro => {
+  console.log(arrayElementRegistros)
+  arrayElementRegistros.forEach(async registro => {
 
     Xcontent.innerHTML = "";
 
@@ -192,7 +193,7 @@ export async function rutaRegistros() {
 window.addEventListener('hashchange', () => {
   const hash = window.location.hash;
   if (hash === '#registros') {
-    window.location.reload();
+    // window.location.reload();
     rutaRegistros();
   }
 });

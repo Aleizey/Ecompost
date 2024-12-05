@@ -54,16 +54,18 @@ export async function consultaApiBolosCiclos(id = null, resource1, resource2 = n
         arrayElementBolos = datos;
 
         // Generamos una clave única para el localStorage
-        const claveLocalStorage = `bolosCiclos_${resource1}_${id || 'general'}`;
+        if (resource1 === "bolos") {
+            const claveLocalStorage = `bolosCiclos_${resource1}_${id || 'general'}`;
 
-        // Verificamos si el contenido ya está guardado
-        const contenidoGuardado = localStorage.getItem(claveLocalStorage);
-        if (!contenidoGuardado) {
-            // Guardar solo si no existe
-            localStorage.setItem(claveLocalStorage, JSON.stringify(datos));
-            console.log("Contenido guardado en localStorage.");
-        } else {
-            console.log("El contenido ya está guardado en localStorage.");
+            // Verificamos si el contenido ya está guardado
+            const contenidoGuardado = localStorage.getItem(claveLocalStorage);
+            if (!contenidoGuardado) {
+                // Guardar solo si no existe
+                localStorage.setItem(claveLocalStorage, JSON.stringify(datos));
+                console.log("Contenido guardado en localStorage.");
+            } else {
+                console.log("El contenido ya está guardado en localStorage.");
+            }
         }
 
         return datos;

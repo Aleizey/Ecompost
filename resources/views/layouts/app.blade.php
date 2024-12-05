@@ -28,7 +28,7 @@
         <div class="h-screen  flex flex-col">
             <!-- bg-[#e2e8f0] -->
             <!-- Header -->
-            <header class="h-[10vh] w-full flex items-center justify-between p-2 text-black bg-white shadow-lg">
+            <header class="h-[10vh] w-full flex items-center justify-between p-2 text-black bg-white shadow-lg z-20">
                 <!-- Imagen a la izquierda -->
 
                 <div class="ml-8 flex items-center justify-center shrink-0 h-16 w-16">
@@ -71,10 +71,6 @@
 
             </div>
 
-
-            <footer class="h-[10vh] w-full text-center p-2  text-white">
-                <p class="text-sm">nuestra información</p>
-            </footer>
         </div>
     </div>
 
