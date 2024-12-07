@@ -428,44 +428,44 @@ async function InCompostera(compostId) {
                 mainModal.appendChild(formbolo);
                 mainModal.appendChild(startBolo);
 
-            } 
 
-            startBolo.addEventListener("click", async () => {
 
-                const nameBolo = document.querySelector(".formbolo").value;
-                const bolo = await AnadirApisBolos(nameBolo);
+                startBolo.addEventListener("click", async () => {
 
-                formbolo.remove()
-                startBolo.remove()
+                    const nameBolo = document.querySelector(".formbolo").value;
+                    const bolo = await AnadirApisBolos(nameBolo);
 
-                startCiclo.innerHTML = `
+                    formbolo.remove()
+                    startBolo.remove()
+
+                    startCiclo.innerHTML = `
             <button id="ciclo${bolo.id}" type="submit" class="rounded-md bg-indigo-600 text-center w-full px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                 Empezar ciclo
             </button>
         `;
 
-                mainModal.appendChild(startCiclo);
+                    mainModal.appendChild(startCiclo);
 
-                startCiclo.addEventListener("click", async () => {
+                    startCiclo.addEventListener("click", async () => {
 
-                    const ciclo = await AnadirApisCiclo(bolo.id, compostId);
-                    console.log("Ciclo recibido:", ciclo);
+                        const ciclo = await AnadirApisCiclo(bolo.id, compostId);
+                        console.log("Ciclo recibido:", ciclo);
 
-                    startCiclo.remove()
+                        startCiclo.remove()
 
-                    startRegist.innerHTML = `
+                        startRegist.innerHTML = `
         <button id="ciclo${ciclo.id}" type="submit" class="rounded-md bg-indigo-600 text-center w-full px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
             Añadir registro
         </button>
         `;
-                    mainModal.appendChild(startRegist);
+                        mainModal.appendChild(startRegist);
 
-                    startRegist.addEventListener("click", async () => {
+                        startRegist.addEventListener("click", async () => {
 
-                        startRegist.remove();
-                        formulario.classList.add("compostForm", "w-full");
+                            startRegist.remove();
+                            formulario.classList.add("compostForm", "w-full");
 
-                        formulario.innerHTML = `
+                            formulario.innerHTML = `
                     <h2>Registro Antes</h2>
         <label>Temperatura Ambiente:</label>
         <input type="number" step="0.1" id="tempAmb" required><br>
@@ -548,100 +548,100 @@ async function InCompostera(compostId) {
             Enviar 
             </button>`;
 
-                        mainModal.appendChild(formulario);
+                            mainModal.appendChild(formulario);
 
-                        const botonFormulario = document.querySelector(`#registro${ciclo.id}`);
-                        botonFormulario.addEventListener('click', async () => {
-                            botonFormulario.remove()
-                            modal.classList.add("hidden");
+                            const botonFormulario = document.querySelector(`#registro${ciclo.id}`);
+                            botonFormulario.addEventListener('click', async () => {
+                                botonFormulario.remove()
+                                modal.classList.add("hidden");
 
-                            // crear registro
-                            const registro = await AnadirApisRegistro(ciclo.id, compostId, user);
-                            console.log("registro recibido:", registro);
+                                // crear registro
+                                const registro = await AnadirApisRegistro(ciclo.id, compostId, user);
+                                console.log("registro recibido:", registro);
 
-                            if (registro) {
+                                if (registro) {
 
-                                // (FALTA CAMBIAR LA LOGICA PARA QUE SEA  CON DATOS DE FORMULARIO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)
-                                // /////////////////////////////////////////////////////////////////////////////////////////////
-                                // /////////////////////////////////////////////////////////////////////////////////////////////
+                                    // (FALTA CAMBIAR LA LOGICA PARA QUE SEA  CON DATOS DE FORMULARIO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)
+                                    // /////////////////////////////////////////////////////////////////////////////////////////////
+                                    // /////////////////////////////////////////////////////////////////////////////////////////////
 
-                                // crear registro antes
+                                    // crear registro antes
 
-                                const formulario = {
-                                    registroAntes: {
-                                        temperaturaAmbiente: parseFloat(document.getElementById('tempAmb').value),
-                                        temperaturaCompostera: parseFloat(document.getElementById('tempCompost').value),
-                                        humedad: document.getElementById('humedad').value,
-                                        olor: document.getElementById('olor').value,
-                                        presenciaInsectos: document.getElementById('insectos').checked,
-                                        fotografiasIniciales: document.getElementById('fotoAntes').value || "fotoAntes.jpg",
-                                        observacionesIniciales: document.getElementById('observAntes').value || "Sin observaciones.",
-                                        llenadoInicial: parseFloat(document.getElementById('llenadoInicial').value)
-                                    },
-                                    registroDurante: {
-                                        riego: document.getElementById('riego').checked,
-                                        revolver: document.getElementById('revolver').checked,
-                                        litrosVerde: parseInt(document.getElementById('litroVerde').value, 10),
-                                        tipoAporteVerde: document.getElementById('tipoVerde').value,
-                                        aporteSeco: parseInt(document.getElementById('aporteSeco').value, 10),
-                                        tipoAporteSeco: document.getElementById('tipoSeco').value,
-                                        fotografiasDurante: document.getElementById('fotoDurante').value || "fotoDurante.jpg",
-                                        observacionesDurante: document.getElementById('observDurante').value || "Sin observaciones."
-                                    },
-                                    registroDespues: {
-                                        nivelLlenadoFinal: parseFloat(document.getElementById('llenadoFinal').value),
-                                        fotografiasFinal: document.getElementById('fotoDespues').value || "fotoDespues.jpg",
-                                        observacionesFinal: document.getElementById('observDespues').value || "Sin observaciones."
-                                    }
-                                };
+                                    const formulario = {
+                                        registroAntes: {
+                                            temperaturaAmbiente: parseFloat(document.getElementById('tempAmb').value),
+                                            temperaturaCompostera: parseFloat(document.getElementById('tempCompost').value),
+                                            humedad: document.getElementById('humedad').value,
+                                            olor: document.getElementById('olor').value,
+                                            presenciaInsectos: document.getElementById('insectos').checked,
+                                            fotografiasIniciales: document.getElementById('fotoAntes').value || "fotoAntes.jpg",
+                                            observacionesIniciales: document.getElementById('observAntes').value || "Sin observaciones.",
+                                            llenadoInicial: parseFloat(document.getElementById('llenadoInicial').value)
+                                        },
+                                        registroDurante: {
+                                            riego: document.getElementById('riego').checked,
+                                            revolver: document.getElementById('revolver').checked,
+                                            litrosVerde: parseInt(document.getElementById('litroVerde').value, 10),
+                                            tipoAporteVerde: document.getElementById('tipoVerde').value,
+                                            aporteSeco: parseInt(document.getElementById('aporteSeco').value, 10),
+                                            tipoAporteSeco: document.getElementById('tipoSeco').value,
+                                            fotografiasDurante: document.getElementById('fotoDurante').value || "fotoDurante.jpg",
+                                            observacionesDurante: document.getElementById('observDurante').value || "Sin observaciones."
+                                        },
+                                        registroDespues: {
+                                            nivelLlenadoFinal: parseFloat(document.getElementById('llenadoFinal').value),
+                                            fotografiasFinal: document.getElementById('fotoDespues').value || "fotoDespues.jpg",
+                                            observacionesFinal: document.getElementById('observDespues').value || "Sin observaciones."
+                                        }
+                                    };
 
-                                const registroAntes = await AnadirApisRegistroAntes(
-                                    registro.id,
-                                    formulario.registroAntes.temperaturaAmbiente,
-                                    formulario.registroAntes.temperaturaCompostera,
-                                    formulario.registroAntes.humedad,
-                                    formulario.registroAntes.olor,
-                                    formulario.registroAntes.presenciaInsectos,
-                                    formulario.registroAntes.fotografiasIniciales,
-                                    formulario.registroAntes.observacionesIniciales,
-                                    formulario.registroAntes.llenadoInicial
-                                );
-                                const registroDurante = await AnadirApisRegistroDurante(
-                                    registro.id,
-                                    formulario.registroDurante.riego,
-                                    formulario.registroDurante.revolver,
-                                    formulario.registroDurante.litrosVerde,
-                                    formulario.registroDurante.tipoAporteVerde,
-                                    formulario.registroDurante.aporteSeco,
-                                    formulario.registroDurante.tipoAporteSeco,
-                                    formulario.registroDurante.fotografiasDurante,
-                                    formulario.registroDurante.observacionesDurante
-                                );
-                                const registroDespues = await AnadirApisRegistroDespues(
-                                    registro.id,
-                                    formulario.registroDespues.nivelLlenadoFinal,
-                                    formulario.registroDespues.fotografiasFinal,
-                                    formulario.registroDespues.observacionesFinal
-                                );
+                                    const registroAntes = await AnadirApisRegistroAntes(
+                                        registro.id,
+                                        formulario.registroAntes.temperaturaAmbiente,
+                                        formulario.registroAntes.temperaturaCompostera,
+                                        formulario.registroAntes.humedad,
+                                        formulario.registroAntes.olor,
+                                        formulario.registroAntes.presenciaInsectos,
+                                        formulario.registroAntes.fotografiasIniciales,
+                                        formulario.registroAntes.observacionesIniciales,
+                                        formulario.registroAntes.llenadoInicial
+                                    );
+                                    const registroDurante = await AnadirApisRegistroDurante(
+                                        registro.id,
+                                        formulario.registroDurante.riego,
+                                        formulario.registroDurante.revolver,
+                                        formulario.registroDurante.litrosVerde,
+                                        formulario.registroDurante.tipoAporteVerde,
+                                        formulario.registroDurante.aporteSeco,
+                                        formulario.registroDurante.tipoAporteSeco,
+                                        formulario.registroDurante.fotografiasDurante,
+                                        formulario.registroDurante.observacionesDurante
+                                    );
+                                    const registroDespues = await AnadirApisRegistroDespues(
+                                        registro.id,
+                                        formulario.registroDespues.nivelLlenadoFinal,
+                                        formulario.registroDespues.fotografiasFinal,
+                                        formulario.registroDespues.observacionesFinal
+                                    );
 
-                                console.log(
-                                    "Registro antes:", registroAntes,
-                                    "Registro Durante:", registroDurante,
-                                    "Registro despues:", registroDespues
-                                );
-                                // /////////////////////////////////////////////////////////////////////////////////////////////
-                                // /////////////////////////////////////////////////////////////////////////////////////////////
-                                // (FIN FALTA CAMBIAR LA LOGICA PARA QUE SEA  CON DATOS DE FORMULARIO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)
+                                    console.log(
+                                        "Registro antes:", registroAntes,
+                                        "Registro Durante:", registroDurante,
+                                        "Registro despues:", registroDespues
+                                    );
+                                    // /////////////////////////////////////////////////////////////////////////////////////////////
+                                    // /////////////////////////////////////////////////////////////////////////////////////////////
+                                    // (FIN FALTA CAMBIAR LA LOGICA PARA QUE SEA  CON DATOS DE FORMULARIO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)
 
-                            } else {
+                                } else {
 
-                                console.log("No existen Registro")
-                            }
+                                    console.log("No existen Registro")
+                                }
+                            });
                         });
                     });
                 });
-            });
-
+            }
         }
         else if (compostId.id === 2) {
 
