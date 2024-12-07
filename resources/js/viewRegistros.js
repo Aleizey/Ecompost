@@ -39,7 +39,7 @@ async function consultaApisViewRegistro(id = null, resource1, resource2 = null) 
                 'Authorization': `Bearer ${token}`,
             },
         });
-
+      
         if (!resultadoEnBruto.ok) {
             if (resultadoEnBruto.status === 401) {
                 logout(); // Manejar expiración de token o no autorizado.

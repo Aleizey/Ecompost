@@ -1,3 +1,32 @@
+.pantallaCarga {
+
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(255, 255, 255);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pantallaCarga > div {
+
+    width: 100px ! important;
+    height: 100px ! important;
+    flex-shrink: 0 ! important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden-xl {
+
+    display: none !important;
+    background-color: #00ffbb;
+    border-radius: 50px !important;
+}
+
 
 .nav-app {
     background-color:#0c3227;
