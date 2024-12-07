@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Models\Registro;
 use Illuminate\Http\Request;
 use Orion\Concerns\DisableAuthorization;
+use Orion\Concerns\DisablePagination;
 use Orion\Http\Controllers\RelationController;
 
 class RegistroRegistrosDuranteController extends RelationController
@@ -16,6 +17,7 @@ class RegistroRegistrosDuranteController extends RelationController
      */
 
     //  use DisableAuthorization;
+    use DisablePagination;
 
      protected $model = Registro::class;
  
