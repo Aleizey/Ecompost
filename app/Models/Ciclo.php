@@ -27,9 +27,10 @@ class Ciclo extends Model
         return $this->BelongsTo(Compostera::class, 'compostera_id', 'id');
     }
 
-    public function bolos(): BelongsTo
+    public function bolo()
     {
-        return $this->BelongsTo(Bolo::class, 'bolo_id', 'id');
+        return $this->belongsTo(Bolo::class, 'bolo_id', 'id'); 
     }
+
 
 }

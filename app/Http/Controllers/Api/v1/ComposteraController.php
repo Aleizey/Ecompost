@@ -17,4 +17,6 @@ class ComposteraController extends Controller
     // use DisableAuthorization;
     use DisablePagination;
     protected $model = Compostera::class;
+
+
 }
