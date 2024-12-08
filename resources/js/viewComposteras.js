@@ -730,9 +730,181 @@ export async function composteraOcupada(id) {
         if (agregarRegistroButton) {
             agregarRegistroButton.addEventListener("click", async () => {
                 try {
-                    const registro = await AgregarRegistro(id);
-                    console.log("Registro agregado:", registro);
-                    modal.classList.add("hidden");
+
+                    window.history.replaceState(null, '', `/#FormularioCiclo${cicloActualID}`);
+
+                    Xcontent.innerHTML = "";
+
+                    contMain.innerHTML = `<h2>Registro Antes</h2>
+        <label>Temperatura Ambiente:</label>
+        <input type="number" step="0.1" id="tempAmb" required><br>
+        
+        <label>Temperatura Compostera:</label>
+        <input type="number" step="0.1" id="tempCompost" required><br>
+        
+        <label>Humedad:</label>
+        <select id="humedad" required>
+            <option value="Exceso">Exceso</option>
+            <option value="Buena">Buena</option>
+            <option value="Defecto">Defecto</option>
+        </select><br>
+        
+        <label>Olor:</label>
+        <select id="olor" required>
+            <option value="Podrido">Podrido</option>
+            <option value="Sin olor malo">Sin olor malo</option>
+            <option value="Sin olor">Sin olor</option>
+            <option value="Con olor bueno">Con olor bueno</option>
+            <option value="Aromatico">Aromático</option>
+        </select><br>
+        
+        <label>Presencia de Insectos:</label>
+        <input type="checkbox" id="insectos"><br>
+        
+        <label>Fotografía Inicial:</label>
+        <input type="text" id="fotoAntes" placeholder="Nombre del archivo"><br>
+        
+        <label>Observaciones Iniciales:</label>
+        <textarea id="observAntes"></textarea><br>
+        
+        <label>Llenado Inicial:</label>
+        <input type="number" step="0.1" id="llenadoInicial" required><br>
+        
+        <h2>Registro Durante</h2>
+        <label>Riego:</label>
+        <input type="checkbox" id="riego"><br>
+        
+        <label>Revolver:</label>
+        <input type="checkbox" id="revolver"><br>
+        
+        <label>Litros Verde:</label>
+        <input type="number" step="1" id="litroVerde" required><br>
+        
+        <label>Tipo Aporte Verde:</label>
+        <select id="tipoVerde" required>
+            <option value="Hojas verdes">Hojas verdes</option>
+            <option value="Residuos orgánicos">Residuos orgánicos</option>
+            <option value="Pasto fresco">Pasto fresco</option>
+        </select><br>
+        
+        <label>Aporte Seco:</label>
+        <input type="number" step="1" id="aporteSeco" required><br>
+        
+        <label>Tipo Aporte Seco:</label>
+        <select id="tipoSeco" required>
+            <option value="Paja">Paja</option>
+            <option value="Cartón">Cartón</option>
+            <option value="Serrín">Serrín</option>
+        </select><br>
+        
+        <label>Fotografía Durante:</label>
+        <input type="text" id="fotoDurante" placeholder="Nombre del archivo"><br>
+        
+        <label>Observaciones Durante:</label>
+        <textarea id="observDurante"></textarea><br>
+        
+        <h2>Registro Después</h2>
+        <label>Nivel de Llenado Final:</label>
+        <input type="number" step="0.1" id="llenadoFinal" required><br>
+        
+        <label>Fotografía Final:</label>
+        <input type="text" id="fotoDespues" placeholder="Nombre del archivo"><br>
+        
+        <label>Observaciones Finales:</label>
+        <textarea id="observDespues"></textarea><br>
+        
+            <button id="registro${cicloActualID}" type="submit" class="rounded-md bg-indigo-600 text-center w-full px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            Enviar 
+            </button>`;
+
+                    Xcontent.appendChild(contMain);
+                    console.log("HOLAAAAAAAAAA")
+
+                    const botonFormulario = document.querySelector(`#registro${cicloActualID}`);
+                    botonFormulario.addEventListener('click', async () => {
+                        botonFormulario.remove()
+
+                        // crear registro
+                        const registro = await AnadirApisRegistro(cicloActualID, id, user);
+                        console.log("Registro agregado:", registro);
+
+                        if (registro) {
+
+                            // crear registro antes
+
+                            const formulario = {
+                                registroAntes: {
+                                    temperaturaAmbiente: parseFloat(document.getElementById('tempAmb').value),
+                                    temperaturaCompostera: parseFloat(document.getElementById('tempCompost').value),
+                                    humedad: document.getElementById('humedad').value,
+                                    olor: document.getElementById('olor').value,
+                                    presenciaInsectos: document.getElementById('insectos').checked,
+                                    fotografiasIniciales: document.getElementById('fotoAntes').value || "fotoAntes.jpg",
+                                    observacionesIniciales: document.getElementById('observAntes').value || "Sin observaciones.",
+                                    llenadoInicial: parseFloat(document.getElementById('llenadoInicial').value)
+                                },
+                                registroDurante: {
+                                    riego: document.getElementById('riego').checked,
+                                    revolver: document.getElementById('revolver').checked,
+                                    litrosVerde: parseInt(document.getElementById('litroVerde').value, 10),
+                                    tipoAporteVerde: document.getElementById('tipoVerde').value,
+                                    aporteSeco: parseInt(document.getElementById('aporteSeco').value, 10),
+                                    tipoAporteSeco: document.getElementById('tipoSeco').value,
+                                    fotografiasDurante: document.getElementById('fotoDurante').value || "fotoDurante.jpg",
+                                    observacionesDurante: document.getElementById('observDurante').value || "Sin observaciones."
+                                },
+                                registroDespues: {
+                                    nivelLlenadoFinal: parseFloat(document.getElementById('llenadoFinal').value),
+                                    fotografiasFinal: document.getElementById('fotoDespues').value || "fotoDespues.jpg",
+                                    observacionesFinal: document.getElementById('observDespues').value || "Sin observaciones."
+                                }
+                            };
+
+                            const registroAntes = await AnadirApisRegistroAntes(
+                                registro.id,
+                                formulario.registroAntes.temperaturaAmbiente,
+                                formulario.registroAntes.temperaturaCompostera,
+                                formulario.registroAntes.humedad,
+                                formulario.registroAntes.olor,
+                                formulario.registroAntes.presenciaInsectos,
+                                formulario.registroAntes.fotografiasIniciales,
+                                formulario.registroAntes.observacionesIniciales,
+                                formulario.registroAntes.llenadoInicial
+                            );
+                            const registroDurante = await AnadirApisRegistroDurante(
+                                registro.id,
+                                formulario.registroDurante.riego,
+                                formulario.registroDurante.revolver,
+                                formulario.registroDurante.litrosVerde,
+                                formulario.registroDurante.tipoAporteVerde,
+                                formulario.registroDurante.aporteSeco,
+                                formulario.registroDurante.tipoAporteSeco,
+                                formulario.registroDurante.fotografiasDurante,
+                                formulario.registroDurante.observacionesDurante
+                            );
+                            const registroDespues = await AnadirApisRegistroDespues(
+                                registro.id,
+                                formulario.registroDespues.nivelLlenadoFinal,
+                                formulario.registroDespues.fotografiasFinal,
+                                formulario.registroDespues.observacionesFinal
+                            );
+
+                            console.log(
+                                "Registro antes:", registroAntes,
+                                "Registro Durante:", registroDurante,
+                                "Registro despues:", registroDespues
+                            );
+
+                            window.history.replaceState(null, '', `/#compostera`);
+                            rutaComposteras();
+
+                        } else {
+
+                            console.log("No existen Registro")
+                        }
+
+                    });
+
                 } catch (error) {
                     console.error("Error al agregar registro:", error);
                 }
