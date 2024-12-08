@@ -2,6 +2,7 @@
 import { rutaBolos } from "./viewBolos.js";
 import { rutaAllBolos } from "./viewBolos.js";
 import { rutaComposteras } from "./viewComposteras.js";
+import { composteraOcupada } from "./viewComposteras.js";
 import { rutaRegistros } from "./viewRegistros.js";
 import { rutaInformacion } from "./viewInformacion.js";
 // ...
@@ -28,6 +29,12 @@ async function routes() {
         // Extraer el ID dinámico del hash
         const id = hash.replace('#boloCiclos', '').trim();
         rutaAllBolos(id);
+
+    } else if (hash.startsWith('#datosCompostera')) {
+        // Extraer el ID dinámico del hash
+        const id = hash.replace('#datosCompostera', '').trim();
+        composteraOcupada(id);
+
 
     } else {
         switch (hash) {
