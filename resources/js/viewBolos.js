@@ -154,7 +154,7 @@ export async function rutaAllBolos(id) {
                 <p>Id ciclo :${ciclo.id}</p>
                 <p>Bolo :${ciclo.bolo_id}</p>
                 <p>Fecha Inicio :${ciclo.fecha_inicio}</p>
-                <p>Fecha Final :${ciclo.fecha_final ? "activo" : "inactivo"}</p>
+                <p>Fecha Final :${ciclo.fecha_final}</p>
             </div>`;
 
         contMain.appendChild(cicloCont);

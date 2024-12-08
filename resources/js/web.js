@@ -35,7 +35,6 @@ async function routes() {
         const id = hash.replace('#datosCompostera', '').trim();
         composteraOcupada(id);
 
-
     } else {
         switch (hash) {
             case '#bolos':
