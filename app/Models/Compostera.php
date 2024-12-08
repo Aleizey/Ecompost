@@ -12,6 +12,7 @@ class Compostera extends Model
     protected $fillable = [
         'tipo',
         'imagen',
+        'ocupado',
     ];
     
     public function registros(): HasMany
@@ -21,9 +22,9 @@ class Compostera extends Model
 
     public function ciclos(): HasMany
     {
-        return $this->hasMany(Ciclo::class);
+        return $this->hasMany(Ciclo::class, 'compostera_id'); 
     }
-
+    
     public function centros(): BelongsTo
     {
         return $this->belongsTo(Centro::class , 'centro_id', 'id');

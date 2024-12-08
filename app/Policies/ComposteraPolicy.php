@@ -41,7 +41,7 @@ class ComposteraPolicy
     public function update(User $user, Compostera $compostera): bool
     {
         //
-        return false;
+        return true;
     }
 
     /**
