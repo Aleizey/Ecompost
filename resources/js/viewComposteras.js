@@ -147,7 +147,7 @@ async function actualizarApisCopost(idCompostera, data) {
 // Añadir falta refactorizar el codigo en una o pocas funciones 
 
 //Comienzan de las funciones de agregar contenido.
-async function AnadirApisBolos(nombre) {
+async function AnadirApisBolos(nombre, desc) {
 
     const url = "http://ecompost.test/api/bolos";
 
@@ -169,7 +169,7 @@ async function AnadirApisBolos(nombre) {
                 "nombre": nombre,
                 "fecha_inicio": "2023-02-22 00:00:00",
                 "fecha_final": null,
-                "comentario": null,
+                "comentario": desc,
                 "imagen": null,
                 "finalizado": 0,
 
@@ -437,68 +437,64 @@ export async function rutaComposteras() {
         Xcontent.innerHTML = "";
 
         const contenedor = document.createElement("div");
-        contenedor.classList.add("w-full", "flex", "justify-center", "align-center", "mb-12", "overflow-x-auto");
+        contenedor.classList.add("w-full", "flex", "justify-center", "align-center", "mb-12");
         contenedor.innerHTML = `
-        <div class="overflow-x-auto">
-            <table class="table-auto border-collapse border border-gray-300 w-full text-sm text-left">
-                <thead class="bg-white text-gray-700 uppercase">
-                    <tr>
-                        <th class="border border-gray-300 px-4 py-2">Campo</th>
-                        <th class="border border-gray-300 px-4 py-2">Compostera</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white">
-                    <tr>
-                        <td class="border border-gray-300 px-4 py-2">Centro ID</td>
-                        <td class="border border-gray-300 px-4 py-2">${compostera.centro_id}</td>
-                    </tr>
-                    <tr>
-                        <td class="border border-gray-300 px-4 py-2">Created At</td>
-                        <td class="border border-gray-300 px-4 py-2">${compostera.created_at}</td>
-                    </tr>
-                    <tr>
-                        <td class="border border-gray-300 px-4 py-2">ID</td>
-                        <td class="border border-gray-300 px-4 py-2">${compostera.id}</td>
-                    </tr>
-                    <tr>
-                        <td class="border border-gray-300 px-4 py-2">Imagen</td>
-                        <td class="border border-gray-300 px-4 py-2">${compostera.imagen !== null ? compostera.imagen : "No disponible"}</td>
-                    </tr>
-                    <tr>
-                        <td class="border border-gray-300 px-4 py-2">Tipo</td>
-                        <td class="border border-gray-300 px-4 py-2">${compostera.tipo}</td>
-                    </tr>
-                    <tr>
-                        <td class="border border-gray-300 px-4 py-2">Updated At</td>
-                        <td class="border border-gray-300 px-4 py-2">${compostera.updated_at}</td>
-                    </tr>
-                    <tr>
-                        <td class="border border-gray-300 px-4 py-2">Estado</td>
-                        <td class="border border-gray-300 px-4 py-2">${compostera.ocupado ? "ocupado" : "libre"}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="mt-6">
-                <button id="openModal${compostera.id}" type="submit"class="rounded-md bg-indigo-600 text-center w-full px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Iniciar</button>
+            <div class="content-compost ">
+                <div id="openModal${compostera.id}" class="compost ${compostera.ocupado ? "" : "oscurecer"} color-compost${compostera.id}">
+                    <div class="compostaje"></div>
+                </div>
+                <div class="text-compost">
+                    Compostera ${compostera.id}
+                </div>
+                <div class="element-compost">
+                    <div class="${compostera.ocupado ? "in-active" : "active"}">
+
+                    ${compostera.ocupado ?
+
+                `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                         </svg>`
+                :
+                `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                         stroke="currentColor" class="">
+                         <path stroke-linecap="round" stroke-linejoin="round"
+                             d="M13.5 10.5V6.75a4.5 4.5 0 1 1 9 0v3.75M3.75 21.75h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H3.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                     </svg>`
+            }                    
+
+                    </div>
+                    <div class="type">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z" />
+                        </svg>
+                    </div>
+                </div>
             </div>
         </div>
         
     <div id="modal${compostera.id}" class="absolute inset-0 z-50 items-center justify-center bg-black bg-opacity-50 hidden">
-        <div class="bg-white w-full h-full">
-            <div class="p-6 w-full h-full flex flex-col items-center justify-between">
+        <div class=" fondo-modal w-full h-full flex justify-center items-center">
+            <div class="bg-white modal-content p-6 flex flex-col items-center justify-between">
                 <div>
-                    <h2 class="text-lg font-semibold text-gray-800">Compostera ${compostera.id} </h2>
+                    <h2 class="text-lg text-gray-800 font-bold">Compostera ${compostera.id} </h2>
                 </div>
-                <div class="main-modal${compostera.id}">
+                <div class="w-full main-modal${compostera.id}">
                     <p class="mt-4 text-sm text-gray-600">
                     </p>
                 </div>
-                <div class="mt-6 flex justify-end">
+                <div class="mt-6 w-full flex justify-end">
                     <button 
                         id="closeModal${compostera.id}" 
                         type="button" 
-                        class="rounded-md bg-red-600 w-full px-4 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">
-                        Cerrar
+                        class="rounded-full p-2 text-center text-sm font-semibold bg-white text-white  hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-black">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+</svg>
+
                     </button>
                 </div>
             </div>
@@ -539,17 +535,24 @@ async function InCompostera(compostId, compostOcupado) {
             modal.classList.remove("hidden");
             // Mostrar formulario para crear un bolo
             formbolo.innerHTML = `
-                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div class="sm:col-span-3">
-                        <label for="first-name" class="block text-sm/6 font-medium text-gray-900">Nombre del Bolo</label>
-                        <div class="mt-2">
-                            <input type="text" name="bolo-name" id="bolo-name" class="formbolo block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                <div class="modal-w">
+                    <div class="sm:col-span-3 mb-2">
+                        <label for="bolo-name" class="block text-sm/10 font-medium text-start text-gray-900">Nombre del Bolo</label>
+                        <div class="mt-2 w-screen">
+                            <input type="text" name="bolo-name" id="bolo-name" class="formbolo block w-full rounded-md bg-gray-100 px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                         </div>
                     </div>
+
+        <div class="w-full col-span-full">
+                        <label for="desc-bolo" class="block text-sm/10 font-medium text-start text-gray-900">Descripcion</label>
+          <div class="mt-2">
+            <textarea name="bolo-desc" id="bolo-desc" rows="3" class="block w-full rounded-md bg-gray-100 px-3 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></textarea>
+          </div>
+        </div>
                 </div>`;
 
             startBolo.innerHTML = `
-                <button id="createBolo${compostId}" type="submit" class="rounded-md bg-indigo-600 text-center w-full px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                <button id="createBolo${compostId}" type="submit" class="mt-2 rounded-md bg-green-600 text-center w-full px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
                     Crear Bolo
                 </button>`;
 
@@ -562,10 +565,14 @@ async function InCompostera(compostId, compostOcupado) {
                     const nameBolo = document.querySelector("#bolo-name").value;
                     console.log("Nombre del bolo:", nameBolo);
 
+                    const descBolo = document.querySelector("#bolo-desc").value;
+                    console.log("Desc del bolo:", nameBolo);
+
                     // Crear el bolo
-                    const bolo = await AnadirApisBolos(nameBolo);
+                    const bolo = await AnadirApisBolos(nameBolo, descBolo);
                     console.log("Bolo creado:", bolo);
 
+                    modal.classList.add("hidden");
                     formbolo.remove();
                     startBolo.remove();
 
@@ -602,6 +609,7 @@ async function InCompostera(compostId, compostOcupado) {
 export async function composteraOcupada(id) {
 
     const contMain = document.createElement("main");
+    contMain.classList = `w-full`;
     Xcontent.innerHTML = "";  // Limpiar el contenido anterior
 
     const composteraActual = await siguienteCompostera(id);
@@ -629,19 +637,160 @@ export async function composteraOcupada(id) {
         const composteraSiguiente = await siguienteCompostera(siguienteComposteraId);
         console.log("siguienteComposteraId:", composteraSiguiente);
 
-        // Mostrar los botones para terminar ciclo y agregar registro
-        contMain.innerHTML = `
-        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <button id="terminarCiclo" class="rounded-md bg-red-600 text-center w-full px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
-                Terminar Ciclo
-            </button>
-            <button id="agregarRegistro" class="rounded-md bg-green-600 text-center w-full px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 mt-4">
-                Agregar Registro
-            </button>
-        </div>`;
+        const addEndCiclo = document.createElement("div")
+        addEndCiclo.classList = "add-end-ciclo p-5 flex flex-row justify-between";
 
+        addEndCiclo.innerHTML = `
+        <div class="title">
+        <h1>Compostera - ${id}</h1>
+        </div>
+
+        <div>
+            <button id="terminarCiclo" class="">
+            <div class="flex flex-row justify-between">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+</svg>
+                <p>Terminar Ciclo</p>
+                </div>
+            </button>
+            <button id="agregarRegistro" class="">
+            <div class="flex flex-row justify-between">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+</svg>
+            <p>Agregar Registro</p>
+            </div>
+            </button>
+            </div>
+        `;
+
+        const registro = await consultaApisCompost(null, 'registro', null)
+        console.log("registros :" ,registro)
+
+        registro.forEach(async registro => {
+
+            Xcontent.innerHTML = "";
+
+            if (registro.compostera_id == id) {
+                const [registosAntes, registosDurante, registosDespues] = await Promise.all([
+                    consultaApisCompost(registro.id, 'registro', 'registrosAntes'),
+                    consultaApisCompost(registro.id, 'registro', 'registrosDurante'),
+                    consultaApisCompost(registro.id, 'registro', 'registrosDespues')
+                ]);
+
+                const crearTabla = (registros, tipo) => {
+                    return registros.map(reg => {
+                        const contenedor = document.createElement("div");
+                        contenedor.classList.add("tablas-registros");
+
+                        if (tipo === 'antes') {
+                            contenedor.innerHTML = `
+                      <table class="min-w-full mt-6 table-auto border-collapse border border-gray-200">
+                        <thead class="bg-gray-500 text-white">
+                          <tr>
+                            <th class="px-4 py-2 border border-gray-300 ">Id Antes</th>
+                            <th class="px-4 py-2 border border-gray-300">Id Registro</th>
+                            <th class="px-4 py-2 border border-gray-300">Humedad</th>
+                            <th class="px-4 py-2 border border-gray-300">Observaciones Inicial</th>
+                            <th class="px-4 py-2 border border-gray-300">Temperatura Ambiente</th>
+                            <th class="px-4 py-2 border border-gray-300">Olor</th>
+                            <th class="px-4 py-2 border border-gray-300">Presencia Insectos</th>
+                            <th class="px-4 py-2 border border-gray-300">Temperatura Compostera</th>
+                            <th class="px-4 py-2 border border-gray-300">Fotografías Iniciales</th>
+                            <th class="px-4 py-2 border border-gray-300">Fecha</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="bg-white hover:bg-gray-200">
+                            <td class="px-4 py-2 border border-gray-300">${reg.id}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.registro_id}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.humedad}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.observaciones_iniciales}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.temperatura_ambiente}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.olor}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.presencia_insectos ? 'Sí' : 'No'}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.temperatura_compostera}</td>
+                            <td class="px-4 py-2 border border-gray-300"><p class="text-blue-500">${reg.fotografias_iniciales}</p></td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.fecha}</td>
+                          </tr>
+                        </tbody>
+                      </table>`;
+                        } else if (tipo === 'durante') {
+                            contenedor.innerHTML = `
+                      <table class="min-w-full table-auto border-collapse border border-gray-200">
+                        <thead class="bg-gray-500 text-white">
+                          <tr>
+                            <th class="px-4 py-2 border border-gray-300">Id Durante</th>
+                            <th class="px-4 py-2 border border-gray-300">Id Registro</th>
+                            <th class="px-4 py-2 border border-gray-300">Riego</th>
+                            <th class="px-4 py-2 border border-gray-300">Revolver</th>
+                            <th class="px-4 py-2 border border-gray-300">Litros Verde</th>
+                            <th class="px-4 py-2 border border-gray-300">Tipo de verde</th>
+                            <th class="px-4 py-2 border border-gray-300">Aporte seco</th>
+                            <th class="px-4 py-2 border border-gray-300">Tipo Seco</th>
+                            <th class="px-4 py-2 border border-gray-300">Fotografías Durante</th>
+                            <th class="px-4 py-2 border border-gray-300">Observacion</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="bg-white hover:bg-gray-200">
+                            <td class="px-4 py-2 border border-gray-300">${reg.id}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.registro_id}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.riego ? "SI" : "NO"}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.revolver ? "SI" : "NO"}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.litros_verde}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.tipo_aporte_verde}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.aporte_seco}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.tipo_aporte_seco}</td>
+                            <td class="px-4 py-2 border border-gray-300"><p class="text-blue-500">${reg.fotografias_durante}</p></td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.observaciones_durante}</td>
+                          </tr>
+                        </tbody>
+                      </table>`;
+                        } else if (tipo === 'despues') {
+                            contenedor.innerHTML = `
+                      <table class="min-w-full table-auto border-collapse border border-gray-200">
+                        <thead class="bg-gray-500 text-white">
+                          <tr>
+                            <th class="px-4 py-2 border border-gray-300">Id Despues</th>
+                            <th class="px-4 py-2 border border-gray-300">Id Registro</th>
+                            <th class="px-4 py-2 border border-gray-300">Nivel Llenado</th>
+                            <th class="px-4 py-2 border border-gray-300">Fotografías Despues</th>
+                            <th class="px-4 py-2 border border-gray-300">Observacion Final</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="bg-white hover:bg-gray-200">
+                            <td class="px-4 py-2 border border-gray-300">${reg.id}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.registro_id}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.nivel_llenado_final}</td>
+                            <td class="px-4 py-2 border border-gray-300"><p class="text-blue-500">${reg.fotografias_final}</p></td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.observaciones_final}</td>
+                          </tr>
+                        </tbody>
+                      </table>`;
+                        }
+
+                        contMain.appendChild(contenedor);
+                    });
+                };
+
+                // Crear tablas
+                crearTabla(registosAntes, 'antes');
+                crearTabla(registosDurante, 'durante');
+                crearTabla(registosDespues, 'despues');
+
+            }
+        });
+
+        // meter el contenido en el main
+        Xcontent.appendChild(contMain);
+
+        // Mostrar los botones para terminar ciclo y agregar registro
         // Añadir el contenedor con los botones al DOM
         Xcontent.appendChild(contMain);
+        contMain.appendChild(addEndCiclo);
 
         // Asegurarse de que los botones están disponibles antes de agregar los listeners
         const terminarCicloButton = document.querySelector("#terminarCiclo");
@@ -731,7 +880,7 @@ export async function composteraOcupada(id) {
             agregarRegistroButton.addEventListener("click", async () => {
                 try {
 
-                    window.history.replaceState(null, '', `/#FormularioCiclo${cicloActualID}`);
+                    window.history.replaceState(null, '', `/#FormularioCompost${id}Ciclo${cicloActualID}`);
                     formularioDeCiclos(id, cicloActualID)
 
                 } catch (error) {
@@ -1121,11 +1270,11 @@ window.addEventListener('hashchange', () => {
         rutaComposteras();
     }
 
-    else if (hash.startsWith('#datosCompostera')) {
-        const id = hash.replace('#datosCompostera', '').trim();
-        console.log(id);
-        composteraOcupada(id);
-    }
+    // else if (hash.startsWith('#datosCompostera')) {
+    //     const id = hash.replace('#datosCompostera', '').trim();
+    //     console.log(id);
+    //     composteraOcupada(id);
+    // }
 
 });
 
