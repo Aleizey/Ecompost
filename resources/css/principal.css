@@ -27,6 +27,11 @@
     border-radius: 50px !important;
 }
 
+.hidden  {
+
+    display: none ! important;
+}
+
 
 .nav-app {
     background-color:#0c3227;
@@ -283,10 +288,202 @@ transition-property: transform box-shadow color;
     color: aliceblue;
 }
 
+.registro-n {
+
+    justify-content: center;
+    position: relative;
+    align-items: center;
+}
+
+.registro-n::after{
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 7px;
+    background-color: rgb(31, 41, 55);
+}
+
+.registro-n > div  {
+
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    overflow: hidden;
+    flex-shrink: 0 ! important;
+    margin-left: 15px;
+    margin-right: 15px;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+}
+
 .formulario {
 
-    overflow-y: scroll;
-    height: 700px;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    padding-left: 150px;
+    padding-right: 150px;
+    display: flex;
+    align-items: center;
+}
+
+.boton-siguente {
+
+    width: 60%;
+    border-radius: 50px;
+    background-color: #0eaa6c;    
+    box-shadow:inset 0 0 0 rgba(0, 255, 128, 0);
+    transition-duration: 1s;
+    transition-property: box-shadow color;
+}
+
+.boton-siguente:hover{
+
+    box-shadow:inset  0 -300px 0 #ffffff;
+    color: black;
+}
+.form-antes {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient( 300deg, #0c482b 20%, #49ac79 100%);
+    padding: 40px;
+    color: rgb(255, 255, 255) ! important;
+    flex-shrink: 0 ! important;
+}
+
+.form-antes > h2 {
+
+    width: 100%;
+    font-size: 30px;
+    font-weight: bolder;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: solid 1px #ffffff;
+}
+
+.form-antes > #temp {
+
+    display: flex;
+    justify-content: space-between;
+}
+.form-antes > #temp > div {
+    width: 48%;
+}
+
+.form-antes > #temp > div > div {
+width: 100%;
+}
+
+.form-antes > #olorHumedad {
+
+    display: flex;
+    justify-content: space-between;
+}
+.form-antes > #olorHumedad > div {
+    width: 48%;
+}
+
+.form-antes > #olorHumedad > div > div {
+    width: 100%;
+}
+
+.form-durante {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient( 300deg, #0c482b 20%, #49ac79 100%);
+    padding: 40px;
+    color: rgb(255, 255, 255) ! important;
+    flex-shrink: 0 ! important;
+}
+
+.form-durante > h2 {
+
+    width: 100%;
+    font-size: 30px;
+    font-weight: bolder;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: solid 1px #ffffff;
+}
+
+.form-durante > #verde {
+
+    display: flex;
+    justify-content: space-between;
+}
+.form-durante > #verde > div {
+    width: 48%;
+}
+
+.form-durante > #verde > div > div {
+width: 100%;
+}
+
+.form-durante > #seco {
+
+    display: flex;
+    justify-content: space-between;
+}
+.form-durante > #seco > div {
+    width: 48%;
+}
+
+.form-durante > #seco > div > div {
+width: 100%;
+}
+
+.form-despues {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient( 300deg, #0c482b 20%, #49ac79 100%);
+    padding: 40px;
+    color: rgb(255, 255, 255) ! important;
+    flex-shrink: 0 ! important;
+}
+
+.form-despues > h2 {
+
+    width: 100%;
+    font-size: 30px;
+    font-weight: bolder;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: solid 1px #ffffff;
+}
+
+
+.enviar-form {
+
+    width: 60%;
+    border-radius: 50px;
+    background-color: #0eaa6c;    
+    box-shadow:inset 0 0 0 rgba(0, 255, 128, 0);
+    transition-duration: 1s;
+    transition-property: box-shadow color;
+}
+
+.enviar-form:hover{
+
+    box-shadow:inset  0 -300px 0 #ffffff;
+    color: black;
 }
 
 main {

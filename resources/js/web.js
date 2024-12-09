@@ -1,8 +1,6 @@
 // Importar las rutas
-import { rutaBolos } from "./viewBolos.js";
-import { rutaAllBolos } from "./viewBolos.js";
-import { rutaComposteras } from "./viewComposteras.js";
-import { composteraOcupada } from "./viewComposteras.js";
+import { rutaBolos, rutaAllBolos } from "./viewBolos.js";
+import { rutaComposteras, composteraOcupada } from "./viewComposteras.js";
 import { rutaRegistros } from "./viewRegistros.js";
 import { rutaInformacion } from "./viewInformacion.js";
 // ...
@@ -35,7 +33,8 @@ async function routes() {
         const id = hash.replace('#datosCompostera', '').trim();
         composteraOcupada(id);
 
-    } else {
+    }
+    else {
         switch (hash) {
             case '#bolos':
                 rutaBolos();

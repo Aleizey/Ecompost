@@ -732,178 +732,7 @@ export async function composteraOcupada(id) {
                 try {
 
                     window.history.replaceState(null, '', `/#FormularioCiclo${cicloActualID}`);
-
-                    Xcontent.innerHTML = "";
-
-                    contMain.innerHTML = `<h2>Registro Antes</h2>
-        <label>Temperatura Ambiente:</label>
-        <input type="number" step="0.1" id="tempAmb" required><br>
-        
-        <label>Temperatura Compostera:</label>
-        <input type="number" step="0.1" id="tempCompost" required><br>
-        
-        <label>Humedad:</label>
-        <select id="humedad" required>
-            <option value="Exceso">Exceso</option>
-            <option value="Buena">Buena</option>
-            <option value="Defecto">Defecto</option>
-        </select><br>
-        
-        <label>Olor:</label>
-        <select id="olor" required>
-            <option value="Podrido">Podrido</option>
-            <option value="Sin olor malo">Sin olor malo</option>
-            <option value="Sin olor">Sin olor</option>
-            <option value="Con olor bueno">Con olor bueno</option>
-            <option value="Aromatico">Aromático</option>
-        </select><br>
-        
-        <label>Presencia de Insectos:</label>
-        <input type="checkbox" id="insectos"><br>
-        
-        <label>Fotografía Inicial:</label>
-        <input type="text" id="fotoAntes" placeholder="Nombre del archivo"><br>
-        
-        <label>Observaciones Iniciales:</label>
-        <textarea id="observAntes"></textarea><br>
-        
-        <label>Llenado Inicial:</label>
-        <input type="number" step="0.1" id="llenadoInicial" required><br>
-        
-        <h2>Registro Durante</h2>
-        <label>Riego:</label>
-        <input type="checkbox" id="riego"><br>
-        
-        <label>Revolver:</label>
-        <input type="checkbox" id="revolver"><br>
-        
-        <label>Litros Verde:</label>
-        <input type="number" step="1" id="litroVerde" required><br>
-        
-        <label>Tipo Aporte Verde:</label>
-        <select id="tipoVerde" required>
-            <option value="Hojas verdes">Hojas verdes</option>
-            <option value="Residuos orgánicos">Residuos orgánicos</option>
-            <option value="Pasto fresco">Pasto fresco</option>
-        </select><br>
-        
-        <label>Aporte Seco:</label>
-        <input type="number" step="1" id="aporteSeco" required><br>
-        
-        <label>Tipo Aporte Seco:</label>
-        <select id="tipoSeco" required>
-            <option value="Paja">Paja</option>
-            <option value="Cartón">Cartón</option>
-            <option value="Serrín">Serrín</option>
-        </select><br>
-        
-        <label>Fotografía Durante:</label>
-        <input type="text" id="fotoDurante" placeholder="Nombre del archivo"><br>
-        
-        <label>Observaciones Durante:</label>
-        <textarea id="observDurante"></textarea><br>
-        
-        <h2>Registro Después</h2>
-        <label>Nivel de Llenado Final:</label>
-        <input type="number" step="0.1" id="llenadoFinal" required><br>
-        
-        <label>Fotografía Final:</label>
-        <input type="text" id="fotoDespues" placeholder="Nombre del archivo"><br>
-        
-        <label>Observaciones Finales:</label>
-        <textarea id="observDespues"></textarea><br>
-        
-            <button id="registro${cicloActualID}" type="submit" class="rounded-md bg-indigo-600 text-center w-full px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-            Enviar 
-            </button>`;
-
-                    Xcontent.appendChild(contMain);
-                    console.log("HOLAAAAAAAAAA")
-
-                    const botonFormulario = document.querySelector(`#registro${cicloActualID}`);
-                    botonFormulario.addEventListener('click', async () => {
-                        botonFormulario.remove()
-
-                        // crear registro
-                        const registro = await AnadirApisRegistro(cicloActualID, id, user);
-                        console.log("Registro agregado:", registro);
-
-                        if (registro) {
-
-                            // crear registro antes
-
-                            const formulario = {
-                                registroAntes: {
-                                    temperaturaAmbiente: parseFloat(document.getElementById('tempAmb').value),
-                                    temperaturaCompostera: parseFloat(document.getElementById('tempCompost').value),
-                                    humedad: document.getElementById('humedad').value,
-                                    olor: document.getElementById('olor').value,
-                                    presenciaInsectos: document.getElementById('insectos').checked,
-                                    fotografiasIniciales: document.getElementById('fotoAntes').value || "fotoAntes.jpg",
-                                    observacionesIniciales: document.getElementById('observAntes').value || "Sin observaciones.",
-                                    llenadoInicial: parseFloat(document.getElementById('llenadoInicial').value)
-                                },
-                                registroDurante: {
-                                    riego: document.getElementById('riego').checked,
-                                    revolver: document.getElementById('revolver').checked,
-                                    litrosVerde: parseInt(document.getElementById('litroVerde').value, 10),
-                                    tipoAporteVerde: document.getElementById('tipoVerde').value,
-                                    aporteSeco: parseInt(document.getElementById('aporteSeco').value, 10),
-                                    tipoAporteSeco: document.getElementById('tipoSeco').value,
-                                    fotografiasDurante: document.getElementById('fotoDurante').value || "fotoDurante.jpg",
-                                    observacionesDurante: document.getElementById('observDurante').value || "Sin observaciones."
-                                },
-                                registroDespues: {
-                                    nivelLlenadoFinal: parseFloat(document.getElementById('llenadoFinal').value),
-                                    fotografiasFinal: document.getElementById('fotoDespues').value || "fotoDespues.jpg",
-                                    observacionesFinal: document.getElementById('observDespues').value || "Sin observaciones."
-                                }
-                            };
-
-                            const registroAntes = await AnadirApisRegistroAntes(
-                                registro.id,
-                                formulario.registroAntes.temperaturaAmbiente,
-                                formulario.registroAntes.temperaturaCompostera,
-                                formulario.registroAntes.humedad,
-                                formulario.registroAntes.olor,
-                                formulario.registroAntes.presenciaInsectos,
-                                formulario.registroAntes.fotografiasIniciales,
-                                formulario.registroAntes.observacionesIniciales,
-                                formulario.registroAntes.llenadoInicial
-                            );
-                            const registroDurante = await AnadirApisRegistroDurante(
-                                registro.id,
-                                formulario.registroDurante.riego,
-                                formulario.registroDurante.revolver,
-                                formulario.registroDurante.litrosVerde,
-                                formulario.registroDurante.tipoAporteVerde,
-                                formulario.registroDurante.aporteSeco,
-                                formulario.registroDurante.tipoAporteSeco,
-                                formulario.registroDurante.fotografiasDurante,
-                                formulario.registroDurante.observacionesDurante
-                            );
-                            const registroDespues = await AnadirApisRegistroDespues(
-                                registro.id,
-                                formulario.registroDespues.nivelLlenadoFinal,
-                                formulario.registroDespues.fotografiasFinal,
-                                formulario.registroDespues.observacionesFinal
-                            );
-
-                            console.log(
-                                "Registro antes:", registroAntes,
-                                "Registro Durante:", registroDurante,
-                                "Registro despues:", registroDespues
-                            );
-
-                            window.history.replaceState(null, '', `/#compostera`);
-                            rutaComposteras();
-
-                        } else {
-
-                            console.log("No existen Registro")
-                        }
-
-                    });
+                    formularioDeCiclos(id, cicloActualID)
 
                 } catch (error) {
                     console.error("Error al agregar registro:", error);
@@ -912,6 +741,376 @@ export async function composteraOcupada(id) {
         }
 
     }
+
+}
+
+function formularioDeCiclos(id, cicloActualID) {
+
+    const contMain = document.createElement("main");
+    contMain.classList.add("formulario", "text-start");
+
+    const formAntes = document.createElement("div");
+    formAntes.classList.add("form-antes");
+    const formDurante = document.createElement("div");
+    formDurante.classList.add("form-durante");
+    const formDespues = document.createElement("div");
+    formDespues.classList.add("form-despues");
+
+    Xcontent.innerHTML = "";
+
+    formAntes.innerHTML = `
+    <div class="w-full flex flex-row registro-n">
+         <div id="antes" class=" bg-white text-gray-900  ">1</div>
+         <div id="durante" class="bg-gray-800">2</div>
+         <div id="despues" class="bg-gray-800">3</div>
+    </div>
+    <h2>Registro Antes</h2>
+    <div id="temp" class="w-full flex flex-row justify-center ">
+    <div class="sm:col-span-3">
+    <label for="temperatura-ambiente" class="block text-sm/10 font-medium text-white">Temperatura Ambiente</label>
+    <div class="mt-2">
+      <input type="number" step="0.1" name="tempAmb" id="tempAmb" class="block w-full rounded-md bg-white px-3 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+    </div>
+  </div>
+
+    <div  class="sm:col-span-3">
+    <label for="temperatura-compostera" class="block text-sm/10 font-medium text-white">Temperatura Compostera</label>
+    <div class="mt-2">
+      <input type="number" step="0.1" name="tempCompost" id="tempCompost" class="block w-full rounded-md bg-white px-3 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+    </div>
+  </div>
+  </div>
+
+  <div id="olorHumedad" class="w-full flex flex-row justify-center">
+    <div class="sm:col-span-3">
+    <label for="country" class="block text-sm/10 font-medium text-white">Humedad</label>
+    <div class="mt-2 grid grid-cols-1">
+      <select id="humedad" name="humedad" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-3 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+<option value="Exceso">Exceso</option>
+<option value="Buena">Buena</option>
+<option value="Defecto">Defecto</option>
+      </select>
+    </div>
+  </div>
+
+      <div class=" sm:col-span-3">
+    <label for="country" class="block text-sm/10 font-medium text-white">Olor</label>
+    <div class="mt-2 grid grid-cols-1">
+      <select id="olor" name="olor" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-3 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+    <option value="Podrido">Podrido</option>
+    <option value="Sin olor malo">Sin olor malo</option>
+    <option value="Sin olor">Sin olor</option>
+    <option value="Con olor bueno">Con olor bueno</option>
+    <option value="Aromatico">Aromático</option>
+      </select>
+    </div>
+  </div>
+    </div>
+
+        <div class="w-full sm:col-span-3">
+    <label for="llenado-inicial" class="block text-sm/10 font-medium text-white">Llenado Inicial</label>
+    <div class="mt-2">
+      <input type="number" step="0.1" name="llenadoInicial" id="llenadoInicial" class="block w-full rounded-md bg-white px-3 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+    </div>
+  </div>
+
+        <div class="w-full col-span-full">
+          <label for="observaciones-iniciales" class="block text-sm/10 font-medium text-white">Observaciones Iniciales</label>
+          <div class="mt-2">
+            <textarea name="observAntes" id="observAntes" rows="3" class="block w-full rounded-md bg-white px-3 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></textarea>
+          </div>
+        </div>
+
+          <div class="w-full">
+    <form class=" max-w-lg mx-auto">
+  <label class="block mb-2 text-sm/10 font-medium text-gray-900 dark:text-white" for="foto-inicial">Fotografía Inicial</label>
+  <input class="block w-52 text-sm px-3 py-3 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-700 focus:outline-none dark:bg-white dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="foto-inicial" id="fotoAntes" type="file">
+  </form>
+ </div>
+    
+
+            <div class="w-full col-span-full gap-2">
+    <div class=" mini-text relative flex gap-x-3">
+    <div class="flex h-6 items-center">
+    <input id="insectos" name="insectos" type="checkbox"
+    class="size-4 rounded border-gray-300 text-green-600 focus:ring-green-600">
+    </div>
+    <div class="">
+    <label for="insectos"
+    class="block text-sm/10 font-medium text-white">Presencia de insectos</label>
+    </div>
+    </div>
+    </div>
+
+        <button id="siguenteAntes" type="submit" class="boton-siguente rounded-md text-center w-full px-12 py-3 text-sm/10 font-semibold text-white shadow-sm">
+    Siguente 
+    </button>
+    `;
+    formDurante.innerHTML = `
+        <div class="w-full flex flex-row registro-n">
+         <div id="antes" class="bg-gray-800">1</div>
+         <div id="durante" class=" bg-white text-gray-900 ">2</div>
+         <div id="despues" class="bg-gray-800">3</div>
+    </div>
+    <h2>Registro Durante</h2>
+
+    <div id="verde" class="w-full flex flex-row justify-center ">
+    <div class="sm:col-span-3">
+    <label for="litros-verde" class="block text-sm/10 font-medium text-white">Litros Verde</label>
+    <div class="mt-2">
+      <input type="number" step="0.1" name="litroVerde" id="litroVerde" class="block w-full rounded-md bg-white px-3 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+    </div>
+  </div>
+
+    <div  class="sm:col-span-3">
+    <label for="Tipo-AporteVerde" class="block text-sm/10 font-medium text-white">Tipo Aporte Verde</label>
+    <div class="mt-2">
+      <input type="text" step="0.1" name="tipoVerde" id="tipoVerde" class="block w-full rounded-md bg-white px-3 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+    </div>
+  </div>
+  </div>
+
+      <div id="seco" class="w-full flex flex-row justify-center ">
+    <div class="sm:col-span-3">
+    <label for="aporte-seco" class="block text-sm/10 font-medium text-white">Aporte Seco</label>
+    <div class="mt-2">
+      <input type="number" step="0.1" name="aporteSeco" id="aporteSeco" class="block w-full rounded-md bg-white px-3 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+    </div>
+  </div>
+
+    <div  class="sm:col-span-3">
+    <label for="Tipo-AporteSeco" class="block text-sm/10 font-medium text-white">Tipo Aporte Seco</label>
+    <div class="mt-2">
+      <input type="text" step="0.1" name="tipoSeco" id="tipoSeco" class="block w-full rounded-md bg-white px-3 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+    </div>
+  </div>
+  </div>
+
+    <div class="w-full col-span-full">
+    <label for="observaciones-Durante" class="block text-sm/10 font-medium text-white">Observaciones Durante</label>
+    <div class="mt-2">
+      <textarea name="observDurante" id="observDurante" rows="3" class="block w-full rounded-md bg-white px-3 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></textarea>
+    </div>
+  </div>    
+
+      <div class="w-full">
+    <form class=" max-w-lg mx-auto">
+  <label class="block mb-2 text-sm/10 font-medium text-gray-900 dark:text-white" for="foto-durante">Fotografía Durante</label>
+  <input class="block w-52 text-sm px-3 py-3 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-700 focus:outline-none dark:bg-white dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="foto-durante" id="fotoDurante" type="file">
+  </form>
+ </div>
+
+  <div id="riegoRevolver" class="w-full flex flex-col "> 
+            <div class="col-span-full gap-2">
+    <div class=" mini-text relative flex gap-x-3">
+    <div class="flex h-6 items-center">
+    <input id="riego" name="riego" type="checkbox"
+    class="size-4 rounded border-gray-300 text-green-600 focus:ring-green-600">
+    </div>
+    <div class="">
+    <label for="riego"
+    class="block text-sm/10 font-medium text-white">Riego</label>
+    </div>
+    </div>
+    </div>
+
+                <div class=" col-span-full gap-2">
+    <div class=" mini-text relative flex gap-x-3">
+    <div class="flex h-6 items-center">
+    <input id="revolver" name="revolver" type="checkbox"
+    class="size-4 rounded border-gray-300 text-green-600 focus:ring-green-600">
+    </div>
+    <div class="">
+    <label for="revolver"
+    class="block text-sm/10 font-medium text-white">Revolver</label>
+    </div>
+    </div>
+    </div>
+  
+  </div>
+
+            <button id="siguenteDurante" type="submit" class="boton-siguente rounded-md text-center w-full px-12 py-3 text-sm/10 font-semibold text-white shadow-sm">
+    Siguente 
+    </button>
+    `;
+    formDespues.innerHTML = `
+            <div class="w-full flex flex-row registro-n">
+         <div id="antes" class="bg-gray-800">1</div>
+         <div id="durante" class="bg-gray-800">2</div>
+         <div id="despues" class="bg-white text-gray-900 ">3</div>
+    </div>
+        <h2>Registro Después</h2>
+
+            <div class="w-full sm:col-span-3">
+    <label for="nivel-llenadoFinal" class="block text-sm/10 font-medium text-white">Nivel de Llenado Final</label>
+    <div class="mt-2">
+      <input type="number" step="0.1" name="llenadoFinal" id="llenadoFinal" class="block w-full rounded-md bg-white px-3 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+    </div>
+  </div>
+
+        <div class="w-full col-span-full">
+    <label for="observaciones-despues" class="block text-sm/10 font-medium text-white">Observaciones Finales</label>
+    <div class="mt-2">
+      <textarea name="observDespues" id="observDespues" rows="3" class="block w-full rounded-md bg-white px-3 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></textarea>
+    </div>
+  </div>   
+
+  <div class="w-full">
+    <form class=" max-w-lg mx-auto">
+  <label class="block mb-2 text-sm/10 font-medium text-gray-900 dark:text-white" for="foto-despues">Fotografía Final</label>
+  <input class="block w-52 text-sm px-3 py-3 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-700 focus:outline-none dark:bg-white dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="foto-despues" id="fotoDespues" type="file">
+  </form>
+ </div>
+
+    <button id="registro${cicloActualID}" type="submit" class="enviar-form rounded-full text-center w-full px-12 py-3 text-sm/10 font-semibold text-white shadow-sm">
+    Enviar 
+    </button>
+    `;
+
+    Xcontent.appendChild(contMain);
+    contMain.appendChild(formAntes);
+
+
+    const botonA = document.querySelector(`#antes`);
+    const botonDu = document.querySelector(`#durante`);
+    const botonDes = document.querySelector(`#despues`);
+
+    console.log(botonA)
+    console.log(botonDu)
+    console.log(botonDes)
+
+
+    botonA.addEventListener("click", () => {
+
+        formDespues.classList.add("hidden");
+        formDurante.classList.add("hidden");
+        contMain.appendChild(formAntes);
+
+
+    })
+
+    botonDu.addEventListener("click", () => {
+
+        formAntes.classList.add("hidden");
+        formDespues.classList.add("hidden");
+        contMain.appendChild(formDurante);
+
+
+    })
+
+    botonDes.addEventListener("click", () => {
+
+        formAntes.classList.add("hidden");
+        formDurante.classList.add("hidden");
+        contMain.appendChild(formDespues);
+
+    })
+
+
+    const botonAntes = document.querySelector(`#siguenteAntes`);
+    botonAntes.addEventListener("click", () => {
+
+        formAntes.classList.add("hidden");
+        contMain.appendChild(formDurante);
+
+        const botonDurante = document.querySelector(`#siguenteDurante`);
+        botonDurante.addEventListener("click", () => {
+
+            formDurante.classList.add("hidden");
+            contMain.appendChild(formDespues);
+
+
+            if (formDespues) {
+
+                const botonFormulario = document.querySelector(`#registro${cicloActualID}`);
+                botonFormulario.addEventListener('click', async () => {
+                    botonFormulario.remove()
+
+                    // crear registro
+                    const registro = await AnadirApisRegistro(cicloActualID, id, user);
+                    console.log("Registro agregado:", registro);
+
+                    if (registro) {
+
+                        // crear registro antes
+
+                        const formulario = {
+                            registroAntes: {
+                                temperaturaAmbiente: parseFloat(document.getElementById('tempAmb').value),
+                                temperaturaCompostera: parseFloat(document.getElementById('tempCompost').value),
+                                humedad: document.getElementById('humedad').value,
+                                olor: document.getElementById('olor').value,
+                                presenciaInsectos: document.getElementById('insectos').checked,
+                                fotografiasIniciales: document.getElementById('fotoAntes').value || "fotoAntes.jpg",
+                                observacionesIniciales: document.getElementById('observAntes').value || "Sin observaciones.",
+                                llenadoInicial: parseFloat(document.getElementById('llenadoInicial').value)
+                            },
+                            registroDurante: {
+                                riego: document.getElementById('riego').checked,
+                                revolver: document.getElementById('revolver').checked,
+                                litrosVerde: parseInt(document.getElementById('litroVerde').value, 10),
+                                tipoAporteVerde: document.getElementById('tipoVerde').value,
+                                aporteSeco: parseInt(document.getElementById('aporteSeco').value, 10),
+                                tipoAporteSeco: document.getElementById('tipoSeco').value,
+                                fotografiasDurante: document.getElementById('fotoDurante').value || "fotoDurante.jpg",
+                                observacionesDurante: document.getElementById('observDurante').value || "Sin observaciones."
+                            },
+                            registroDespues: {
+                                nivelLlenadoFinal: parseFloat(document.getElementById('llenadoFinal').value),
+                                fotografiasFinal: document.getElementById('fotoDespues').value || "fotoDespues.jpg",
+                                observacionesFinal: document.getElementById('observDespues').value || "Sin observaciones."
+                            }
+                        };
+
+                        const registroAntes = await AnadirApisRegistroAntes(
+                            registro.id,
+                            formulario.registroAntes.temperaturaAmbiente,
+                            formulario.registroAntes.temperaturaCompostera,
+                            formulario.registroAntes.humedad,
+                            formulario.registroAntes.olor,
+                            formulario.registroAntes.presenciaInsectos,
+                            formulario.registroAntes.fotografiasIniciales,
+                            formulario.registroAntes.observacionesIniciales,
+                            formulario.registroAntes.llenadoInicial
+                        );
+                        const registroDurante = await AnadirApisRegistroDurante(
+                            registro.id,
+                            formulario.registroDurante.riego,
+                            formulario.registroDurante.revolver,
+                            formulario.registroDurante.litrosVerde,
+                            formulario.registroDurante.tipoAporteVerde,
+                            formulario.registroDurante.aporteSeco,
+                            formulario.registroDurante.tipoAporteSeco,
+                            formulario.registroDurante.fotografiasDurante,
+                            formulario.registroDurante.observacionesDurante
+                        );
+                        const registroDespues = await AnadirApisRegistroDespues(
+                            registro.id,
+                            formulario.registroDespues.nivelLlenadoFinal,
+                            formulario.registroDespues.fotografiasFinal,
+                            formulario.registroDespues.observacionesFinal
+                        );
+
+                        console.log(
+                            "Registro antes:", registroAntes,
+                            "Registro Durante:", registroDurante,
+                            "Registro despues:", registroDespues
+                        );
+
+                        window.history.replaceState(null, '', `/#compostera`);
+                        rutaComposteras();
+
+                    } else {
+
+                        console.log("No existen Registro")
+                    }
+
+                });
+            } else {
+
+            }
+        });
+    });
 
 }
 
