@@ -1,16 +1,33 @@
+
+.scroll::-webkit-scrollbar {
+    width: 10px;
+
+}
+
+.scroll::-webkit-scrollbar-track {
+
+    background-color: #0000005e;
+
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(22, 190, 92, 0.568);
+    border-radius: 50px;
+}
+
 .pantallaCarga {
 
     position: absolute;
     width: 100%;
     height: 100vh;
     background-color: rgb(255, 255, 255);
-    z-index: 100;
+    /* z-index: 100; */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.pantallaCarga > div {
+.pantallaCarga>div {
 
     width: 100px ! important;
     height: 100px ! important;
@@ -27,33 +44,342 @@
     border-radius: 50px !important;
 }
 
+.hidden {
+
+    display: none ! important;
+}
+
+.fondo-modal {
+
+    background-color: #0000008e;
+}
+
+.modal-content {
+
+    width: 40%;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.345);
+}
+
+.add-end-ciclo {
+
+    background: #353B49;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.189);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.add-end-ciclo>.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: x-large;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.add-end-ciclo>div>#terminarCiclo {
+
+    background-color: rgb(220, 26, 26);
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 20px;
+    color: white;
+    font-weight: bolder;
+    border-radius: 50px;
+    transition-duration: 0.7s;
+    transition-property: color box-shadow;
+}
+
+.add-end-ciclo>div>#terminarCiclo:hover {
+
+    color: black;
+    box-shadow: inset 0 -130px 0 rgb(255, 119, 119);
+}
+
+.add-end-ciclo>div>#terminarCiclo>div>svg {
+
+    transform: scale(0.92);
+    background-color: #ffffff;
+    color: rgb(220, 26, 26);
+    border-radius: 50px;
+    margin-right: 10px;
+}
+
+.add-end-ciclo>div>#agregarRegistro {
+
+    background-color: rgb(15, 184, 66);
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 20px;
+    color: white;
+    font-weight: bolder;
+    border-radius: 50px;
+    transition-duration: 0.7s;
+    transition-property: color box-shadow;
+}
+
+.add-end-ciclo>div>#agregarRegistro>div>svg {
+
+    transform: scale(0.92);
+    background-color: #ffffff;
+    color: rgb(12, 188, 65);
+    border-radius: 50px;
+    margin-right: 10px;
+}
+
+.add-end-ciclo>div>#agregarRegistro:hover {
+
+    color: black;
+    box-shadow: inset 0 -130px 0 rgb(80, 255, 133);
+}
+
+/* .content-registro {
+
+} */
+
+.content-registro>div {
+
+    position: relative;
+    height: 200px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 12px;
+    cursor: pointer;
+    color: black;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.332);
+    border-radius: 10px;
+    transition-duration: 0.7s;
+    transition-property:transform;
+}
+
+.content-registro>div:hover {
+
+    transform: scale(0.95);
+}
+
+.content-registro>div:hover .name-user {
+
+    display: flex;
+}
+
+.name-user {
+    display: none;
+    bottom: calc(40px);
+    left: calc(70px);
+    position: absolute;
+    padding: 10px;
+    border-radius: 50px;
+    border-bottom-left-radius: 0px;
+    color: black;
+    background-color: #0d764366;
+}
+
+.color-registro {
+
+    background-color: #066348 !important;
+}
+
+.content-registro>div>div>div>p {
+
+    font-weight: bolder;
+}
+
+.content-registro>div>div>div>img {
+
+    width: 50px;
+    height: 50px;
+    border: solid 1.7px rgb(0, 0, 0);
+    border-radius: 50px;
+    flex-shrink: 0;
+}
+
+.filter-registro {
+
+    justify-content: center;
+    margin-top: 12px;
+    margin-bottom: 22px;
+
+}
+
+.filter-registro>button {
+
+    background-color: #ffffff;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.332);
+    font-weight: bolder;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 50px;
+
+    transition-duration: 1s;
+    transition-property: background-color color;
+
+}
+
+.filter-registro>button:hover {
+
+    background-color: #353B49;
+    color: white;
+}
+
+.filter-registro>button>svg {
+
+    margin-right: 10px;
+}
+
+
+.contTerminarCiclo {
+
+    position: absolute !important;
+    background-color: #0000008e;
+    z-index: 50;
+    justify-content: center;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    inset: 0px;
+    height: 100vh !important;
+    width: 100% !important;
+}
+
+.modal-terminarCiclo {
+    position: relative;
+    width: 350px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.332);
+}
+
+.btn-terminarCiclo {
+
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.close-terminarCiclo {
+
+    cursor: pointer;
+    top: -4px;
+    left: 10px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.contRegistros {
+
+    position: absolute !important;
+    background-color: #0000008e;
+    z-index: 50;
+    justify-content: center;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    inset: 0px;
+    height: 100vh !important;
+    width: 100% !important;
+}
+
+.modal-registros {
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.332);
+}
+
+.close-registros {
+
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.close-registros>svg {
+
+    background-color: #ffffff;
+    padding: 5px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.318);
+    border-radius: 50px;
+    color: black;
+    width: 2.5rem;
+    height: 2.5rem;
+
+    transition-duration: 1s;
+    transition-property: background-color;
+}
+
+.close-registros>svg:hover {
+
+    background-color: black;
+    color: white;
+}
+
+.modal-radius {
+
+    border-radius: 20px;
+}
+
+.modal-size {
+
+    height: 90vh;
+    width: 50%;
+}
+
+.modal-w {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
 
 .nav-app {
-    background-color:#0c3227;
+    background-color: #0c3227;
     z-index: 10;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.418);
 }
 
-.efect-aside > a {
-background: linear-gradient(180deg, #1f7c62 50%, #144f3f 50%);
-padding-top: 11px;
-padding-bottom: 11px;
-padding-left: 10px;
-padding-right: 10px;
-border-radius: 50px;
-font-size: 18px;
-border-bottom-left-radius: 0px;
-transition-duration: 1s;
-box-shadow:inset 0 0 0 rgba(0, 255, 128, 0);
-transition-property: transform box-shadow color;
+.efect-aside>a {
+    background: linear-gradient(180deg, #1f7c62 50%, #144f3f 50%);
+    padding-top: 11px;
+    padding-bottom: 11px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 50px;
+    font-size: 18px;
+    border-bottom-left-radius: 0px;
+    transition-duration: 1s;
+    box-shadow: inset 0 0 0 rgba(0, 255, 128, 0);
+    transition-property: transform box-shadow color;
 }
 
 .image-container {
     position: relative;
 }
 
-.efect-aside > a:hover {
-    box-shadow:inset  -300px 0 0 #ffffff;
+.efect-aside>a:hover {
+    box-shadow: inset -300px 0 0 #ffffff;
     color: #0c3227;
     transform: translateX(15px);
 }
@@ -63,24 +389,25 @@ transition-property: transform box-shadow color;
     background-color: #144f3f;
     border-radius: 50px;
     border-bottom-left-radius: 0px;
-    box-shadow:inset 0 0 0 rgba(0, 255, 128, 0);
+    box-shadow: inset 0 0 0 rgba(0, 255, 128, 0);
     transition-duration: 1s;
     transition-property: box-shadow color;
 }
-.logout:hover{
 
-    box-shadow:inset  -300px 0 0 #ffffff, inset 300px 0 0 #00ffbb ;
+.logout:hover {
+
+    box-shadow: inset -300px 0 0 #ffffff, inset 300px 0 0 #00ffbb;
     color: black;
 }
 
 .image-container {
-    width: 4rem; 
-    height: 4rem; 
-    border-radius: 100px; 
+    width: 4rem;
+    height: 4rem;
+    border-radius: 100px;
     border: solid 3px #20765f;
     /* overflow: hidden */
     transition-duration: 0.5s;
-    transition-property: box-shadow filter border ;
+    transition-property: box-shadow filter border;
 }
 
 .image-container>div {
@@ -91,7 +418,7 @@ transition-property: transform box-shadow color;
     padding: 10px;
     z-index: 10;
     right: -33px;
-    top: calc(-70px); 
+    top: calc(-70px);
     border-radius: 50px;
     justify-content: center;
     align-items: center;
@@ -113,7 +440,7 @@ transition-property: transform box-shadow color;
 }
 
 .image-container>div>p {
-    
+
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -123,8 +450,8 @@ transition-property: transform box-shadow color;
 
 .image-container img {
     width: 100%;
-    height: 100%; 
-    object-fit: cover; 
+    height: 100%;
+    object-fit: cover;
 }
 
 .image-container:hover {
@@ -137,10 +464,12 @@ transition-property: transform box-shadow color;
 /* bolo css */
 
 .model-bolo {
-    background: linear-gradient(180deg, rgb(255, 255, 255), rgb(218, 218, 218) 65%, rgb(31, 128, 83) 50%, rgb(0, 255, 128));
+
+    background: linear-gradient(180deg, rgb(255, 255, 255), rgb(218, 218, 218) 70%, rgb(31, 128, 83) 50%, rgb(0, 255, 128));
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.185), inset 10px 10px 10px rgba(0, 0, 0, 0.11) !important;
-    border: solid 2px rgb(31, 128, 83) ;
+    border: solid 2px rgb(31, 128, 83);
     position: relative;
+    border-radius: 30px;
     width: 300px;
     height: 275px;
     flex-shrink: 0 !important;
@@ -152,8 +481,26 @@ transition-property: transform box-shadow color;
 
 .model-bolo:hover {
 
-    transform: scale(0.97) translateY(-10px);
+    transform: scale(0.95) translateY(-5px);
 }
+
+.bolo-img {
+
+    width: 100% !important;
+    height: 140px !important;
+    position: relative;
+    background: linear-gradient(rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 255, 0) 50%);
+    border-radius: 20px;
+}
+
+.bolo-img > img {
+
+    bottom: calc(-30px);
+    position: absolute;
+    width: 200px !important;
+    height: 200px !important;
+}
+
 .icon-user {
 
     background-color: rgb(255, 255, 255);
@@ -219,6 +566,444 @@ transition-property: transform box-shadow color;
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
 }
 
+/* fin style bolo */
+
+/* ciclos */
+.ciclos {
+
+    height: 190px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ffffff !important;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.322);
+    padding: 20px;
+    border-radius: 20px;
+    text-align: start;
+    font-size: large;
+    font-weight: bolder;
+    color: rgb(0, 0, 0);
+}
+
+.registro-n {
+
+    justify-content: center;
+    position: relative;
+    align-items: center;
+}
+
+.registro-n::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 7px;
+    background-color: rgb(31, 41, 55);
+}
+
+.registro-n>div {
+
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    overflow: hidden;
+    flex-shrink: 0 ! important;
+    margin-left: 15px;
+    margin-right: 15px;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+}
+
+.formulario {
+
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    padding-left: 150px;
+    padding-right: 150px;
+    display: flex;
+    align-items: center;
+}
+
+.boton-siguente {
+
+    width: 60%;
+    border-radius: 50px;
+    background-color: #0eaa6c;
+    box-shadow: inset 0 0 0 rgba(0, 255, 128, 0);
+    transition-duration: 1s;
+    transition-property: box-shadow color;
+}
+
+.boton-siguente:hover {
+
+    box-shadow: inset 0 -300px 0 #ffffff;
+    color: black;
+}
+
+.form-antes {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(300deg, #0c482b 20%, #49ac79 100%);
+    padding: 40px;
+    color: rgb(255, 255, 255) ! important;
+    flex-shrink: 0 ! important;
+}
+
+.form-antes>h2 {
+
+    width: 100%;
+    font-size: 30px;
+    font-weight: bolder;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: solid 1px #ffffff;
+}
+
+.form-antes>#temp {
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-antes>#temp>div {
+    width: 48%;
+}
+
+.form-antes>#temp>div>div {
+    width: 100%;
+}
+
+.form-antes>#olorHumedad {
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-antes>#olorHumedad>div {
+    width: 48%;
+}
+
+.form-antes>#olorHumedad>div>div {
+    width: 100%;
+}
+
+.form-durante {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(300deg, #0c482b 20%, #49ac79 100%);
+    padding: 40px;
+    color: rgb(255, 255, 255) ! important;
+    flex-shrink: 0 ! important;
+}
+
+.form-durante>h2 {
+
+    width: 100%;
+    font-size: 30px;
+    font-weight: bolder;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: solid 1px #ffffff;
+}
+
+.form-durante>#verde {
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-durante>#verde>div {
+    width: 48%;
+}
+
+.form-durante>#verde>div>div {
+    width: 100%;
+}
+
+.form-durante>#seco {
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-durante>#seco>div {
+    width: 48%;
+}
+
+.form-durante>#seco>div>div {
+    width: 100%;
+}
+
+.form-despues {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(300deg, #0c482b 20%, #49ac79 100%);
+    padding: 40px;
+    color: rgb(255, 255, 255) ! important;
+    flex-shrink: 0 ! important;
+}
+
+.form-despues>h2 {
+
+    width: 100%;
+    font-size: 30px;
+    font-weight: bolder;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: solid 1px #ffffff;
+}
+
+
+.enviar-form {
+
+    width: 60%;
+    border-radius: 50px;
+    background-color: #0eaa6c;
+    box-shadow: inset 0 0 0 rgba(0, 255, 128, 0);
+    transition-duration: 1s;
+    transition-property: box-shadow color;
+}
+
+.enviar-form:hover {
+
+    box-shadow: inset 0 -300px 0 #ffffff;
+    color: black;
+}
+
+main {
+
+    height: 100% !important;
+}
+
+.tablas-registros {
+
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 12px;
+    text-align: start;
+    width: 100% !important;
+}
+
+.tablas-registros {
+
+    margin-bottom: 0px !important;
+    text-align: start;
+    width: 100% !important;
+}
+
+.tablas-registros>table {
+
+    border: 0;
+}
+
+.tablas-registros>table>thead {
+
+    background-color: #066348 !important;
+
+}
+
+.tablas-registros>table>thead>tr>th {
+
+    border: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.tablas-registros>table>tbody>tr>td {
+
+    border: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 2px;
+    color: black;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+/* /////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+
+/* compost  */
+
+.compost {
+
+    position: relative;
+    width: 400px;
+    height: 400px;
+    border-radius: 50px;
+    flex-shrink: 0 !important;
+    overflow: hidden;
+    display: flex;
+    cursor: pointer;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.342);
+    transition-duration: 0.5s;
+    transition-property: transform filter;
+}
+
+.color-compost1 {
+    background: linear-gradient(220deg, rgb(5, 71, 22) 10%, rgb(70, 127, 70) 50%);
+}
+
+.color-compost2 {
+    background: linear-gradient(220deg, rgb(17, 70, 135) 10%, rgb(27, 153, 188) 50%);
+}
+
+.color-compost3 {
+    background: linear-gradient(220deg, rgb(225, 255, 0) 10%, rgb(114, 161, 19) 50%);
+}
+
+.compost:hover {
+
+    transform: scale(0.95);
+    filter: brightness(70%);
+}
+
+.compost>div:hover {
+
+    transform: scale(1.2);
+}
+
+.compost>.compostaje {
+
+    background: url(C:\laragon\www\Ecompost\public\images\composteras.png);
+    background-repeat: no-repeat;
+    background-size: 500px;
+    height: 100%;
+    width: 100%;
+    transition-duration: 0.5s;
+    transition-property: transform;
+}
+
+.oscurecer {
+
+    filter: brightness(50%);
+}
+
+.content-compost {
+
+    transform: scale(0.95);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.content-compost>.text-compost {
+
+    font-size: x-large;
+    font-weight: bolder;
+    font-style: oblique;
+}
+
+.content-compost>.element-compost {
+
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    top: calc(-35px);
+}
+
+.content-compost>.element-compost>.active {
+
+    background: linear-gradient(rgb(30, 214, 60), rgb(134, 200, 139));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.322);
+    margin: 10px;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.active>svg {
+
+    width: 2.5rem;
+    height: 2.3rem;
+    color: rgb(255, 255, 255);
+
+}
+
+.content-compost>.element-compost>.in-active {
+
+    background: linear-gradient(rgb(235, 60, 60), rgb(255, 0, 0));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.322);
+    margin: 10px;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.in-active>svg {
+
+    width: 2.5rem;
+    height: 3.1rem;
+    color: rgb(255, 255, 255);
+
+}
+
+.content-compost>.element-compost>.type {
+
+    background-color: rgb(255, 0, 0);
+    background: linear-gradient(red, yellow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.322);
+    margin: 10px;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.type>svg {
+
+    width: 3.5rem;
+    height: 3.1rem;
+    color: rgb(0, 0, 0);
+
+}
+
+
+/* MEDIAS PARA EL TAMAÑO */
+
 @media screen and (max-width: 1668px) {
 
     .grid-cols-4 {
@@ -227,7 +1012,13 @@ transition-property: transform box-shadow color;
         transform: scale(0.9);
         grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
     }
-    
+
+    .content-compost {
+
+        transform: scale(0.9);
+
+    }
+
 }
 
 @media screen and (max-width: 1368px) {
@@ -238,7 +1029,19 @@ transition-property: transform box-shadow color;
         transform: scale(0.9);
         grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
-    
+
+    .content-compost {
+
+        transform: scale(0.8);
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+    }
+
+    main {
+        display: flex;
+        flex-direction: column !important;
+    }
+
 }
 
 @media screen and (max-width: 768px) {
@@ -249,7 +1052,7 @@ transition-property: transform box-shadow color;
         transform: scale(0.85);
         grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
-    
+
 }
 
 
@@ -258,7 +1061,7 @@ transition-property: transform box-shadow color;
     .grid-cols-4 {
         grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
-    
+
 }
 
 @media screen and (max-width: 548px) {
@@ -267,36 +1070,39 @@ transition-property: transform box-shadow color;
         transform: scale(0.8);
         grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
     }
-    
+
 }
 
-/* fin style bolo */
+/* INFO */
 
-/* ciclos */
-.ciclos {
+.header-compost {
 
-    background-color: #17c291 !important;
+    background: linear-gradient(rgba(0, 0, 0, 0.212), rgba(0, 0, 0, 0.212)), url(https://internacomedioambiente.es/wp-content/uploads/2022/10/compostaje-comunitario.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 120px;
+    font-size: 50px;
+    color: #000000;
+    font-weight: bold;
+    /* filter: brightness(90); */
+} 
+
+.header-compost > p {
+
+    background-color: #ffffffd1;
+    padding: 30px;
+    padding-left: 0;
+    padding-right: 0;
+} 
+
+.main-compost {
+
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.248);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin: auto;
+    width: 100%;
     padding: 20px;
-    border-radius: 30px;
-    font-size: large;
-    font-weight:bolder ;
-    color: aliceblue;
-}
-
-.formulario {
-
-    overflow-y: scroll;
-    height: 700px;
-}
-
-main {
-
-    height: 100% !important;
-}
-
-.tablas-registros {
-
-    margin-bottom: 12px;
-    text-align: start;
-    width: 100% !important;
+    height: 100%;    
 }
