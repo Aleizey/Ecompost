@@ -112,17 +112,11 @@ export async function rutaBolos() {
         boloCont.innerHTML = `
                 <a href="#boloCiclos${bolo.id}" class="model-bolo rounded-lg shadow-lg w-full h-full p-5 flex flex-col justify-between items-center">
                     <div class="cont-icon-user flex-col justify-between ps">
-                        <div class="icon-user">
-                            <img src="https://cdn-icons-png.flaticon.com/512/5904/5904059.png" alt="">
-                        </div>
-                        <div class="icon-user">
-                            <img src="https://cdn-icons-png.flaticon.com/512/5904/5904059.png" alt="">
-                        </div>
                     </div>
                     <div class="shadow-lg rounded-full bg-white border-b-4 border-gray-900">
                         <p>${bolo.nombre}</p>
                     </div>
-                    <div class="shadow-lg rounded-lg bg-white">
+                    <div class="bolo-img">
                         <img src="https://png.pngtree.com/png-clipart/20230915/original/pngtree-cartoon-of-compost-manhole-container-with-vegetables-and-plants-vector-png-image_12170171.png" alt="">
                     </div>
                     <div class="grid grid-cols-4 gap-2">
