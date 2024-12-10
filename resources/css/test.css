@@ -1,12 +1,12 @@
 body {
 
     overflow: hidden;
-    background: linear-gradient(#155946 2.5%, rgb(255, 255, 255) 2.5%);
+    /* background: linear-gradient(#155946 2.5%, rgb(255, 255, 255) 2.5%); */
 }
 
 .login-img {
 
-    background-image: url(https://i.pinimg.com/474x/98/0b/93/980b93155d943eb031843811ba89f139.jpg);
+    background-image: url(https://i.pinimg.com/736x/95/33/8b/95338bbbaad1d740bcb1b3232a9385a2.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

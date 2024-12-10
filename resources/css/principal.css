@@ -619,6 +619,9 @@
 
 .formulario {
 
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
     width: 100%;
     height: 100%;
     padding: 20px;
@@ -626,6 +629,15 @@
     padding-right: 150px;
     display: flex;
     align-items: center;
+}
+
+
+.registro-n {
+
+    /* color: #ffffff; */
+    position: absolute;
+    top: calc(0px);
+    left: 0;
 }
 
 .boton-siguente {
@@ -884,6 +896,7 @@ main {
     transform: scale(0.95);
     filter: brightness(70%);
 }
+
 
 .compost>div:hover {
 
