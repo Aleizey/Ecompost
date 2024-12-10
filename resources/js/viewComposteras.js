@@ -31,13 +31,13 @@ async function consultaApisCompost(id = null, resource1, resource2 = null) {
     let url;
 
     if (id === null && resource2 === null) {
-        url = `http://ecompost.test/api/${resource1}`;
+        url = ` /api/${resource1}`;
 
     } else if (resource2 === null) {
-        url = `http://ecompost.test/api/${resource1}/${id}`;
+        url = ` /api/${resource1}/${id}`;
         console.log(url);
     } else if (id && resource1 && resource2) {
-        url = `http://ecompost.test/api/${resource1}/${id}/${resource2}`;
+        url = ` /api/${resource1}/${id}/${resource2}`;
     }
 
 
@@ -81,7 +81,7 @@ async function consultaApisCompost(id = null, resource1, resource2 = null) {
 
 async function siguienteCompostera(id) {
 
-    let url = `http://ecompost.test/api/compostera/${id}`;
+    let url = ` /api/compostera/${id}`;
     console.log(url);
 
     try {
@@ -123,7 +123,7 @@ async function siguienteCompostera(id) {
 
 //funcion para actualizar los datos de las composteras.
 async function actualizarApisCopost(idCompostera, data) {
-    const url = `http://ecompost.test/api/compostera/${idCompostera}`;
+    const url = ` /api/compostera/${idCompostera}`;
 
     try {
         const token = getAuthToken();
@@ -159,7 +159,7 @@ async function actualizarApisCopost(idCompostera, data) {
 //Comienzan de las funciones de agregar contenido.
 async function AnadirApisBolos(nombre, desc) {
 
-    const url = "http://ecompost.test/api/bolos";
+    const url = " /api/bolos";
 
     try {
         const token = getAuthToken();
@@ -198,7 +198,7 @@ async function AnadirApisBolos(nombre, desc) {
 
 async function AnadirApisCiclo(boloId, CompstId) {
 
-    const url = "http://ecompost.test/api/ciclos";
+    const url = " /api/ciclos";
 
     try {
         const token = getAuthToken();
@@ -248,7 +248,7 @@ async function obtenerCiclosDeCompostera(composteraId) {
 
 //funcion para actualizar los datos de los ciclos.
 async function actualizarApisCiclos(idCiclo, data) {
-    const url = `http://ecompost.test/api/ciclos/${idCiclo}`;
+    const url = ` /api/ciclos/${idCiclo}`;
 
     try {
         const token = getAuthToken();
@@ -282,7 +282,7 @@ async function actualizarApisCiclos(idCiclo, data) {
 
 async function AnadirApisRegistro(cicloId, CompstId, userId) {
 
-    const url = "http://ecompost.test/api/registro";
+    const url = " /api/registro";
 
     try {
         const token = getAuthToken();
@@ -318,7 +318,7 @@ async function AnadirApisRegistro(cicloId, CompstId, userId) {
 
 async function AnadirApisRegistroAntes(registroId, tempAmb, tempCompost, humedad, olor, insectos, foto, observ, llenado) {
 
-    const url = `http://ecompost.test/api/registro/${registroId}/registrosAntes`;
+    const url = ` /api/registro/${registroId}/registrosAntes`;
 
     try {
         const token = getAuthToken();
@@ -359,7 +359,7 @@ async function AnadirApisRegistroAntes(registroId, tempAmb, tempCompost, humedad
 
 async function AnadirApisRegistroDurante(registroId, riego, revolver, litroVerde, typeVerde, aportSeco, typeSeco, foto, observ) {
 
-    const url = `http://ecompost.test/api/registro/${registroId}/registrosDurante`;
+    const url = ` /api/registro/${registroId}/registrosDurante`;
 
     try {
         const token = getAuthToken();
@@ -400,7 +400,7 @@ async function AnadirApisRegistroDurante(registroId, riego, revolver, litroVerde
 
 async function AnadirApisRegistroDespues(registroId, llenado, foto, observ) {
 
-    const url = `http://ecompost.test/api/registro/${registroId}/registrosDespues`;
+    const url = ` /api/registro/${registroId}/registrosDespues`;
 
     try {
         const token = getAuthToken();

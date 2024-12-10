@@ -33,13 +33,13 @@ async function consultaApisViewRegistro(id = null, resource1, resource2 = null) 
   let url;
 
   if (id === null && resource2 === null) {
-    url = `http://ecompost.test/api/${resource1}`;
+    url = ` /api/${resource1}`;
 
   } else if (id && resource2 === null) {
-    url = `http://ecompost.test/api/${resource1}/${id}`;
+    url = ` /api/${resource1}/${id}`;
 
   } else if (id && resource1 && resource2) {
-    url = `http://ecompost.test/api/${resource1}/${id}/${resource2}`;
+    url = ` /api/${resource1}/${id}/${resource2}`;
   }
 
   try {
