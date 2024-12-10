@@ -31,13 +31,13 @@ async function consultaApisCompost(id = null, resource1, resource2 = null) {
     let url;
 
     if (id === null && resource2 === null) {
-        url = `http://ecompost.test/api/${resource1}`;
+        url = ` /api/${resource1}`;
 
     } else if (resource2 === null) {
-        url = `http://ecompost.test/api/${resource1}/${id}`;
+        url = ` /api/${resource1}/${id}`;
         console.log(url);
     } else if (id && resource1 && resource2) {
-        url = `http://ecompost.test/api/${resource1}/${id}/${resource2}`;
+        url = ` /api/${resource1}/${id}/${resource2}`;
     }
 
 
@@ -81,7 +81,7 @@ async function consultaApisCompost(id = null, resource1, resource2 = null) {
 
 async function siguienteCompostera(id) {
 
-    let url = `http://ecompost.test/api/compostera/${id}`;
+    let url = ` /api/compostera/${id}`;
     console.log(url);
 
     try {
@@ -123,7 +123,7 @@ async function siguienteCompostera(id) {
 
 //funcion para actualizar los datos de las composteras.
 async function actualizarApisCopost(idCompostera, data) {
-    const url = `http://ecompost.test/api/compostera/${idCompostera}`;
+    const url = ` /api/compostera/${idCompostera}`;
 
     try {
         const token = getAuthToken();
@@ -159,7 +159,7 @@ async function actualizarApisCopost(idCompostera, data) {
 //Comienzan de las funciones de agregar contenido.
 async function AnadirApisBolos(nombre, desc) {
 
-    const url = "http://ecompost.test/api/bolos";
+    const url = " /api/bolos";
 
     try {
         const token = getAuthToken();
@@ -198,7 +198,7 @@ async function AnadirApisBolos(nombre, desc) {
 
 async function AnadirApisCiclo(boloId, CompstId) {
 
-    const url = "http://ecompost.test/api/ciclos";
+    const url = " /api/ciclos";
 
     try {
         const token = getAuthToken();
@@ -248,7 +248,7 @@ async function obtenerCiclosDeCompostera(composteraId) {
 
 //funcion para actualizar los datos de los ciclos.
 async function actualizarApisCiclos(idCiclo, data) {
-    const url = `http://ecompost.test/api/ciclos/${idCiclo}`;
+    const url = ` /api/ciclos/${idCiclo}`;
 
     try {
         const token = getAuthToken();
@@ -282,7 +282,7 @@ async function actualizarApisCiclos(idCiclo, data) {
 
 async function AnadirApisRegistro(cicloId, CompstId, userId) {
 
-    const url = "http://ecompost.test/api/registro";
+    const url = " /api/registro";
 
     try {
         const token = getAuthToken();
@@ -318,7 +318,7 @@ async function AnadirApisRegistro(cicloId, CompstId, userId) {
 
 async function AnadirApisRegistroAntes(registroId, tempAmb, tempCompost, humedad, olor, insectos, foto, observ, llenado) {
 
-    const url = `http://ecompost.test/api/registro/${registroId}/registrosAntes`;
+    const url = ` /api/registro/${registroId}/registrosAntes`;
 
     try {
         const token = getAuthToken();
@@ -359,7 +359,7 @@ async function AnadirApisRegistroAntes(registroId, tempAmb, tempCompost, humedad
 
 async function AnadirApisRegistroDurante(registroId, riego, revolver, litroVerde, typeVerde, aportSeco, typeSeco, foto, observ) {
 
-    const url = `http://ecompost.test/api/registro/${registroId}/registrosDurante`;
+    const url = ` /api/registro/${registroId}/registrosDurante`;
 
     try {
         const token = getAuthToken();
@@ -400,7 +400,7 @@ async function AnadirApisRegistroDurante(registroId, riego, revolver, litroVerde
 
 async function AnadirApisRegistroDespues(registroId, llenado, foto, observ) {
 
-    const url = `http://ecompost.test/api/registro/${registroId}/registrosDespues`;
+    const url = ` /api/registro/${registroId}/registrosDespues`;
 
     try {
         const token = getAuthToken();
@@ -1075,18 +1075,24 @@ function formularioDeCiclos(id, cicloActualID) {
     const formAntes = document.createElement("div");
     formAntes.classList.add("form-antes");
     const formDurante = document.createElement("div");
-    formDurante.classList.add("form-durante");
+    formDurante.classList.add("form-durante", "hidden");
     const formDespues = document.createElement("div");
-    formDespues.classList.add("form-despues");
+    formDespues.classList.add("form-despues", "hidden");
+
+
+    const botonNum = document.createElement("div");
+
+    botonNum.innerHTML = `
+        <div class="w-full flex flex-row registro-n">
+         <div id="antes" class="bg-gray-800">1</div>
+         <div id="durante" class="bg-gray-800">2</div>
+         <div id="despues" class="bg-gray-800">3</div>
+    </div>
+    `;
 
     Xcontent.innerHTML = "";
 
     formAntes.innerHTML = `
-    <div class="w-full flex flex-row registro-n">
-         <div id="antes" class=" bg-white text-gray-900  ">1</div>
-         <div id="durante" class="bg-gray-800">2</div>
-         <div id="despues" class="bg-gray-800">3</div>
-    </div>
     <h2>Registro Antes</h2>
     <div id="temp" class="w-full flex flex-row justify-center ">
     <div class="sm:col-span-3">
@@ -1170,11 +1176,6 @@ function formularioDeCiclos(id, cicloActualID) {
     </button>
     `;
     formDurante.innerHTML = `
-        <div class="w-full flex flex-row registro-n">
-         <div id="antes" class="bg-gray-800">1</div>
-         <div id="durante" class=" bg-white text-gray-900 ">2</div>
-         <div id="despues" class="bg-gray-800">3</div>
-    </div>
     <h2>Registro Durante</h2>
 
     <div id="verde" class="w-full flex flex-row justify-center ">
@@ -1257,11 +1258,6 @@ function formularioDeCiclos(id, cicloActualID) {
     </button>
     `;
     formDespues.innerHTML = `
-            <div class="w-full flex flex-row registro-n">
-         <div id="antes" class="bg-gray-800">1</div>
-         <div id="durante" class="bg-gray-800">2</div>
-         <div id="despues" class="bg-white text-gray-900 ">3</div>
-    </div>
         <h2>Registro Después</h2>
 
             <div class="w-full sm:col-span-3">
@@ -1291,41 +1287,52 @@ function formularioDeCiclos(id, cicloActualID) {
     `;
 
     Xcontent.appendChild(contMain);
-    contMain.appendChild(formAntes);
 
+    contMain.appendChild(formAntes);
+    contMain.appendChild(formDurante);
+    contMain.appendChild(formDespues);
+    contMain.insertAdjacentElement("afterbegin",botonNum);
 
     const botonA = document.querySelector(`#antes`);
     const botonDu = document.querySelector(`#durante`);
     const botonDes = document.querySelector(`#despues`);
 
-    console.log(botonA)
-    console.log(botonDu)
-    console.log(botonDes)
-
+    botonA.classList.add("bg-white")
 
     botonA.addEventListener("click", () => {
 
+        botonA.classList.add("bg-white")
+        botonDu.classList.remove("bg-white")
+        botonDes.classList.remove("bg-white")
+
         formDespues.classList.add("hidden");
         formDurante.classList.add("hidden");
-        contMain.appendChild(formAntes);
+        formAntes.classList.remove("hidden");
 
 
     })
 
     botonDu.addEventListener("click", () => {
 
+        botonA.classList.remove("bg-white")
+        botonDu.classList.add("bg-white")
+        botonDes.classList.remove("bg-white")
+
         formAntes.classList.add("hidden");
         formDespues.classList.add("hidden");
-        contMain.appendChild(formDurante);
-
+        formDurante.classList.remove("hidden");
 
     })
 
     botonDes.addEventListener("click", () => {
 
+        botonA.classList.remove("bg-white")
+        botonDu.classList.remove("bg-white")
+        botonDes.classList.add("bg-white")
+
         formAntes.classList.add("hidden");
         formDurante.classList.add("hidden");
-        contMain.appendChild(formDespues);
+        formDespues.classList.remove("hidden");
 
     })
 
@@ -1333,15 +1340,20 @@ function formularioDeCiclos(id, cicloActualID) {
     const botonAntes = document.querySelector(`#siguenteAntes`);
     botonAntes.addEventListener("click", () => {
 
+        botonA.classList.remove("bg-white")
+        botonDu.classList.add("bg-white")
+
         formAntes.classList.add("hidden");
-        contMain.appendChild(formDurante);
+        formDurante.classList.remove("hidden");
 
         const botonDurante = document.querySelector(`#siguenteDurante`);
         botonDurante.addEventListener("click", () => {
 
-            formDurante.classList.add("hidden");
-            contMain.appendChild(formDespues);
+            botonDu.classList.remove("bg-white");
+            botonDes.classList.add("bg-white");
 
+            formDurante.classList.add("hidden");
+            formDespues.classList.remove("hidden");
 
             if (formDespues) {
 
