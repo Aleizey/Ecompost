@@ -16,7 +16,7 @@
     <div>
         <x-input-label for="centro_id" :value="__('Centro')" />
         <select id="centro_id" name="centro_id"
-            class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-500 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm ">
+            class="mt-1 block w-full border-gray-300 dark:border-gray-400 dark:bg-gray-100 dark:text-gray-700 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm ">
             <option value="" class="" selected disabled>Centros...</option>
             @foreach($centros as $centro)
                 <option value="{{ $centro->id }}" {{ old('centro_id', $user?->centro_id) == $centro->id ? 'selected' : '' }}>
