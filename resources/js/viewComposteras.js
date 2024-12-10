@@ -679,7 +679,7 @@ export async function composteraOcupada(id) {
 
         // contenedor de los registros generales
         const contentRegistro = document.createElement("div")
-        contentRegistro.classList = "content-registro p-4 ";
+        contentRegistro.classList = "content-registro p-12 grid grid-cols-4 gap-4 ";
 
         // filtros
         const registroFiltro = document.createElement("div")
@@ -702,6 +702,8 @@ export async function composteraOcupada(id) {
         // contenedor de los registros antes, durante y despues
         const contentRegistros = document.createElement("div")
         contentRegistros.classList = "contRegistros hidden";
+
+        // registroBoton.classList.add("w-full", "p-12", "grid", "grid-cols-4", "gap-4")
 
         // model que esta dentro del contenedor de registro
         const modalRegistros = document.createElement("div")

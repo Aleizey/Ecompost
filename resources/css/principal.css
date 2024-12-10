@@ -67,6 +67,7 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.189);
     position: sticky;
     top: 0;
+    z-index: 100;
 }
 
 .add-end-ciclo>.title {
@@ -136,18 +137,13 @@
     box-shadow: inset 0 -130px 0 rgb(80, 255, 133);
 }
 
-.content-registro {
+/* .content-registro {
 
-    /* background-color: #00ffbb; */
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
+} */
 
 .content-registro>div {
 
     position: relative;
-    width: 290px;
     height: 200px;
     flex-shrink: 0;
     display: flex;
@@ -575,12 +571,19 @@
 /* ciclos */
 .ciclos {
 
-    background-color: #17c291 !important;
+    height: 190px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ffffff !important;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.322);
     padding: 20px;
-    border-radius: 30px;
+    border-radius: 20px;
+    text-align: start;
     font-size: large;
     font-weight: bolder;
-    color: aliceblue;
+    color: rgb(0, 0, 0);
 }
 
 .registro-n {

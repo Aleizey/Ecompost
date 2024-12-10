@@ -81,7 +81,7 @@ export async function consultaApiBolosCiclos(id = null, resource1, resource2 = n
                 localStorage.setItem(claveLocalStorage, JSON.stringify(datos));
                 console.log("Contenido guardado en localStorage.");
             }
-            
+
         }
 
         // return datos;
@@ -95,7 +95,7 @@ export async function consultaApiBolosCiclos(id = null, resource1, resource2 = n
 export async function rutaBolos() {
 
     Xcontent.appendChild(pantallaCarga)
-    
+
     console.log('entrando')
     arrayElementBolos = await consultaApiBolosCiclos(null, 'bolos', null);
     // const bolosData = JSON.parse(localStorage.getItem('bolosCiclos_bolos_general'));
@@ -151,11 +151,11 @@ export async function rutaAllBolos(id) {
     console.log(`Cargando ciclo para Bolo con ID: ${id}`);
     Xcontent.innerHTML = "";
 
-    const contenedorGeneral = document.createElement("div");
-    contenedorGeneral.classList.add("w-screen", "h-screen", "flex", "flex-col", "justify-between", "items-center");
+    const contGeneralMain = document.createElement("main");
+    contGeneralMain.classList.add("w-screen", "h-screen", "flex", "flex-col", "justify-between", "items-center");
 
-    const contMain = document.createElement("main");
-    contMain.classList.add("w-full", "p-12", "grid", "grid-cols-4", "gap-4");
+    const contCiclo = document.createElement("div");
+    contCiclo.classList.add("w-full", "p-12", "grid", "grid-cols-4", "gap-4");
 
     // Trabajando con los ciclos
     ciclos.map(async ciclo => {
@@ -163,51 +163,168 @@ export async function rutaAllBolos(id) {
         cicloCont.classList.add("w-full", "flex", "justify-center", "mb-12", "ciclos");
 
         cicloCont.innerHTML = `
-            <div>
-                <p>Id ciclo :${ciclo.id}</p>
-                <p>Bolo :${ciclo.bolo_id}</p>
-                <p>Fecha Inicio :${ciclo.fecha_inicio}</p>
-                <p>Fecha Final :${ciclo.fecha_final}</p>
-            </div>`;
+                <div class="flex justify-between">
+                <div class="flex flex-row">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                   <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                </svg>
 
-        contMain.appendChild(cicloCont);
+                   <p class="ms-3"> Ciclo ${ciclo.id} </p>
+                </div>
+                <div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                </svg>
+                </div>
+                </div>
+           </div>
+           <div class="flex flex-row">
+                <div class="text-gray-600 text-start">
+                   Pulsa para ver el contenido de este ciclo  
+                </div>
+           </div>
+           <div class="flex flex-row justify-between">
+                <div>
 
-        // Obtener registros relacionados con este ciclo
-        const registos = await consultaApiBolosCiclos(ciclo.id, 'ciclo', 'registros');
+                 <p class="">${ciclo.fecha_final ? "Finalizado" : "Activo"}</p>
 
-        // Procesar los registros
-        for (let registro of registos) {
-            const registosAntes = await consultaApiBolosCiclos(registro.id, 'registro', 'registrosAntes');
-            const registosDurante = await consultaApiBolosCiclos(registro.id, 'registro', 'registrosDurante');
-            const registosDespues = await consultaApiBolosCiclos(registro.id, 'registro', 'registrosDespues');
+                </div>
+                <div class="flex flex-col justify-end ">
+                <div class="flex flex-row items-center ">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 me-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+               </svg>
+                 <p class=" ms-3">${ciclo.fecha_inicio.slice(0, 10)}</p>
+                 </div>
+                </div>
+           </div>
+            `;
 
-            // Procesar registros antes
-            for (let antes of registosAntes) {
-                const antesCont = document.createElement("div");
-                antesCont.classList.add("w-full", "flex", "justify-center", "mb-12", "ciclos");
 
-                antesCont.innerHTML = `
-                    <div>
-                        <p>Id Antes:${antes.id}</p>
-                        <p>Id Registro:${antes.registro_id}</p>
-                        <p>Humedad :${antes.humedad}</p>
-                        <p>Observaciones iniciales :${antes.observaciones_iniciales}</p>
-                        <p>Temperatura ambiente :${antes.temperatura_ambiente} °C</p>
-                        <p>Olor :${antes.olor}</p>
-                        <p>Presencia insectos :${antes.presencia_insectos ? "Si" : "No"}</p>
-                        <p>Temperatura compostera :${antes.temperatura_compostera} ºC</p>
-                        <img src="${antes.fotografias_iniciales}" alt="imagen">
-                        <p>Fecha :${antes.fotografias_iniciales}</p>
-                    </div>`;
 
-                contMain.appendChild(antesCont);
-            }
+        contGeneralMain.appendChild(contCiclo);
+        contCiclo.appendChild(cicloCont);
 
-        }
+        cicloCont.addEventListener("click", async () => {
+
+            // Obtener registros relacionados con este ciclo
+            const registos = await consultaApiBolosCiclos(ciclo.id, 'ciclo', 'registros');
+
+            registos.map(async registro => {
+                // Procesar los registros
+                const [registosAntes, registosDurante, registosDespues] = await Promise.all([
+                    consultaApiBolosCiclos(registro.id, 'registro', 'registrosAntes'),
+                    consultaApiBolosCiclos(registro.id, 'registro', 'registrosDurante'),
+                    consultaApiBolosCiclos(registro.id, 'registro', 'registrosDespues')
+                ]);
+
+                const crearTabla = (registros, tipo) => {
+                    return registros.map(reg => {
+                        const contenedor = document.createElement("div");
+                        contenedor.classList.add("tablas-registros");
+
+                        if (tipo === 'antes') {
+                            contenedor.innerHTML = `
+                      <table class="min-w-full table-auto border-collapse border border-gray-200">
+                        <thead class="bg-gray-500 text-white">
+                          <tr>
+                            <th class="px-4 py-2 border border-gray-300 ">Id Antes</th>
+                            <th class="px-4 py-2 border border-gray-300">Id Registro</th>
+                            <th class="px-4 py-2 border border-gray-300">Humedad</th>
+                            <th class="px-4 py-2 border border-gray-300">Observaciones Inicial</th>
+                            <th class="px-4 py-2 border border-gray-300">Temperatura Ambiente</th>
+                            <th class="px-4 py-2 border border-gray-300">Olor</th>
+                            <th class="px-4 py-2 border border-gray-300">Presencia Insectos</th>
+                            <th class="px-4 py-2 border border-gray-300">Temperatura Compostera</th>
+                            <th class="px-4 py-2 border border-gray-300">Fotografías Iniciales</th>
+                            <th class="px-4 py-2 border border-gray-300">Fecha</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="bg-white hover:bg-gray-200">
+                            <td class="px-4 py-2 border border-gray-300">${reg.id}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.registro_id}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.humedad}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.observaciones_iniciales}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.temperatura_ambiente}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.olor}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.presencia_insectos ? 'Sí' : 'No'}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.temperatura_compostera}</td>
+                            <td class="px-4 py-2 border border-gray-300"><p class="text-blue-500">${reg.fotografias_iniciales}</p></td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.fecha}</td>
+                          </tr>
+                        </tbody>
+                      </table>`;
+                        } else if (tipo === 'durante') {
+                            contenedor.innerHTML = `
+                      <table class="min-w-full table-auto border-collapse border border-gray-200">
+                        <thead class="bg-gray-500 text-white">
+                          <tr>
+                            <th class="px-4 py-2 border border-gray-300">Id Durante</th>
+                            <th class="px-4 py-2 border border-gray-300">Id Registro</th>
+                            <th class="px-4 py-2 border border-gray-300">Riego</th>
+                            <th class="px-4 py-2 border border-gray-300">Revolver</th>
+                            <th class="px-4 py-2 border border-gray-300">Litros Verde</th>
+                            <th class="px-4 py-2 border border-gray-300">Tipo de verde</th>
+                            <th class="px-4 py-2 border border-gray-300">Aporte seco</th>
+                            <th class="px-4 py-2 border border-gray-300">Tipo Seco</th>
+                            <th class="px-4 py-2 border border-gray-300">Fotografías Durante</th>
+                            <th class="px-4 py-2 border border-gray-300">Observacion</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="bg-white hover:bg-gray-200">
+                            <td class="px-4 py-2 border border-gray-300">${reg.id}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.registro_id}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.riego ? "SI" : "NO"}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.revolver ? "SI" : "NO"}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.litros_verde}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.tipo_aporte_verde}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.aporte_seco}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.tipo_aporte_seco}</td>
+                            <td class="px-4 py-2 border border-gray-300"><p class="text-blue-500">${reg.fotografias_durante}</p></td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.observaciones_durante}</td>
+                          </tr>
+                        </tbody>
+                      </table>`;
+                        } else if (tipo === 'despues') {
+                            contenedor.innerHTML = `
+                      <table class="min-w-full table-auto border-collapse border border-gray-200">
+                        <thead class="bg-gray-500 text-white">
+                          <tr>
+                            <th class="px-4 py-2 border border-gray-300">Id Despues</th>
+                            <th class="px-4 py-2 border border-gray-300">Id Registro</th>
+                            <th class="px-4 py-2 border border-gray-300">Nivel Llenado</th>
+                            <th class="px-4 py-2 border border-gray-300">Fotografías Despues</th>
+                            <th class="px-4 py-2 border border-gray-300">Observacion Final</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="bg-white hover:bg-gray-200">
+                            <td class="px-4 py-2 border border-gray-300">${reg.id}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.registro_id}</td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.nivel_llenado_final}</td>
+                            <td class="px-4 py-2 border border-gray-300"><p class="text-blue-500">${reg.fotografias_final}</p></td>
+                            <td class="px-4 py-2 border border-gray-300">${reg.observaciones_final}</td>
+                          </tr>
+                        </tbody>
+                      </table>`;
+                        }
+
+                        contCiclo.appendChild(contenedor);
+                    });
+                };
+
+                // Crear tablas
+                crearTabla(registosAntes, 'antes');
+                crearTabla(registosDurante, 'durante');
+                crearTabla(registosDespues, 'despues');
+            });
+        });
     });
 
     // Agregar el contenedor al DOM
-    Xcontent.appendChild(contMain);
+    Xcontent.appendChild(contGeneralMain);
 }
 
 // Manejar cambios en la URL para actualizar la vista
