@@ -70,13 +70,13 @@ class CicloSeeder extends Seeder
         $ciclo2C4 = new Ciclo();
         $ciclo2C4->fecha_inicio = $C4FechaInicio2;
         $ciclo2C4->fecha_final = $C4FechaInicio3;
-        $ciclo2C4->compostera_id = 1;
+        $ciclo2C4->compostera_id = 2;
         $ciclo2C4->bolo_id = 4;
         $ciclo2C4->save();
         
         $ciclo3C4 = new Ciclo();
         $ciclo3C4->fecha_inicio = $C4FechaInicio3;
-        $ciclo3C4->compostera_id = 1;
+        $ciclo3C4->compostera_id = 3;
         $ciclo3C4->bolo_id = 4;
         $ciclo3C4->save();
 

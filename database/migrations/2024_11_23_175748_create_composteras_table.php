@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('imagen')->nullable();
             $table->enum('tipo', ['11', '22', '33']);
+            $table->boolean('ocupado')->default(0);
             $table->bigInteger('centro_id')->unsigned()->index();
             $table->foreign('centro_id')->references('id')->on('centros')->onDelete('cascade');
             $table->timestamps();

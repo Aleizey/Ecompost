@@ -1,12 +1,12 @@
 body {
 
     overflow: hidden;
-    background: linear-gradient(#259c52 2.5%, rgb(255, 255, 255) 2.5%);
+    background: linear-gradient(#155946 2.5%, rgb(255, 255, 255) 2.5%);
 }
 
 .login-img {
 
-    background-image: url(https://media.discordapp.net/attachments/1309702840175825049/1311400538390134824/god.png?ex=6748b86c&is=674766ec&hm=16d6921f0cc1b56ad050a19766160621dd9dbf781a3d72d345fb6144b19ee26e&=&format=webp&quality=lossless&width=1292&height=1292);
+    background-image: url(https://i.pinimg.com/474x/98/0b/93/980b93155d943eb031843811ba89f139.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

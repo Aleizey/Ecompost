@@ -1,1 +1,4 @@
-<img src="https://media.discordapp.net/attachments/1309702840175825049/1311400562150998046/logo.png?ex=6748b872&is=674766f2&hm=e61fa6584a79ddc9f2d8a19419b66d5d918d2bd3846c69af4bb1a18ea1e77b98&=&format=webp&quality=lossless&width=592&height=592" alt="" width="240" height="240">
+<img src="{{ asset('images/logo.png') }}"alt="" width="240" height="240">
+<!-- <img {{ $attributes->merge(['src'=>'favicon.ico'],
+    ['alt'=>'Logo'],
+    ['class'=> 'block text-gray-700 text-sm mb-2']) }}> -->

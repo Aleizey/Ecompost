@@ -19,6 +19,7 @@ return new class extends Migration
             $table->boolean('presencia_insectos')->default(0);
             $table->enum('humedad', ['Exceso', 'Buena', 'Defecto']);
             $table->string('fotografias_iniciales');
+            $table->float('llenado_inicial');
             $table->text('observaciones_iniciales');
             $table->unsignedBigInteger('registro_id')->index();
             $table->foreign('registro_id')->references('id')->on('registros')->onDelete('cascade');

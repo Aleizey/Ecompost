@@ -24,12 +24,13 @@ class Ciclo extends Model
 
     public function composteras(): BelongsTo
     {
-        return $this->BelongsTo(Compostera::class);
+        return $this->BelongsTo(Compostera::class, 'compostera_id', 'id');
     }
 
-    public function bolos(): BelongsTo
+    public function bolo()
     {
-        return $this->BelongsTo(Bolo::class);
+        return $this->belongsTo(Bolo::class, 'bolo_id', 'id'); 
     }
+
 
 }

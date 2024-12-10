@@ -9,12 +9,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable 
+class User extends Authenticatable
 {
 
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
     protected $perPage = 20;
 
 
@@ -27,6 +28,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'admin',
+        'centro_id',
+        'image',
     ];
 
     /**
@@ -51,7 +55,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
+    protected static function boot()
+    {
+        parent::boot();
+    
+        static::creating(function ($user) {
+            $user->password = bcrypt('password');
+        });
+    }
     /**
      * Get all of the task for the user
      *  
@@ -59,7 +70,7 @@ class User extends Authenticatable
      */
     public function centros(): BelongsTo
     {
-        return $this->belongsTo(Centro::class);
+        return $this->belongsTo(Centro::class, 'centro_id', 'id');
     }
 
     public function registros()

@@ -12,6 +12,7 @@ class Bolo extends Model
         'fecha_inicio',
         'fecha_final',
         'comentario',
+        'imagen',
     ];
 
     protected $attributes = [
@@ -30,8 +31,8 @@ class Bolo extends Model
     }
 
 
-    public function ciclos(): HasMany
+    public function ciclos()
     {
-        return $this->HasMany(Ciclo::class);
+        return $this->hasMany(Ciclo::class, 'bolo_id'); 
     }
 }

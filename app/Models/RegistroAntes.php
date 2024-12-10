@@ -18,13 +18,14 @@ class RegistroAntes extends Model
         'presencia_insectos',
         'humedad',
         'fotografias_iniciales',
+        'llenado_inicial',
         'observaciones_iniciales',
         'registro_id',
     ];
 
     public function registros(): BelongsTo
     {
-        return $this->belongsTo(Registro::class);
+        return $this->belongsTo(Registro::class , 'registro_id');
     }
 
 }
