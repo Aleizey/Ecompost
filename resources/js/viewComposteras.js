@@ -665,132 +665,224 @@ export async function composteraOcupada(id) {
             </div>
         `;
 
-        const registro = await consultaApisCompost(null, 'registro', null)
-        console.log("registros :" ,registro)
+        // contenedor de los registros generales
+        const contentRegistro = document.createElement("div")
+        contentRegistro.classList = "content-registro p-4 ";
 
-        registro.forEach(async registro => {
+        // filtros
+        const registroFiltro = document.createElement("div")
+        registroFiltro.classList = "filter-registro p-2 flex flex-row";
 
-            Xcontent.innerHTML = "";
+        registroFiltro.innerHTML = `
+        <button class="">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+          </svg>
+        Fecha
+        </button>
+                <button class="usuarios">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"  class="size-6">
+                   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                  </svg>
+        Usuario
+        </button>
+        `;
+        // contenedor de los registros antes, durante y despues
+        const contentRegistros = document.createElement("div")
+        contentRegistros.classList = "contRegistros hidden";
 
-            if (registro.compostera_id == id) {
-                const [registosAntes, registosDurante, registosDespues] = await Promise.all([
-                    consultaApisCompost(registro.id, 'registro', 'registrosAntes'),
-                    consultaApisCompost(registro.id, 'registro', 'registrosDurante'),
-                    consultaApisCompost(registro.id, 'registro', 'registrosDespues')
-                ]);
+        // model que esta dentro del contenedor de registro
+        const modalRegistros = document.createElement("div")
+        modalRegistros.classList = "modal-registros";
 
-                const crearTabla = (registros, tipo) => {
-                    return registros.map(reg => {
-                        const contenedor = document.createElement("div");
-                        contenedor.classList.add("tablas-registros");
+        // boton de cerrado del model de registro 
+        const CloseRegistros = document.createElement("div")
+        CloseRegistros.classList = "close-registros";
 
-                        if (tipo === 'antes') {
-                            contenedor.innerHTML = `
-                      <table class="min-w-full mt-6 table-auto border-collapse border border-gray-200">
-                        <thead class="bg-gray-500 text-white">
-                          <tr>
-                            <th class="px-4 py-2 border border-gray-300 ">Id Antes</th>
-                            <th class="px-4 py-2 border border-gray-300">Id Registro</th>
-                            <th class="px-4 py-2 border border-gray-300">Humedad</th>
-                            <th class="px-4 py-2 border border-gray-300">Observaciones Inicial</th>
-                            <th class="px-4 py-2 border border-gray-300">Temperatura Ambiente</th>
-                            <th class="px-4 py-2 border border-gray-300">Olor</th>
-                            <th class="px-4 py-2 border border-gray-300">Presencia Insectos</th>
-                            <th class="px-4 py-2 border border-gray-300">Temperatura Compostera</th>
-                            <th class="px-4 py-2 border border-gray-300">Fotografías Iniciales</th>
-                            <th class="px-4 py-2 border border-gray-300">Fecha</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr class="bg-white hover:bg-gray-200">
-                            <td class="px-4 py-2 border border-gray-300">${reg.id}</td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.registro_id}</td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.humedad}</td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.observaciones_iniciales}</td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.temperatura_ambiente}</td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.olor}</td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.presencia_insectos ? 'Sí' : 'No'}</td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.temperatura_compostera}</td>
-                            <td class="px-4 py-2 border border-gray-300"><p class="text-blue-500">${reg.fotografias_iniciales}</p></td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.fecha}</td>
-                          </tr>
-                        </tbody>
-                      </table>`;
-                        } else if (tipo === 'durante') {
-                            contenedor.innerHTML = `
-                      <table class="min-w-full table-auto border-collapse border border-gray-200">
-                        <thead class="bg-gray-500 text-white">
-                          <tr>
-                            <th class="px-4 py-2 border border-gray-300">Id Durante</th>
-                            <th class="px-4 py-2 border border-gray-300">Id Registro</th>
-                            <th class="px-4 py-2 border border-gray-300">Riego</th>
-                            <th class="px-4 py-2 border border-gray-300">Revolver</th>
-                            <th class="px-4 py-2 border border-gray-300">Litros Verde</th>
-                            <th class="px-4 py-2 border border-gray-300">Tipo de verde</th>
-                            <th class="px-4 py-2 border border-gray-300">Aporte seco</th>
-                            <th class="px-4 py-2 border border-gray-300">Tipo Seco</th>
-                            <th class="px-4 py-2 border border-gray-300">Fotografías Durante</th>
-                            <th class="px-4 py-2 border border-gray-300">Observacion</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr class="bg-white hover:bg-gray-200">
-                            <td class="px-4 py-2 border border-gray-300">${reg.id}</td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.registro_id}</td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.riego ? "SI" : "NO"}</td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.revolver ? "SI" : "NO"}</td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.litros_verde}</td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.tipo_aporte_verde}</td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.aporte_seco}</td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.tipo_aporte_seco}</td>
-                            <td class="px-4 py-2 border border-gray-300"><p class="text-blue-500">${reg.fotografias_durante}</p></td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.observaciones_durante}</td>
-                          </tr>
-                        </tbody>
-                      </table>`;
-                        } else if (tipo === 'despues') {
-                            contenedor.innerHTML = `
-                      <table class="min-w-full table-auto border-collapse border border-gray-200">
-                        <thead class="bg-gray-500 text-white">
-                          <tr>
-                            <th class="px-4 py-2 border border-gray-300">Id Despues</th>
-                            <th class="px-4 py-2 border border-gray-300">Id Registro</th>
-                            <th class="px-4 py-2 border border-gray-300">Nivel Llenado</th>
-                            <th class="px-4 py-2 border border-gray-300">Fotografías Despues</th>
-                            <th class="px-4 py-2 border border-gray-300">Observacion Final</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr class="bg-white hover:bg-gray-200">
-                            <td class="px-4 py-2 border border-gray-300">${reg.id}</td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.registro_id}</td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.nivel_llenado_final}</td>
-                            <td class="px-4 py-2 border border-gray-300"><p class="text-blue-500">${reg.fotografias_final}</p></td>
-                            <td class="px-4 py-2 border border-gray-300">${reg.observaciones_final}</td>
-                          </tr>
-                        </tbody>
-                      </table>`;
-                        }
-
-                        contMain.appendChild(contenedor);
-                    });
-                };
-
-                // Crear tablas
-                crearTabla(registosAntes, 'antes');
-                crearTabla(registosDurante, 'durante');
-                crearTabla(registosDespues, 'despues');
-
-            }
-        });
-
-        // meter el contenido en el main
-        Xcontent.appendChild(contMain);
+        CloseRegistros.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+</svg>
+        `;
 
         // Mostrar los botones para terminar ciclo y agregar registro
         // Añadir el contenedor con los botones al DOM
         Xcontent.appendChild(contMain);
         contMain.appendChild(addEndCiclo);
+        contMain.appendChild(registroFiltro);
+        contMain.appendChild(contentRegistros);
+        contentRegistros.appendChild(modalRegistros);
+        contMain.appendChild(contentRegistro);
+
+        const registro = await consultaApisCompost(null, 'registro', null)
+        console.log("registros :", registro)
+
+        registro.forEach(async registro => {
+
+            if (registro.compostera_id == id) {
+
+                const users = await consultaApisCompost(null, 'users', null);
+                const imgUser = users.find(user => user.id == registro.user_id);
+
+                const registroBoton = document.createElement("div")
+
+                registroBoton.innerHTML = `
+                <div class="flex flex-row justify-between">
+                     <div class="flex flex-row">
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                     </svg>
+
+                        <p class="ms-3"> Registro ${registro.id} </p>
+                     </div>
+                     <div>
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                     </svg>
+                     </div>
+                </div>
+                <div class="flex flex-row">
+                     <div class="text-gray-600 text-start">
+                        Pulsa para ver todos el contenido de este registro en específico  
+                     </div>
+                </div>
+                <div class="flex flex-row justify-between">
+                     <div>
+                     <img src="${imgUser.image ? imgUser.image : "https://cdn-icons-png.flaticon.com/512/1134/1134446.png"}" alt="imagen" id="user${registro.user_id}" class="size-6">
+                     
+                     <div class="name-user">${imgUser.name}</div>
+                     </div>
+                     <div class="flex flex-col justify-end ">
+                     <div class="flex flex-row items-center ">
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 me-4">
+                       <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                    </svg>
+                      <p class=" ms-3">${registro.fecha_hora.slice(0, 10)}</p>
+                      </div>
+                     </div>
+                </div>
+                `;
+
+                CloseRegistros.addEventListener("click", () => {
+
+                    modalRegistros.innerHTML = "";
+                    contentRegistros.classList.add("hidden");
+                });
+
+                registroBoton.addEventListener("click", async () => {
+
+                    const [registosAntes, registosDurante, registosDespues] = await Promise.all([
+                        consultaApisCompost(registro.id, 'registro', 'registrosAntes'),
+                        consultaApisCompost(registro.id, 'registro', 'registrosDurante'),
+                        consultaApisCompost(registro.id, 'registro', 'registrosDespues')
+                    ]);
+                    const crearTabla = (registros, tipo) => {
+                        return registros.map(reg => {
+                            const contenedor = document.createElement("div");
+                            contenedor.classList.add("tablas-registros");
+
+                            if (tipo === 'antes') {
+                                contenedor.innerHTML = `
+                          <table class="min-w-full mt-6 table-auto border-collapse border border-gray-200">
+                            <thead class="bg-gray-500 text-white">
+                              <tr>
+                                <th class="px-4 py-2 border border-gray-300 ">Id Antes</th>
+                                <th class="px-4 py-2 border border-gray-300">Id Registro</th>
+                                <th class="px-4 py-2 border border-gray-300">Humedad</th>
+                                <th class="px-4 py-2 border border-gray-300">Observaciones Inicial</th>
+                                <th class="px-4 py-2 border border-gray-300">Temperatura Ambiente</th>
+                                <th class="px-4 py-2 border border-gray-300">Olor</th>
+                                <th class="px-4 py-2 border border-gray-300">Presencia Insectos</th>
+                                <th class="px-4 py-2 border border-gray-300">Temperatura Compostera</th>
+                                <th class="px-4 py-2 border border-gray-300">Fotografías Iniciales</th>
+                                <th class="px-4 py-2 border border-gray-300">Fecha</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr class="bg-white hover:bg-gray-200">
+                                <td class="px-4 py-2 border border-gray-300">${reg.id}</td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.registro_id}</td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.humedad}</td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.observaciones_iniciales}</td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.temperatura_ambiente}</td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.olor}</td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.presencia_insectos ? 'Sí' : 'No'}</td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.temperatura_compostera}</td>
+                                <td class="px-4 py-2 border border-gray-300"><p class="text-blue-500">${reg.fotografias_iniciales}</p></td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.fecha}</td>
+                              </tr>
+                            </tbody>
+                          </table>`;
+                            } else if (tipo === 'durante') {
+                                contenedor.innerHTML = `
+                          <table class="min-w-full table-auto border-collapse border border-gray-200">
+                            <thead class="bg-gray-500 text-white">
+                              <tr>
+                                <th class="px-4 py-2 border border-gray-300">Id Durante</th>
+                                <th class="px-4 py-2 border border-gray-300">Id Registro</th>
+                                <th class="px-4 py-2 border border-gray-300">Riego</th>
+                                <th class="px-4 py-2 border border-gray-300">Revolver</th>
+                                <th class="px-4 py-2 border border-gray-300">Litros Verde</th>
+                                <th class="px-4 py-2 border border-gray-300">Tipo de verde</th>
+                                <th class="px-4 py-2 border border-gray-300">Aporte seco</th>
+                                <th class="px-4 py-2 border border-gray-300">Tipo Seco</th>
+                                <th class="px-4 py-2 border border-gray-300">Fotografías Durante</th>
+                                <th class="px-4 py-2 border border-gray-300">Observacion</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr class="bg-white hover:bg-gray-200">
+                                <td class="px-4 py-2 border border-gray-300">${reg.id}</td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.registro_id}</td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.riego ? "SI" : "NO"}</td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.revolver ? "SI" : "NO"}</td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.litros_verde}</td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.tipo_aporte_verde}</td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.aporte_seco}</td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.tipo_aporte_seco}</td>
+                                <td class="px-4 py-2 border border-gray-300"><p class="text-blue-500">${reg.fotografias_durante}</p></td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.observaciones_durante}</td>
+                              </tr>
+                            </tbody>
+                          </table>`;
+                            } else if (tipo === 'despues') {
+                                contenedor.innerHTML = `
+                          <table class="min-w-full table-auto border-collapse border border-gray-200">
+                            <thead class="bg-gray-500 text-white">
+                              <tr>
+                                <th class="px-4 py-2 border border-gray-300">Id Despues</th>
+                                <th class="px-4 py-2 border border-gray-300">Id Registro</th>
+                                <th class="px-4 py-2 border border-gray-300">Nivel Llenado</th>
+                                <th class="px-4 py-2 border border-gray-300">Fotografías Despues</th>
+                                <th class="px-4 py-2 border border-gray-300">Observacion Final</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr class="bg-white hover:bg-gray-200">
+                                <td class="px-4 py-2 border border-gray-300">${reg.id}</td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.registro_id}</td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.nivel_llenado_final}</td>
+                                <td class="px-4 py-2 border border-gray-300"><p class="text-blue-500">${reg.fotografias_final}</p></td>
+                                <td class="px-4 py-2 border border-gray-300">${reg.observaciones_final}</td>
+                              </tr>
+                            </tbody>
+                          </table>`;
+                            }
+
+                            modalRegistros.appendChild(contenedor);
+                            contentRegistros.classList.remove("hidden");
+                            modalRegistros.appendChild(CloseRegistros);
+                        });
+                    };
+
+                    // Crear tablas
+                    crearTabla(registosAntes, 'antes');
+                    crearTabla(registosDurante, 'durante');
+                    crearTabla(registosDespues, 'despues');
+                });
+                contentRegistro.appendChild(registroBoton);
+            }
+        });
 
         // Asegurarse de que los botones están disponibles antes de agregar los listeners
         const terminarCicloButton = document.querySelector("#terminarCiclo");
