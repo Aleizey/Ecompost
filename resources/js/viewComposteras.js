@@ -6,7 +6,17 @@ import { logout } from "./noToken.js";
 
 const Xcontent = document.querySelector(".main-container");
 const user = JSON.parse(localStorage.getItem('user'));
-const pantallaCarga = document.querySelector('.pantallaCarga');
+
+const pantallaCarga = document.createElement('div');
+pantallaCarga.classList = `pantallaCarga`;
+pantallaCarga.innerHTML = `       
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="animate-spin size-72">
+             <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+            </svg>
+
+        </div>`
+
 let arrayElementComposteras = [];
 
 // optener el token
@@ -427,6 +437,8 @@ async function AnadirApisRegistroDespues(registroId, llenado, foto, observ) {
 // funcion ---->
 export async function rutaComposteras() {
 
+    Xcontent.appendChild(pantallaCarga)
+
     arrayElementComposteras = await consultaApisCompost(null, 'compostera', null);
     const contMain = document.createElement("main");
     contMain.classList.add("w-full", "p-12", "flex", "flex-row", "items-center", "justify-center");
@@ -695,6 +707,28 @@ export async function composteraOcupada(id) {
         const modalRegistros = document.createElement("div")
         modalRegistros.classList = "modal-registros";
 
+        // contenedor de modal que termina el ciclo 
+        const contentTerminarCiclo = document.createElement("div")
+        contentTerminarCiclo.classList = "contTerminarCiclo hidden";
+
+        // model que esta dentro del contenedor de para finalizar ciclo
+        const modalTerminarCiclo = document.createElement("div")
+        modalTerminarCiclo.classList = "modal-terminarCiclo";
+
+        modalTerminarCiclo.innerHTML = `
+        <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+          <div class="sm:flex sm:items-start">
+            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+              <h3 class="text-base font-semibold text-gray-900" id="modal-title">¿Seguro que quieres terminar el ciclo?</h3>
+              <div class="mt-2">
+                <p class="text-sm text-gray-500">Terminar el ciclo implica pasar el bolo a la siguente compostera y no poder subir más registros a este ciclo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        `;
+
         // boton de cerrado del model de registro 
         const CloseRegistros = document.createElement("div")
         CloseRegistros.classList = "close-registros";
@@ -705,13 +739,37 @@ export async function composteraOcupada(id) {
 </svg>
         `;
 
+        // boton de cerrado del model de terminar registro 
+        const BtnTerminarCiclo = document.createElement("div")
+        BtnTerminarCiclo.classList = "btn-terminarCiclo";
+
+        BtnTerminarCiclo.innerHTML = `
+          <button type="button" class="inline-flex w-full justify-center rounded-full bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Terminar</button>
+                `;
+
+        const CloseTerminarCiclo = document.createElement("div")
+        CloseTerminarCiclo.classList = "close-terminarCiclo";
+
+        CloseTerminarCiclo.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+</svg>
+                `;
+
         // Mostrar los botones para terminar ciclo y agregar registro
         // Añadir el contenedor con los botones al DOM
         Xcontent.appendChild(contMain);
         contMain.appendChild(addEndCiclo);
         contMain.appendChild(registroFiltro);
+        // modal registros 
         contMain.appendChild(contentRegistros);
         contentRegistros.appendChild(modalRegistros);
+        // modal terminar ciclo
+        contMain.appendChild(contentTerminarCiclo);
+        contentTerminarCiclo.appendChild(modalTerminarCiclo);
+        modalTerminarCiclo.appendChild(BtnTerminarCiclo);
+        modalTerminarCiclo.appendChild(CloseTerminarCiclo);
+
         contMain.appendChild(contentRegistro);
 
         const registro = await consultaApisCompost(null, 'registro', null)
@@ -891,72 +949,94 @@ export async function composteraOcupada(id) {
         //Si no estamos en la ultima compostera y la compostera siguiente esta vacia
         if (terminarCicloButton && id !== 3 && composteraSiguiente.ocupado == 0) {
 
+            CloseTerminarCiclo.addEventListener("click", () => {
+
+                contentTerminarCiclo.classList.add("hidden");
+            });
+
             terminarCicloButton.addEventListener("click", async () => {
-                try {
 
-                    //actualizar el ciclo le ponemos fecha final.
-                    const dataActualizarCicloActual = {
-                        fecha_final: new Date('2024-12-31').toISOString().split('T')[0],  // Solo la fecha sin la hora
-                    };
-                    const ciclo = await actualizarApisCiclos(cicloActualID, dataActualizarCicloActual);
+                contentTerminarCiclo.classList.remove("hidden")
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                // /////////////////////////////////////////////// MODAL CONFIRMAR TERMINAR CICLO ///////////////////////////////////////////////
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                BtnTerminarCiclo.addEventListener("click", async () => {
+                    try {
 
-
-                    console.log("Ciclo Actualizado:", ciclo);
-
-                    const dataActualizarComposteraActual = {
-                        ocupado: 0, // Cambiar estado a libre
-                    };
-
-                    const dataActualizarComposteraSiguiente = {
-                        ocupado: 1, // Cambiar estado a ocupada
-                    };
-
-                    const actualizarComposteraActual = await actualizarApisCopost(id, dataActualizarComposteraActual);
-                    console.log("Estado de la compostera actualizado:", actualizarComposteraActual);
+                        //actualizar el ciclo le ponemos fecha final.
+                        const dataActualizarCicloActual = {
+                            fecha_final: new Date('2024-12-31').toISOString().split('T')[0],  // Solo la fecha sin la hora
+                        };
+                        const ciclo = await actualizarApisCiclos(cicloActualID, dataActualizarCicloActual);
 
 
-                    // Crear el nuevo ciclo asociado al bolo
-                    const cicloNuevo = await AnadirApisCiclo(cicloActualBolo, siguienteComposteraId);
-                    console.log("NUEVO CICLO asociado a la sieguiente compostera:", cicloNuevo);
+                        console.log("Ciclo Actualizado:", ciclo);
 
-                    //poner en estado ocupado el la compostera a la que le asiciamos ciclo
-                    const actualizarComposteraSiguiente = await actualizarApisCopost(siguienteComposteraId, dataActualizarComposteraSiguiente);
-                    console.log("Estado de la compostera a la que pasa el BOLO:", actualizarComposteraSiguiente);
+                        const dataActualizarComposteraActual = {
+                            ocupado: 0, // Cambiar estado a libre
+                        };
 
-                    window.history.replaceState(null, '', `/#compostera`);
-                    rutaComposteras();
+                        const dataActualizarComposteraSiguiente = {
+                            ocupado: 1, // Cambiar estado a ocupada
+                        };
 
-                } catch (error) {
-                    console.error("Error al terminar ciclo:", error);
-                }
+                        const actualizarComposteraActual = await actualizarApisCopost(id, dataActualizarComposteraActual);
+                        console.log("Estado de la compostera actualizado:", actualizarComposteraActual);
+
+
+                        // Crear el nuevo ciclo asociado al bolo
+                        const cicloNuevo = await AnadirApisCiclo(cicloActualBolo, siguienteComposteraId);
+                        console.log("NUEVO CICLO asociado a la sieguiente compostera:", cicloNuevo);
+
+                        //poner en estado ocupado el la compostera a la que le asiciamos ciclo
+                        const actualizarComposteraSiguiente = await actualizarApisCopost(siguienteComposteraId, dataActualizarComposteraSiguiente);
+                        console.log("Estado de la compostera a la que pasa el BOLO:", actualizarComposteraSiguiente);
+
+                        window.history.replaceState(null, '', `/#compostera`);
+                        rutaComposteras();
+
+                    } catch (error) {
+                        console.error("Error al terminar ciclo:", error);
+                    }
+                });
             });
         }
         else if (terminarCicloButton && id == 3) {
 
+            CloseTerminarCiclo.addEventListener("click", () => {
+
+                contentTerminarCiclo.classList.add("hidden");
+            });
+
             terminarCicloButton.addEventListener("click", async () => {
-                try {
 
-                    //actualizar el ciclo le ponemos fecha final.
-                    const dataActualizarCicloActual = {
-                        fecha_final: new Date('2024-12-31').toISOString().split('T')[0],  // Solo la fecha sin la hora
-                    };
-                    const ciclo = await actualizarApisCiclos(cicloActualID, dataActualizarCicloActual);
+                contentTerminarCiclo.classList.remove("hidden")
+
+                BtnTerminarCiclo.addEventListener("click", async () => {
+                    try {
+
+                        //actualizar el ciclo le ponemos fecha final.
+                        const dataActualizarCicloActual = {
+                            fecha_final: new Date('2024-12-31').toISOString().split('T')[0],  // Solo la fecha sin la hora
+                        };
+                        const ciclo = await actualizarApisCiclos(cicloActualID, dataActualizarCicloActual);
 
 
-                    console.log("Ciclo Actualizado:", ciclo);
+                        console.log("Ciclo Actualizado:", ciclo);
 
-                    const dataActualizarComposteraActual = {
-                        ocupado: 0, // Cambiar estado a libre
-                    };
+                        const dataActualizarComposteraActual = {
+                            ocupado: 0, // Cambiar estado a libre
+                        };
 
-                    const actualizarComposteraActual = await actualizarApisCopost(id, dataActualizarComposteraActual);
-                    console.log("Estado de la compostera actualizado:", actualizarComposteraActual);
-                    window.history.replaceState(null, '', `/#compostera`);
-                    rutaComposteras();
+                        const actualizarComposteraActual = await actualizarApisCopost(id, dataActualizarComposteraActual);
+                        console.log("Estado de la compostera actualizado:", actualizarComposteraActual);
+                        window.history.replaceState(null, '', `/#compostera`);
+                        rutaComposteras();
 
-                } catch (error) {
-                    console.error("Error al terminar ciclo:", error);
-                }
+                    } catch (error) {
+                        console.error("Error al terminar ciclo:", error);
+                    }
+                });
             });
 
         }
