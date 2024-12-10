@@ -1,4 +1,4 @@
-<section class="bg-white shadow sm:rounded-lg p-6">
+<section class="bg-white shadow  sm:rounded-lg p-6">
     <!-- Encabezado -->
     <header class="mb-6 text-left">
         <h2 class="text-xl font-semibold text-[#352c07]">

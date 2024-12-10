@@ -7,9 +7,20 @@ import { logout } from "./noToken.js";
 
 // contenido entero de la pagina 
 const Xcontent = document.querySelector(".main-container");
-let arrayElementRegistros = [];
+
 const user = JSON.parse(localStorage.getItem('user'));
 
+const pantallaCarga = document.createElement('div');
+pantallaCarga.classList = `pantallaCarga`;
+pantallaCarga.innerHTML = `       
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="animate-spin size-72">
+             <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+            </svg>
+
+        </div>`
+
+let arrayElementRegistros = [];
 // optener el token
 function getAuthToken() {
   const token = sessionStorage.getItem('apiToken');
@@ -22,13 +33,13 @@ async function consultaApisViewRegistro(id = null, resource1, resource2 = null) 
   let url;
 
   if (id === null && resource2 === null) {
-    url = `http://ecompost.test/api/${resource1}`;
+    url = ` /api/${resource1}`;
 
   } else if (id && resource2 === null) {
-    url = `http://ecompost.test/api/${resource1}/${id}`;
+    url = ` /api/${resource1}/${id}`;
 
   } else if (id && resource1 && resource2) {
-    url = `http://ecompost.test/api/${resource1}/${id}/${resource2}`;
+    url = ` /api/${resource1}/${id}/${resource2}`;
   }
 
   try {
@@ -54,16 +65,13 @@ async function consultaApisViewRegistro(id = null, resource1, resource2 = null) 
 
     const resultadoJSON = await resultadoEnBruto.json();
     const datos = resultadoJSON.data;
-    arrayElementRegistros = datos;
-    return datos;
+    arrayElementRegistros = [...datos];
 
-    // if(!datos) {
-    //   pantalladecarga.classlist("hidden")
+    if (resultadoJSON.data) {
 
-    // } else if (datos ){
-
-    //   return datos;
-    // }
+      pantallaCarga.remove()
+      return datos;
+  }
 
   } catch (error) {
     console.log(`Error en la consulta de ciclos: ${error}`);
@@ -74,11 +82,14 @@ async function consultaApisViewRegistro(id = null, resource1, resource2 = null) 
 // función ---->
 export async function rutaRegistros() {
 
+  Xcontent.appendChild(pantallaCarga)
+  
+  arrayElementRegistros = await consultaApisViewRegistro(null, 'registro', null);
   const contMain = document.createElement("main");
   contMain.classList.add("w-full", "p-12", "mt-5");
 
   console.log(arrayElementRegistros)
-  arrayElementRegistros.forEach(async registro => {
+  arrayElementRegistros.map(async registro => {
 
     Xcontent.innerHTML = "";
 
