@@ -441,13 +441,13 @@ export async function rutaComposteras() {
 
     const divForm = document.querySelector("#divForm");
 
-    divForm.innerHTML = `Compostera`;
+    divForm.innerHTML = `<h1 class="text-xl font-bold">Composteras</h1>`;
 
     Xcontent.appendChild(pantallaCarga)
 
     arrayElementComposteras = await consultaApisCompost(null, 'compostera', null);
     const contMain = document.createElement("main");
-    contMain.classList.add("w-full", "p-12", "flex", "flex-row", "items-center", "justify-center");
+    contMain.classList = `w-full h-compost p-12 mt-5 grid grid-cols-2 gap-4`;
 
     console.log(arrayElementComposteras)
     arrayElementComposteras.map(compostera => {

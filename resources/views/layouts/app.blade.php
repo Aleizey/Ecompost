@@ -20,7 +20,7 @@
 
     <!-- Aside -->
     <nav
-        class="w-[344px] flex-shrink-0 max-lg:!hidden bg-[#438b35] nav-app flex flex-col items-center justify-between p-4 text-[#4F4F4F]">
+        class="navegation w-[344px] flex-shrink-0 max-lg:!hidden bg-[#438b35] nav-app flex flex-col items-center justify-between p-4 text-[#4F4F4F]">
         @include('layouts.navigation')
     </nav>
 
@@ -35,6 +35,14 @@
                 <div class="ml-8 flex items-center justify-center shrink-0 h-16 w-16">
 
                     <x-application-logo />
+
+                </div>
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-10 nav-hidden">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
                 </div>
                 <!-- Buscador centrado -->
                 <div id="divForm" class="flex-grow text-center form-div max-sm:!hidden">
@@ -57,6 +65,50 @@
         </div>
     </div>
 
+
+    <script>
+
+        const nav = document.querySelector(".navegation")
+        const svgNav = document.querySelector(".navegation > div> svg")
+        const navHidden = document.querySelector(".nav-hidden")
+
+        const botonNav = document.querySelectorAll(".efect-aside > a");
+
+        botonNav.forEach((boton) => {
+            boton.addEventListener("click", () => {
+
+                if (nav.classList.contains("nav-full")) {
+                    
+                    nav.classList.remove("nav-full");
+                    nav.classList.add("max-lg:!hidden");
+                }
+            });
+        });
+
+        navHidden.addEventListener("click", () => {
+
+            if (nav.classList.contains("nav-full")) {
+
+                nav.classList.remove("nav-full")
+                nav.classList.add("max-lg:!hidden")
+            }
+            else {
+                nav.classList.add("nav-full")
+                nav.classList.remove("max-lg:!hidden")
+            }
+        })
+
+        svgNav.addEventListener("click", () => {
+
+            if (nav.classList.contains("nav-full")) {
+
+                nav.classList.remove("nav-full")
+                nav.classList.add("max-lg:!hidden")
+            }
+
+        })
+
+    </script>
 </body>
 
 </html>
