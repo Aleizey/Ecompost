@@ -9,7 +9,6 @@
 <!-- Enlaces de navegación -->
 <div class="flex flex-col gap-6 mb-auto efect-aside text-white w-full px-6 mt-10">
 
-
     <a href="#bolos" class="text-lg font-semibold">
         BOLO
     </a>

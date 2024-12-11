@@ -1,3 +1,56 @@
+.nav-hidden {
+
+    display: none;
+}
+
+.navegation {
+
+    animation: activo 0.5s ease;
+}
+
+
+@keyframes activo {
+    from {
+        opacity: 0; 
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+
+@media not all and (min-width: 1024px) {
+
+    .nav-hidden {
+
+        display: flex !important;
+
+    }
+
+    .nav-full {
+
+        display: flex;
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        z-index: 200 !important;
+    }
+
+    .efect-aside>a:hover {
+        box-shadow: inset -350px 0 0 #ffffff !important;
+        color: #0c3227;
+        transform: translateX(15px);
+    }
+    
+}
+
+
+.h-compost {
+
+    height: auto !important;
+} 
 
 .scroll::-webkit-scrollbar {
     width: 10px;
@@ -303,6 +356,7 @@
 }
 
 .modal-registros {
+    width: 100%;
     background-color: rgb(255, 255, 255);
     padding: 20px;
     border-radius: 20px;
@@ -566,6 +620,11 @@
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
 }
 
+.grid-cols-2 {
+
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
 /* fin style bolo */
 
 /* ciclos */
@@ -619,6 +678,9 @@
 
 .formulario {
 
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
     width: 100%;
     height: 100%;
     padding: 20px;
@@ -626,6 +688,15 @@
     padding-right: 150px;
     display: flex;
     align-items: center;
+}
+
+
+.registro-n {
+
+    /* color: #ffffff; */
+    position: absolute;
+    top: calc(3px);
+    left: 0;
 }
 
 .boton-siguente {
@@ -796,11 +867,14 @@ main {
 
 .tablas-registros {
 
-    width: 100%;
-    overflow: hidden;
+    overflow-x: scroll;
     margin-bottom: 12px;
+    margin-left: 10px;
     text-align: start;
     width: 100% !important;
+    flex-shrink: 0;
+    margin-top: 10px;
+    border-radius: 14px;
 }
 
 .tablas-registros {
@@ -884,6 +958,7 @@ main {
     transform: scale(0.95);
     filter: brightness(70%);
 }
+
 
 .compost>div:hover {
 
@@ -1009,9 +1084,19 @@ main {
     .grid-cols-4 {
         margin-top: 0px;
         padding-top: 0px;
-        transform: scale(0.9);
         grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
     }
+
+    .grid-cols-2 {
+        margin-top: 0px;
+        padding-top: 0px;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .h-compost {
+
+        height: 100% !important;
+    } 
 
     .content-compost {
 
@@ -1030,6 +1115,12 @@ main {
         grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
 
+    .grid-cols-2 {
+        margin-top: 0px;
+        padding-top: 0px;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
     .content-compost {
 
         transform: scale(0.8);
@@ -1040,6 +1131,17 @@ main {
     main {
         display: flex;
         flex-direction: column !important;
+    }
+
+    .content-registro {
+
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .modal-content {
+
+        width: 80%;
     }
 
 }
@@ -1053,6 +1155,44 @@ main {
         grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
 
+    .grid-cols-2 {
+        margin-top: 0px;
+        padding-top: 0px;
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
+
+    .add-end-ciclo {
+
+        flex-direction: column;
+    }
+
+    .add-end-ciclo > div > #terminarCiclo, .add-end-ciclo > div > #agregarRegistro  {
+
+        margin-left: 0;
+        margin-top: 5px;
+        margin-right: 5px;
+    }
+
+    .add-end-ciclo>div>#terminarCiclo>div>svg, .add-end-ciclo>div>#agregarRegistro>div>svg {
+
+     margin: 0;
+    }
+
+    .add-end-ciclo > div > #terminarCiclo > div > p, .add-end-ciclo > div > #agregarRegistro > div > p  {
+
+        display: none;
+    }
+
+    .p-12 {
+
+        padding: 0;
+    }
+
+    .modal-content {
+
+        width: 80%;
+    }
+   
 }
 
 
@@ -1080,16 +1220,23 @@ main {
     background: linear-gradient(rgba(0, 0, 0, 0.212), rgba(0, 0, 0, 0.212)), url(https://internacomedioambiente.es/wp-content/uploads/2022/10/compostaje-comunitario.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    padding: 120px;
+    padding: 100px;
     font-size: 50px;
-    color: #000000;
+    color: #ffffff;
+    text-shadow: 0px 0px 10px rgb(0, 0, 0);
     font-weight: bold;
-    /* filter: brightness(90); */
+    border-radius: 30px;
+    border-end-end-radius: 0px;
+    border-end-start-radius: 0px;
+    overflow: hidden;
 } 
 
 .header-compost > p {
 
-    background-color: #ffffffd1;
+    text-wrap: nowrap;
+    overflow: hidden;
+    width: auto;
+    text-overflow: ellipsis;
     padding: 30px;
     padding-left: 0;
     padding-right: 0;
@@ -1097,12 +1244,41 @@ main {
 
 .main-compost {
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background-color: #ffffff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.248);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
     margin: auto;
     width: 100%;
     padding: 20px;
     height: 100%;    
+    font-weight: bolder;
+    font-size: 50px;
+}
+
+.footer-compost {
+
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.248);
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    margin: auto;
+    width: 100%;
+    padding: 10px;   
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.QR {
+
+    position: absolute;
+    top: calc(-42px);
+    right: 123px;
+    transform: scale(0.4);
+
 }

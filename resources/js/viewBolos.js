@@ -93,54 +93,86 @@ export async function consultaApiBolosCiclos(id = null, resource1, resource2 = n
 
 //Logica de los bolos
 export async function rutaBolos() {
+    const divForm = document.querySelector("#divForm");
 
-    Xcontent.appendChild(pantallaCarga)
+    // Agregar el formulario al DOM
+    divForm.innerHTML = `
+    <form class="flex items-center justify-center max-w-xs mx-auto w-3/4 sm:w-1/2 md:w-1/3">
+        <div class="relative flex items-center w-full">
+            <input type="search" id="filter-bolos"
+                class="w-full p-2 pl-10 text-sm text-[#4F4F4F] border border-[#C2B280] rounded-full bg-[#FFFFFF] focus:ring-green-500 focus:border-green-500 focus:outline-none"
+                placeholder="Buscar..." />
+            <button type="submit"
+                class="ml-2 bg-green-900 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-4 py-2 text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+            </button>
+        </div>
+    </form>`;
 
-    console.log('entrando')
-    arrayElementBolos = await consultaApiBolosCiclos(null, 'bolos', null);
-    // const bolosData = JSON.parse(localStorage.getItem('bolosCiclos_bolos_general'));
+    // Pantalla de carga mientras se obtienen los datos
+    Xcontent.appendChild(pantallaCarga);
+
+    // Obtener los datos de los bolos
+    const arrayElementBolos = await consultaApiBolosCiclos(null, "bolos", null);
+    Xcontent.innerHTML = ""; // Limpiar pantalla de carga
 
     const contMain = document.createElement("main");
     contMain.classList.add("w-full", "p-12", "mt-5", "grid", "grid-cols-4", "gap-4");
+    Xcontent.appendChild(contMain);
 
-    arrayElementBolos.map(bolo => {
-        Xcontent.innerHTML = "";
+    // Renderizar los bolos iniciales
+    renderBolos(arrayElementBolos, contMain);
 
+    // Configurar la funcionalidad de filtrado
+    const filterInput = document.querySelector("#filter-bolos");
+    filterInput.addEventListener("input", (event) => {
+        const searchTerm = event.target.value.toLowerCase();
+        const filteredBolos = arrayElementBolos.filter((bolo) =>
+            bolo.nombre.toLowerCase().includes(searchTerm)
+        );
+        renderBolos(filteredBolos, contMain);
+    });
+}
+
+// Función para renderizar los bolos en el contenedor principal
+function renderBolos(bolos, container) {
+    container.innerHTML = ""; // Limpiar el contenedor antes de renderizar
+    bolos.forEach((bolo) => {
         const boloCont = document.createElement("div");
         boloCont.classList.add("w-full", "flex", "justify-center", "mb-12");
 
         boloCont.innerHTML = `
-                <a href="#boloCiclos${bolo.id}" class="model-bolo rounded-lg shadow-lg w-full h-full p-5 flex flex-col justify-between items-center">
-                    <div class="cont-icon-user flex-col justify-between ps">
+            <a href="#boloCiclos${bolo.id}" class="model-bolo rounded-lg shadow-lg w-full h-full p-5 flex flex-col justify-between items-center">
+                <div class="cont-icon-user flex-col justify-between ps"></div>
+                <div class="shadow-lg rounded-full bg-white">
+                    <p>${bolo.nombre}</p>
+                </div>
+                <div class="bolo-img">
+                    <img src="https://png.pngtree.com/png-clipart/20230915/original/pngtree-cartoon-of-compost-manhole-container-with-vegetables-and-plants-vector-png-image_12170171.png" alt="">
+                </div>
+                <div class="grid grid-cols-4 gap-2">
+                    <div class="bg-green-500 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 fill-green-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
                     </div>
-                    <div class="shadow-lg rounded-full bg-white border-b-4 border-gray-900">
-                        <p>${bolo.nombre}</p>
+                    <h5>${bolo.fecha_final ? "Finalizado" : "Activo"}</h5>
+                    <div class="bg-blue-500 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                        </svg>
                     </div>
-                    <div class="bolo-img">
-                        <img src="https://png.pngtree.com/png-clipart/20230915/original/pngtree-cartoon-of-compost-manhole-container-with-vegetables-and-plants-vector-png-image_12170171.png" alt="">
-                    </div>
-                    <div class="grid grid-cols-4 gap-2">
-                        <div class="bg-green-500 rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 fill-green-500">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                            </svg>
-                        </div>
-                        <h5>${bolo.fecha_final ? 'Finalizado' : 'Activo'}</h5>
-                        <div class="bg-blue-500 rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
-                            </svg>
-                        </div>
-                        <h5>${bolo.fecha_inicio.split(' ', 1)}</h5>
-                    </div>
-                </a>`;
-
-        contMain.appendChild(boloCont);
+                    <h5>${bolo.fecha_inicio.split(" ", 1)}</h5>
+                </div>
+            </a>`;
+        container.appendChild(boloCont);
     });
-
-    // Agregar el contenedor principal al DOM
-    Xcontent.appendChild(contMain);
 }
+
 
 // Función para manejar la carga de ciclos y registros
 export async function rutaAllBolos(id) {

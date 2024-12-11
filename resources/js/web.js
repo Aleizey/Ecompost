@@ -1,6 +1,6 @@
 // Importar las rutas
 import { rutaBolos, rutaAllBolos } from "./viewBolos.js";
-import { rutaComposteras, composteraOcupada } from "./viewComposteras.js";
+import { rutaComposteras, composteraOcupada, formularioDeCiclos } from "./viewComposteras.js";
 import { rutaRegistros } from "./viewRegistros.js";
 import { rutaInformacion } from "./viewInformacion.js";
 // ...
@@ -21,6 +21,8 @@ export function ensureCorrectHashPosition() {
 // Función para manejar las rutas
 async function routes() {
     const hash = window.location.hash;
+    const href = window.location.href;
+    console.log("Hola :", href)
     console.log(`Hash actual: ${hash}`);
 
     if (hash.startsWith('#boloCiclos')) {
@@ -33,8 +35,15 @@ async function routes() {
         const id = hash.replace('#datosCompostera', '').trim();
         composteraOcupada(id);
 
-    }
-    else {
+    } else if (hash.startsWith('#FormularioCompost')) {
+        // Extraer el ID dinámico del hash
+        const idCompost = hash.replace('FormularioCompost', '').replace(/\D/g, '').trim();
+        const idCiclo = hash.replace('FormularioCompost', '').replace(/\d+/g, '').trim();
+        formularioDeCiclos(idCompost, idCiclo)
+    } else if (href == 'http://ecompost.test/') {
+
+        window.location.hash = "#bolos"
+    } else {
         switch (hash) {
             case '#bolos':
                 rutaBolos();

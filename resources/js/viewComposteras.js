@@ -3,9 +3,11 @@
 // api para obtener las composteras y insertar (registro, registroAntes, registroDurante, registroDespues)
 // variables--->
 import { logout } from "./noToken.js";
+import { viewGrafic } from "./grafica.js";
 
 const Xcontent = document.querySelector(".main-container");
 const user = JSON.parse(localStorage.getItem('user'));
+let QR;
 
 const pantallaCarga = document.createElement('div');
 pantallaCarga.classList = `pantallaCarga`;
@@ -437,11 +439,15 @@ async function AnadirApisRegistroDespues(registroId, llenado, foto, observ) {
 // funcion ---->
 export async function rutaComposteras() {
 
+    const divForm = document.querySelector("#divForm");
+
+    divForm.innerHTML = `<h1 class="text-xl font-bold">Composteras</h1>`;
+
     Xcontent.appendChild(pantallaCarga)
 
     arrayElementComposteras = await consultaApisCompost(null, 'compostera', null);
     const contMain = document.createElement("main");
-    contMain.classList.add("w-full", "p-12", "flex", "flex-row", "items-center", "justify-center");
+    contMain.classList = `w-full h-compost p-12 mt-5 grid grid-cols-2 gap-4`;
 
     console.log(arrayElementComposteras)
     arrayElementComposteras.map(compostera => {
@@ -550,7 +556,7 @@ async function InCompostera(compostId, compostOcupado) {
                 <div class="modal-w">
                     <div class="sm:col-span-3 mb-2">
                         <label for="bolo-name" class="block text-sm/10 font-medium text-start text-gray-900">Nombre del Bolo</label>
-                        <div class="mt-2 w-screen">
+                        <div class="mt-2">
                             <input type="text" name="bolo-name" id="bolo-name" class="formbolo block w-full rounded-md bg-gray-100 px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                         </div>
                     </div>
@@ -622,6 +628,9 @@ export async function composteraOcupada(id) {
 
     const contMain = document.createElement("main");
     contMain.classList = `w-full`;
+
+    const chart = document.createElement("div")
+    chart.id = "chart";
     Xcontent.innerHTML = "";  // Limpiar el contenido anterior
 
     const composteraActual = await siguienteCompostera(id);
@@ -763,6 +772,9 @@ export async function composteraOcupada(id) {
         Xcontent.appendChild(contMain);
         contMain.appendChild(addEndCiclo);
         contMain.appendChild(registroFiltro);
+        // elemento para meter el grafico en la web
+        contMain.appendChild(chart);
+        const chartElement = document.querySelector("#chart");
         // modal registros 
         contMain.appendChild(contentRegistros);
         contentRegistros.appendChild(modalRegistros);
@@ -779,10 +791,20 @@ export async function composteraOcupada(id) {
 
         registro.forEach(async registro => {
 
-            if (registro.compostera_id == id) {
+            if (registro.ciclo_id == cicloActualID) {
 
                 const users = await consultaApisCompost(null, 'users', null);
                 const imgUser = users.find(user => user.id == registro.user_id);
+
+                // intento mostrar lo datos por la grafica pero no funciona
+                const [registosAntes] = await Promise.all([consultaApisCompost(registro.id, 'registro', 'registrosAntes')]);
+
+                // comprueba que existe el chartElement 
+                if (chartElement && chartElement.innerHTML == "") {
+                    // le mando al viewgrafica la data que es la temperatura y el lenght para ver la cantidad 
+                    const data = [registosAntes[0].temperatura_ambiente];
+                    viewGrafic(data, registosAntes.length);
+                }
 
                 const registroBoton = document.createElement("div")
 
@@ -932,7 +954,9 @@ export async function composteraOcupada(id) {
                             modalRegistros.appendChild(contenedor);
                             contentRegistros.classList.remove("hidden");
                             modalRegistros.appendChild(CloseRegistros);
+
                         });
+
                     };
 
                     // Crear tablas
@@ -1062,12 +1086,10 @@ export async function composteraOcupada(id) {
                 }
             });
         }
-
     }
-
 }
 
-function formularioDeCiclos(id, cicloActualID) {
+export function formularioDeCiclos(id, cicloActualID) {
 
     const contMain = document.createElement("main");
     contMain.classList.add("formulario", "text-start");
@@ -1075,18 +1097,23 @@ function formularioDeCiclos(id, cicloActualID) {
     const formAntes = document.createElement("div");
     formAntes.classList.add("form-antes");
     const formDurante = document.createElement("div");
-    formDurante.classList.add("form-durante");
+    formDurante.classList.add("form-durante", "hidden");
     const formDespues = document.createElement("div");
-    formDespues.classList.add("form-despues");
+    formDespues.classList.add("form-despues", "hidden");
+
+    const botonNum = document.createElement("div");
+
+    botonNum.innerHTML = `
+        <div class="w-full flex flex-row registro-n">
+         <div id="antes" class="bg-gray-800">1</div>
+         <div id="durante" class="bg-gray-800">2</div>
+         <div id="despues" class="bg-gray-800">3</div>
+    </div>
+    `;
 
     Xcontent.innerHTML = "";
 
     formAntes.innerHTML = `
-    <div class="w-full flex flex-row registro-n">
-         <div id="antes" class=" bg-white text-gray-900  ">1</div>
-         <div id="durante" class="bg-gray-800">2</div>
-         <div id="despues" class="bg-gray-800">3</div>
-    </div>
     <h2>Registro Antes</h2>
     <div id="temp" class="w-full flex flex-row justify-center ">
     <div class="sm:col-span-3">
@@ -1144,25 +1171,26 @@ function formularioDeCiclos(id, cicloActualID) {
           </div>
         </div>
 
+        <div class="w-full flex flex-row mb-2">
           <div class="w-full">
-    <form class=" max-w-lg mx-auto">
-  <label class="block mb-2 text-sm/10 font-medium text-gray-900 dark:text-white" for="foto-inicial">Fotografía Inicial</label>
+    <form class=" max-w-lg">
   <input class="block w-52 text-sm px-3 py-3 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-700 focus:outline-none dark:bg-white dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="foto-inicial" id="fotoAntes" type="file">
   </form>
  </div>
     
 
-            <div class="w-full col-span-full gap-2">
-    <div class=" mini-text relative flex gap-x-3">
-    <div class="flex h-6 items-center">
-    <input id="insectos" name="insectos" type="checkbox"
-    class="size-4 rounded border-gray-300 text-green-600 focus:ring-green-600">
-    </div>
-    <div class="">
-    <label for="insectos"
-    class="block text-sm/10 font-medium text-white">Presencia de insectos</label>
-    </div>
-    </div>
+            <div class="w-full col-span-full flex justify-end items-center gap-2">
+     <div class=" mini-text relative flex items-center gap-x-3">
+     <div class="flex h-6 items-center">
+     <input id="insectos" name="insectos" type="checkbox"
+     class="size-4 rounded border-gray-300 text-green-600 focus:ring-green-600">
+     </div>
+     <div class="">
+     <label for="insectos"
+     class="block text-sm/10 font-medium text-white">Presencia de insectos</label>
+     </div>
+     </div>
+     </div>
     </div>
 
         <button id="siguenteAntes" type="submit" class="boton-siguente rounded-md text-center w-full px-12 py-3 text-sm/10 font-semibold text-white shadow-sm">
@@ -1170,11 +1198,6 @@ function formularioDeCiclos(id, cicloActualID) {
     </button>
     `;
     formDurante.innerHTML = `
-        <div class="w-full flex flex-row registro-n">
-         <div id="antes" class="bg-gray-800">1</div>
-         <div id="durante" class=" bg-white text-gray-900 ">2</div>
-         <div id="despues" class="bg-gray-800">3</div>
-    </div>
     <h2>Registro Durante</h2>
 
     <div id="verde" class="w-full flex flex-row justify-center ">
@@ -1216,16 +1239,17 @@ function formularioDeCiclos(id, cicloActualID) {
     </div>
   </div>    
 
+          <div class="w-full flex flex-row mb-2">
       <div class="w-full">
-    <form class=" max-w-lg mx-auto">
+    <form class=" max-w-xl ">
   <label class="block mb-2 text-sm/10 font-medium text-gray-900 dark:text-white" for="foto-durante">Fotografía Durante</label>
   <input class="block w-52 text-sm px-3 py-3 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-700 focus:outline-none dark:bg-white dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="foto-durante" id="fotoDurante" type="file">
   </form>
  </div>
 
-  <div id="riegoRevolver" class="w-full flex flex-col "> 
-            <div class="col-span-full gap-2">
-    <div class=" mini-text relative flex gap-x-3">
+  <div id="riegoRevolver" class="w-full flex flex-col"> 
+            <div class="col-span-full gap-2 flex justify-end me-5 ">
+    <div class=" mini-text relative flex items-center gap-x-3">
     <div class="flex h-6 items-center">
     <input id="riego" name="riego" type="checkbox"
     class="size-4 rounded border-gray-300 text-green-600 focus:ring-green-600">
@@ -1237,8 +1261,8 @@ function formularioDeCiclos(id, cicloActualID) {
     </div>
     </div>
 
-                <div class=" col-span-full gap-2">
-    <div class=" mini-text relative flex gap-x-3">
+                <div class=" col-span-full gap-2  flex justify-end ">
+    <div class=" mini-text relative flex items-center gap-x-3">
     <div class="flex h-6 items-center">
     <input id="revolver" name="revolver" type="checkbox"
     class="size-4 rounded border-gray-300 text-green-600 focus:ring-green-600">
@@ -1249,19 +1273,13 @@ function formularioDeCiclos(id, cicloActualID) {
     </div>
     </div>
     </div>
-  
+      </div>
   </div>
-
             <button id="siguenteDurante" type="submit" class="boton-siguente rounded-md text-center w-full px-12 py-3 text-sm/10 font-semibold text-white shadow-sm">
     Siguente 
     </button>
     `;
     formDespues.innerHTML = `
-            <div class="w-full flex flex-row registro-n">
-         <div id="antes" class="bg-gray-800">1</div>
-         <div id="durante" class="bg-gray-800">2</div>
-         <div id="despues" class="bg-white text-gray-900 ">3</div>
-    </div>
         <h2>Registro Después</h2>
 
             <div class="w-full sm:col-span-3">
@@ -1279,7 +1297,7 @@ function formularioDeCiclos(id, cicloActualID) {
   </div>   
 
   <div class="w-full">
-    <form class=" max-w-lg mx-auto">
+    <form class=" max-w-lg ">
   <label class="block mb-2 text-sm/10 font-medium text-gray-900 dark:text-white" for="foto-despues">Fotografía Final</label>
   <input class="block w-52 text-sm px-3 py-3 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-700 focus:outline-none dark:bg-white dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="foto-despues" id="fotoDespues" type="file">
   </form>
@@ -1291,41 +1309,56 @@ function formularioDeCiclos(id, cicloActualID) {
     `;
 
     Xcontent.appendChild(contMain);
-    contMain.appendChild(formAntes);
 
+    contMain.appendChild(formAntes);
+    contMain.appendChild(formDurante);
+    contMain.appendChild(formDespues);
+
+    contMain.insertAdjacentElement("afterbegin", botonNum);
+
+    const rutaActual = window.location.href;
+    generarCodigoQr(rutaActual, contMain)
 
     const botonA = document.querySelector(`#antes`);
     const botonDu = document.querySelector(`#durante`);
     const botonDes = document.querySelector(`#despues`);
 
-    console.log(botonA)
-    console.log(botonDu)
-    console.log(botonDes)
-
+    botonA.classList.add("bg-white")
 
     botonA.addEventListener("click", () => {
 
+        botonA.classList.add("bg-white")
+        botonDu.classList.remove("bg-white")
+        botonDes.classList.remove("bg-white")
+
         formDespues.classList.add("hidden");
         formDurante.classList.add("hidden");
-        contMain.appendChild(formAntes);
+        formAntes.classList.remove("hidden");
 
 
     })
 
     botonDu.addEventListener("click", () => {
 
+        botonA.classList.remove("bg-white")
+        botonDu.classList.add("bg-white")
+        botonDes.classList.remove("bg-white")
+
         formAntes.classList.add("hidden");
         formDespues.classList.add("hidden");
-        contMain.appendChild(formDurante);
-
+        formDurante.classList.remove("hidden");
 
     })
 
     botonDes.addEventListener("click", () => {
 
+        botonA.classList.remove("bg-white")
+        botonDu.classList.remove("bg-white")
+        botonDes.classList.add("bg-white")
+
         formAntes.classList.add("hidden");
         formDurante.classList.add("hidden");
-        contMain.appendChild(formDespues);
+        formDespues.classList.remove("hidden");
 
     })
 
@@ -1333,15 +1366,20 @@ function formularioDeCiclos(id, cicloActualID) {
     const botonAntes = document.querySelector(`#siguenteAntes`);
     botonAntes.addEventListener("click", () => {
 
+        botonA.classList.remove("bg-white")
+        botonDu.classList.add("bg-white")
+
         formAntes.classList.add("hidden");
-        contMain.appendChild(formDurante);
+        formDurante.classList.remove("hidden");
 
         const botonDurante = document.querySelector(`#siguenteDurante`);
         botonDurante.addEventListener("click", () => {
 
-            formDurante.classList.add("hidden");
-            contMain.appendChild(formDespues);
+            botonDu.classList.remove("bg-white");
+            botonDes.classList.add("bg-white");
 
+            formDurante.classList.add("hidden");
+            formDespues.classList.remove("hidden");
 
             if (formDespues) {
 
@@ -1434,7 +1472,21 @@ function formularioDeCiclos(id, cicloActualID) {
             }
         });
     });
+}
 
+function generarCodigoQr(texto, element) {
+
+    if (element.querySelector(".QR")) {
+        element.querySelector(".QR").remove();
+    }
+
+    var QR = new QRious({
+        value: texto,
+        size: 228
+    });
+
+    QR.image.classList.add("QR");
+    element.appendChild(QR.image);
 }
 
 // Manejar cambios en la URL para actualizar la vista
@@ -1443,13 +1495,6 @@ window.addEventListener('hashchange', () => {
     if (hash === '#composteras') {
         rutaComposteras();
     }
-
-    // else if (hash.startsWith('#datosCompostera')) {
-    //     const id = hash.replace('#datosCompostera', '').trim();
-    //     console.log(id);
-    //     composteraOcupada(id);
-    // }
-
 });
 
 window.addEventListener('load', async () => {
