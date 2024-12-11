@@ -1066,12 +1066,10 @@ export async function composteraOcupada(id) {
                 }
             });
         }
-
     }
-
 }
 
-function formularioDeCiclos(id, cicloActualID) {
+export function formularioDeCiclos(id, cicloActualID) {
 
     const contMain = document.createElement("main");
     contMain.classList.add("formulario", "text-start");
@@ -1460,13 +1458,6 @@ window.addEventListener('hashchange', () => {
     if (hash === '#composteras') {
         rutaComposteras();
     }
-
-    // else if (hash.startsWith('#datosCompostera')) {
-    //     const id = hash.replace('#datosCompostera', '').trim();
-    //     console.log(id);
-    //     composteraOcupada(id);
-    // }
-
 });
 
 window.addEventListener('load', async () => {
