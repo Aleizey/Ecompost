@@ -636,7 +636,7 @@
 
     /* color: #ffffff; */
     position: absolute;
-    top: calc(0px);
+    top: calc(3px);
     left: 0;
 }
 
@@ -1118,4 +1118,13 @@ main {
     width: 100%;
     padding: 20px;
     height: 100%;    
+}
+
+.QR {
+
+    position: absolute;
+    top: calc(-42px);
+    right: 123px;
+    transform: scale(0.4);
+
 }
