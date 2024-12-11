@@ -3,6 +3,7 @@
 // api para obtener las composteras y insertar (registro, registroAntes, registroDurante, registroDespues)
 // variables--->
 import { logout } from "./noToken.js";
+import { viewGrafic } from "./grafica.js";
 
 const Xcontent = document.querySelector(".main-container");
 const user = JSON.parse(localStorage.getItem('user'));
@@ -627,6 +628,9 @@ export async function composteraOcupada(id) {
 
     const contMain = document.createElement("main");
     contMain.classList = `w-full`;
+
+    const chart = document.createElement("div")
+    chart.id = "chart";
     Xcontent.innerHTML = "";  // Limpiar el contenido anterior
 
     const composteraActual = await siguienteCompostera(id);
@@ -768,6 +772,9 @@ export async function composteraOcupada(id) {
         Xcontent.appendChild(contMain);
         contMain.appendChild(addEndCiclo);
         contMain.appendChild(registroFiltro);
+        // elemento para meter el grafico en la web
+        contMain.appendChild(chart);
+        const chartElement = document.querySelector("#chart");
         // modal registros 
         contMain.appendChild(contentRegistros);
         contentRegistros.appendChild(modalRegistros);
@@ -788,6 +795,16 @@ export async function composteraOcupada(id) {
 
                 const users = await consultaApisCompost(null, 'users', null);
                 const imgUser = users.find(user => user.id == registro.user_id);
+
+                // intento mostrar lo datos por la grafica pero no funciona
+                const [registosAntes] = await Promise.all([consultaApisCompost(registro.id, 'registro', 'registrosAntes')]);
+
+                // comprueba que existe el chartElement 
+                if (chartElement && chartElement.innerHTML == "") {
+                    // le mando al viewgrafica la data que es la temperatura y el lenght para ver la cantidad 
+                    const data = [registosAntes[0].temperatura_ambiente];
+                    viewGrafic(data, registosAntes.length);
+                }
 
                 const registroBoton = document.createElement("div")
 
@@ -937,7 +954,9 @@ export async function composteraOcupada(id) {
                             modalRegistros.appendChild(contenedor);
                             contentRegistros.classList.remove("hidden");
                             modalRegistros.appendChild(CloseRegistros);
+
                         });
+
                     };
 
                     // Crear tablas
