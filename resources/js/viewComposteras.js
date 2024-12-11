@@ -554,7 +554,7 @@ async function InCompostera(compostId, compostOcupado) {
                 <div class="modal-w">
                     <div class="sm:col-span-3 mb-2">
                         <label for="bolo-name" class="block text-sm/10 font-medium text-start text-gray-900">Nombre del Bolo</label>
-                        <div class="mt-2 w-screen">
+                        <div class="mt-2">
                             <input type="text" name="bolo-name" id="bolo-name" class="formbolo block w-full rounded-md bg-gray-100 px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                         </div>
                     </div>
@@ -783,7 +783,7 @@ export async function composteraOcupada(id) {
 
         registro.forEach(async registro => {
 
-            if (registro.compostera_id == id) {
+            if (registro.ciclo_id == cicloActualID) {
 
                 const users = await consultaApisCompost(null, 'users', null);
                 const imgUser = users.find(user => user.id == registro.user_id);
