@@ -6,6 +6,7 @@ import { logout } from "./noToken.js";
 
 const Xcontent = document.querySelector(".main-container");
 const user = JSON.parse(localStorage.getItem('user'));
+let QR;
 
 const pantallaCarga = document.createElement('div');
 pantallaCarga.classList = `pantallaCarga`;
@@ -1081,7 +1082,6 @@ export function formularioDeCiclos(id, cicloActualID) {
     const formDespues = document.createElement("div");
     formDespues.classList.add("form-despues", "hidden");
 
-
     const botonNum = document.createElement("div");
 
     botonNum.innerHTML = `
@@ -1294,7 +1294,11 @@ export function formularioDeCiclos(id, cicloActualID) {
     contMain.appendChild(formAntes);
     contMain.appendChild(formDurante);
     contMain.appendChild(formDespues);
+
     contMain.insertAdjacentElement("afterbegin", botonNum);
+
+    const rutaActual = window.location.href;
+    generarCodigoQr(rutaActual, contMain)
 
     const botonA = document.querySelector(`#antes`);
     const botonDu = document.querySelector(`#durante`);
@@ -1449,7 +1453,21 @@ export function formularioDeCiclos(id, cicloActualID) {
             }
         });
     });
+}
 
+function generarCodigoQr(texto, element) {
+
+    if (element.querySelector(".QR")) {
+        element.querySelector(".QR").remove();
+    }
+
+    var QR = new QRious({
+        value: texto,
+        size: 228
+    });
+
+    QR.image.classList.add("QR");
+    element.appendChild(QR.image);
 }
 
 // Manejar cambios en la URL para actualizar la vista
