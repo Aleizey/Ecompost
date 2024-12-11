@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('registro_despues', function (Blueprint $table) {
             $table->id();
-            $table->float('nivel_llenado_final');
-            $table->string('fotografias_final');
-            $table->text('observaciones_final');
+            $table->float('nivel_llenado_final')->nullable();
+            $table->string('fotografias_final')->nullable();
+            $table->text('observaciones_final')->nullable();
             $table->unsignedBigInteger('registro_id')->index();
             $table->foreign('registro_id')->references('id')->on('registros')->onDelete('cascade');
             $table->timestamps();

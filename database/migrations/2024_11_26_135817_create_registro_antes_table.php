@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('registro_antes', function (Blueprint $table) {
             $table->id();
-            $table->float('temperatura_ambiente');
-            $table->float('temperatura_compostera');
-            $table->enum('olor', ['Podrido', 'Sin olor malo', 'Sin olor', 'Con olor bueno', 'Aromatico']);
-            $table->boolean('presencia_insectos')->default(0);
-            $table->enum('humedad', ['Exceso', 'Buena', 'Defecto']);
-            $table->string('fotografias_iniciales');
-            $table->float('llenado_inicial');
-            $table->text('observaciones_iniciales');
+            $table->float('temperatura_ambiente')->nullable();
+            $table->float('temperatura_compostera')->nullable();
+            $table->enum('olor', ['Podrido', 'Sin olor malo', 'Sin olor', 'Con olor bueno', 'Aromatico'])->nullable();
+            $table->boolean('presencia_insectos')->default(0)->nullable();
+            $table->enum('humedad', ['Exceso', 'Buena', 'Defecto'])->nullable();
+            $table->string('fotografias_iniciales')->nullable();
+            $table->float('llenado_inicial')->nullable();
+            $table->text('observaciones_iniciales')->nullable();
             $table->unsignedBigInteger('registro_id')->index();
             $table->foreign('registro_id')->references('id')->on('registros')->onDelete('cascade');
             $table->timestamps();

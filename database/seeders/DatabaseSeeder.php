@@ -22,15 +22,15 @@ class DatabaseSeeder extends Seeder
             CentrosSeeder::class,
             UsersSeeder::class,
             ComposteraSeeder::class,
-            // BoloSeeder::class,
-            // CicloSeeder::class,
+            BoloSeeder::class,
+            CicloSeeder::class,
         ]);
 
         User::factory(5)->create();
-        // Registro::factory()->count(20)->create();
-        // RegistroAntes::factory()->count(20)->create();
-        // RegistroDurante::factory()->count(20)->create();
-        // RegistroDespues::factory()->count(20)->create();
+        Registro::factory()->count(20)->create();
+        RegistroAntes::factory()->count(20)->create();
+        RegistroDurante::factory()->count(20)->create();
+        RegistroDespues::factory()->count(20)->create();
 
     }
 }

@@ -462,7 +462,7 @@ export async function rutaComposteras() {
                     <div class="compostaje"></div>
                 </div>
                 <div class="text-compost">
-                    Compostera ${compostera.id}
+                    Compostera ${compostera.id}, ${compostera.tipo} 
                 </div>
                 <div class="element-compost">
                     <div class="${compostera.ocupado ? "in-active" : "active"}">
@@ -580,6 +580,7 @@ async function InCompostera(compostId, compostOcupado) {
             const createBoloButton = document.querySelector(`#createBolo${compostId}`);
             createBoloButton.addEventListener("click", async () => {
                 try {
+                    window.alert("Se a creado el bolo")
                     const nameBolo = document.querySelector("#bolo-name").value;
                     console.log("Nombre del bolo:", nameBolo);
 

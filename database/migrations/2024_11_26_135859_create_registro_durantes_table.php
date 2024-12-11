@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->boolean('riego')->default(0);
             $table->boolean('revolver')->default(0);
-            $table->float('litros_verde');
-            $table->text('tipo_aporte_verde');
-            $table->float('aporte_seco');
-            $table->text('tipo_aporte_seco');
-            $table->string('fotografias_durante');
-            $table->text('observaciones_durante');
+            $table->float('litros_verde')->nullable();
+            $table->text('tipo_aporte_verde')->nullable();
+            $table->float('aporte_seco')->nullable();
+            $table->text('tipo_aporte_seco')->nullable();
+            $table->string('fotografias_durante')->nullable();
+            $table->text('observaciones_durante')->nullable();
             $table->unsignedBigInteger('registro_id')->index();
             $table->foreign('registro_id')->references('id')->on('registros')->onDelete('cascade');
             $table->timestamps();
