@@ -43,6 +43,22 @@
         color: #0c3227;
         transform: translateX(15px);
     }
+
+    .formulario {
+
+        padding: 5px !important;
+    }
+
+    .registro-n {
+
+        top: calc(10px) !important;
+    }
+
+    .QR {
+        top: calc(-55px) !important;
+        left: calc(230px) !important;
+    }
+
     
 }
 
