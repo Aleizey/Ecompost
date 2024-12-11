@@ -437,6 +437,10 @@ async function AnadirApisRegistroDespues(registroId, llenado, foto, observ) {
 // funcion ---->
 export async function rutaComposteras() {
 
+    const divForm = document.querySelector("#divForm");
+
+    divForm.innerHTML = `Compostera`;
+
     Xcontent.appendChild(pantallaCarga)
 
     arrayElementComposteras = await consultaApisCompost(null, 'compostera', null);
@@ -1150,25 +1154,26 @@ function formularioDeCiclos(id, cicloActualID) {
           </div>
         </div>
 
+        <div class="w-full flex flex-row mb-2">
           <div class="w-full">
-    <form class=" max-w-lg mx-auto">
-  <label class="block mb-2 text-sm/10 font-medium text-gray-900 dark:text-white" for="foto-inicial">Fotografía Inicial</label>
+    <form class=" max-w-lg">
   <input class="block w-52 text-sm px-3 py-3 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-700 focus:outline-none dark:bg-white dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="foto-inicial" id="fotoAntes" type="file">
   </form>
  </div>
     
 
-            <div class="w-full col-span-full gap-2">
-    <div class=" mini-text relative flex gap-x-3">
-    <div class="flex h-6 items-center">
-    <input id="insectos" name="insectos" type="checkbox"
-    class="size-4 rounded border-gray-300 text-green-600 focus:ring-green-600">
-    </div>
-    <div class="">
-    <label for="insectos"
-    class="block text-sm/10 font-medium text-white">Presencia de insectos</label>
-    </div>
-    </div>
+            <div class="w-full col-span-full flex justify-end items-center gap-2">
+     <div class=" mini-text relative flex items-center gap-x-3">
+     <div class="flex h-6 items-center">
+     <input id="insectos" name="insectos" type="checkbox"
+     class="size-4 rounded border-gray-300 text-green-600 focus:ring-green-600">
+     </div>
+     <div class="">
+     <label for="insectos"
+     class="block text-sm/10 font-medium text-white">Presencia de insectos</label>
+     </div>
+     </div>
+     </div>
     </div>
 
         <button id="siguenteAntes" type="submit" class="boton-siguente rounded-md text-center w-full px-12 py-3 text-sm/10 font-semibold text-white shadow-sm">
@@ -1217,16 +1222,17 @@ function formularioDeCiclos(id, cicloActualID) {
     </div>
   </div>    
 
+          <div class="w-full flex flex-row mb-2">
       <div class="w-full">
-    <form class=" max-w-lg mx-auto">
+    <form class=" max-w-xl ">
   <label class="block mb-2 text-sm/10 font-medium text-gray-900 dark:text-white" for="foto-durante">Fotografía Durante</label>
   <input class="block w-52 text-sm px-3 py-3 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-700 focus:outline-none dark:bg-white dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="foto-durante" id="fotoDurante" type="file">
   </form>
  </div>
 
-  <div id="riegoRevolver" class="w-full flex flex-col "> 
-            <div class="col-span-full gap-2">
-    <div class=" mini-text relative flex gap-x-3">
+  <div id="riegoRevolver" class="w-full flex flex-col"> 
+            <div class="col-span-full gap-2 flex justify-end me-5 ">
+    <div class=" mini-text relative flex items-center gap-x-3">
     <div class="flex h-6 items-center">
     <input id="riego" name="riego" type="checkbox"
     class="size-4 rounded border-gray-300 text-green-600 focus:ring-green-600">
@@ -1238,8 +1244,8 @@ function formularioDeCiclos(id, cicloActualID) {
     </div>
     </div>
 
-                <div class=" col-span-full gap-2">
-    <div class=" mini-text relative flex gap-x-3">
+                <div class=" col-span-full gap-2  flex justify-end ">
+    <div class=" mini-text relative flex items-center gap-x-3">
     <div class="flex h-6 items-center">
     <input id="revolver" name="revolver" type="checkbox"
     class="size-4 rounded border-gray-300 text-green-600 focus:ring-green-600">
@@ -1250,9 +1256,8 @@ function formularioDeCiclos(id, cicloActualID) {
     </div>
     </div>
     </div>
-  
+      </div>
   </div>
-
             <button id="siguenteDurante" type="submit" class="boton-siguente rounded-md text-center w-full px-12 py-3 text-sm/10 font-semibold text-white shadow-sm">
     Siguente 
     </button>
@@ -1275,7 +1280,7 @@ function formularioDeCiclos(id, cicloActualID) {
   </div>   
 
   <div class="w-full">
-    <form class=" max-w-lg mx-auto">
+    <form class=" max-w-lg ">
   <label class="block mb-2 text-sm/10 font-medium text-gray-900 dark:text-white" for="foto-despues">Fotografía Final</label>
   <input class="block w-52 text-sm px-3 py-3 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-700 focus:outline-none dark:bg-white dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="foto-despues" id="fotoDespues" type="file">
   </form>
@@ -1291,7 +1296,7 @@ function formularioDeCiclos(id, cicloActualID) {
     contMain.appendChild(formAntes);
     contMain.appendChild(formDurante);
     contMain.appendChild(formDespues);
-    contMain.insertAdjacentElement("afterbegin",botonNum);
+    contMain.insertAdjacentElement("afterbegin", botonNum);
 
     const botonA = document.querySelector(`#antes`);
     const botonDu = document.querySelector(`#durante`);
