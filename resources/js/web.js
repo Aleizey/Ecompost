@@ -1,6 +1,6 @@
 // Importar las rutas
 import { rutaBolos, rutaAllBolos } from "./viewBolos.js";
-import { rutaComposteras, composteraOcupada } from "./viewComposteras.js";
+import { rutaComposteras, composteraOcupada, formularioDeCiclos } from "./viewComposteras.js";
 import { rutaRegistros } from "./viewRegistros.js";
 import { rutaInformacion } from "./viewInformacion.js";
 // ...
@@ -33,6 +33,11 @@ async function routes() {
         const id = hash.replace('#datosCompostera', '').trim();
         composteraOcupada(id);
 
+    } else if (hash.startsWith('#FormularioCompost')) {
+        // Extraer el ID dinámico del hash
+        const idCompost = hash.replace('FormularioCompost', '').replace(/\D/g, '').trim();
+        const idCiclo = hash.replace('FormularioCompost', '').replace(/\d+/g, '').trim(); 
+        formularioDeCiclos(idCompost, idCiclo)
     }
     else {
         switch (hash) {
