@@ -5,6 +5,10 @@ const Xcontent = document.querySelector(".main-container");
 // funcion ---->
 export function rutaInformacion() {
 
+    const divForm = document.querySelector("#divForm");
+
+    divForm.innerHTML = `Información`;
+
     Xcontent.innerHTML = ""; // vaciar el contenido de la pagina
     const contenedor = document.createElement("div");
     contenedor.classList = " p-2 w-full h-full flex justify-between flex-col items-center";

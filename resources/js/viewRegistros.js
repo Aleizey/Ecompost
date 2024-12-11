@@ -71,7 +71,7 @@ async function consultaApisViewRegistro(id = null, resource1, resource2 = null) 
 
       pantallaCarga.remove()
       return datos;
-  }
+    }
 
   } catch (error) {
     console.log(`Error en la consulta de ciclos: ${error}`);
@@ -82,8 +82,28 @@ async function consultaApisViewRegistro(id = null, resource1, resource2 = null) 
 // función ---->
 export async function rutaRegistros() {
 
+  const divForm = document.querySelector("#divForm");
+
+  divForm.innerHTML = `
+<form class="flex items-center justify-center max-w-xs mx-auto w-3/4 sm:w-1/2 md:w-1/3">
+   <div class="relative flex items-center w-full">
+      <input type="search" id="filter-registro"
+          class="w-full p-2 pl-10 text-sm text-[#4F4F4F] border border-[#C2B280] rounded-full bg-[#FFFFFF] focus:ring-green-500 focus:border-green-500 focus:outline-none"
+          placeholder="Buscar..." required />
+      <button type="submit"
+          class="ml-2 bg-green-900 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-4 py-2 text-white focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>
+      </button>
+  </div>
+</form>           
+  `;
+
   Xcontent.appendChild(pantallaCarga)
-  
+
   arrayElementRegistros = await consultaApisViewRegistro(null, 'registro', null);
   const contMain = document.createElement("main");
   contMain.classList.add("w-full", "p-12", "mt-5");
